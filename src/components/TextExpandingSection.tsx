@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DiagonalCarousel } from "./ui/diagonal-carousel";
+import downloadImg from "../assets/images/download.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,6 +11,20 @@ export const TextExpandingSection = () => {
     const text1Ref = useRef<HTMLDivElement>(null);
     const text2Ref = useRef<HTMLDivElement>(null);
     const nextItemRef = useRef<HTMLDivElement>(null);
+
+    const items = [
+        { src: downloadImg, title: "urban exploration" },
+        { src: downloadImg, title: "night scene" },
+        { src: downloadImg, title: "yellow wildflowers" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "street with mount fuji" },
+    ];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -80,9 +96,15 @@ export const TextExpandingSection = () => {
             </div>
 
             {/* The next component that scales up in the middle */}
-            <div ref={nextItemRef} className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-                <div>
-                    
+            <div ref={nextItemRef} className="absolute flex items-center justify-center pointer-events-none z-20 w-full h-full">
+                <div className="pointer-events-auto w-full h-full">
+                    <DiagonalCarousel
+                        items={items}
+                        loop={true}
+                        defaultActiveIndex={2}
+                        slideSize={250}
+                        className="h-full bg-transparent"
+                    />
                 </div>
             </div>
         </section>
