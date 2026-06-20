@@ -140,7 +140,7 @@ export const CreativeProcess = () => {
                       className="w-full h-full object-cover"
                     />
                     {/* Cinematic Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
                   </div>
                ))}
 
@@ -156,8 +156,8 @@ export const CreativeProcess = () => {
                  
                  {/* Crosshair Center */}
                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-30">
-                   <div className="w-3 h-[1px] bg-white"></div>
-                   <div className="h-3 w-[1px] bg-white absolute"></div>
+                   <div className="w-3 h-px bg-white"></div>
+                   <div className="h-3 w-px bg-white absolute"></div>
                  </div>
 
                  <div className="flex justify-between items-center text-[7px] font-mono tracking-[0.2em] text-white/40 uppercase">
