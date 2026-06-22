@@ -296,71 +296,125 @@ export const TestimonialsSection = () => {
         .animate-marquee-l:hover, .animate-marquee-r:hover {
           animation-play-state: paused;
         }
+        /* Live orb drift animations */
+        @keyframes orb-drift-a {
+          0%   { transform: translate(0px, 0px) scale(1);   opacity: 0.45; }
+          33%  { transform: translate(60px, -40px) scale(1.08); opacity: 0.6; }
+          66%  { transform: translate(-30px, 50px) scale(0.95); opacity: 0.4; }
+          100% { transform: translate(0px, 0px) scale(1);   opacity: 0.45; }
+        }
+        @keyframes orb-drift-b {
+          0%   { transform: translate(0px, 0px) scale(1);   opacity: 0.35; }
+          40%  { transform: translate(-50px, 40px) scale(1.06); opacity: 0.5; }
+          75%  { transform: translate(40px, -30px) scale(0.97); opacity: 0.3; }
+          100% { transform: translate(0px, 0px) scale(1);   opacity: 0.35; }
+        }
+        @keyframes orb-drift-c {
+          0%   { transform: translate(0px, 0px) scale(1);   opacity: 0.3; }
+          50%  { transform: translate(35px, 55px) scale(1.1);  opacity: 0.5; }
+          100% { transform: translate(0px, 0px) scale(1);   opacity: 0.3; }
+        }
+        /* Cinematic diagonal light ray sweep */
+        @keyframes ray-sweep {
+          0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+          10%  { opacity: 0.06; }
+          50%  { opacity: 0.09; }
+          90%  { opacity: 0.06; }
+          100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+        }
+        /* Subtle scanline flicker */
+        @keyframes scanline-scroll {
+          0%   { transform: translateY(0); }
+          100% { transform: translateY(4px); }
+        }
+        /* Floating bokeh particles — same as CreativeProcess & TextExpandingSection */
+        @keyframes float-bokeh-ts {
+          0%   { transform: translateY(0px)   translateX(0px)  scale(1);    opacity: 0; }
+          8%   { opacity: 0.4; }
+          50%  { transform: translateY(-65px) translateX(18px) scale(1.2);  opacity: 0.55; }
+          92%  { opacity: 0.15; }
+          100% { transform: translateY(-130px) translateX(0px) scale(0.9); opacity: 0; }
+        }
       `}</style>
 
-      {/* Dotted Global Grid & Ambient Glow Layout */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {/* Ambient Glows */}
-        <div className="absolute left-[5%] top-[25%] w-[450px] h-[450px] bg-purple-600/5 rounded-full blur-[120px] opacity-75" />
-        <div className="absolute right-[5%] bottom-[25%] w-[450px] h-[450px] bg-[#F27D26]/5 rounded-full blur-[120px] opacity-75" />
+      {/* Live Background Effects */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
 
-        {/* Global World Map Dot Grid */}
-        <svg className="absolute bottom-4 left-4 w-[280px] h-[180px] opacity-15 md:opacity-25" viewBox="0 0 100 60" fill="none">
-          <circle cx="10" cy="20" r="0.6" fill="#8B5CF6" />
-          <circle cx="12" cy="22" r="0.6" fill="#8B5CF6" />
-          <circle cx="15" cy="21" r="0.6" fill="#8B5CF6" />
-          <circle cx="17" cy="18" r="0.6" fill="#8B5CF6" />
-          <circle cx="20" cy="25" r="0.6" fill="#8B5CF6" />
-          <circle cx="22" cy="28" r="0.6" fill="#8B5CF6" />
-          <circle cx="25" cy="23" r="0.6" fill="#8B5CF6" />
-          <circle cx="28" cy="21" r="0.6" fill="#8B5CF6" />
-          <circle cx="30" cy="30" r="0.6" fill="#8B5CF6" />
-          <circle cx="32" cy="35" r="0.6" fill="#8B5CF6" />
-          <circle cx="35" cy="28" r="0.6" fill="#8B5CF6" />
-          {/* North America dots */}
-          <circle cx="5" cy="10" r="0.5" fill="#8B5CF6" />
-          <circle cx="8" cy="12" r="0.5" fill="#8B5CF6" />
-          <circle cx="12" cy="9" r="0.5" fill="#8B5CF6" />
-          <circle cx="15" cy="13" r="0.5" fill="#8B5CF6" />
-          <circle cx="18" cy="15" r="0.5" fill="#8B5CF6" />
-          <circle cx="22" cy="12" r="0.5" fill="#8B5CF6" />
-          <circle cx="25" cy="14" r="0.5" fill="#8B5CF6" />
-          <circle cx="28" cy="16" r="0.5" fill="#8B5CF6" />
-          {/* Europe / Asia dots */}
-          <circle cx="45" cy="12" r="0.5" fill="#8B5CF6" />
-          <circle cx="48" cy="10" r="0.5" fill="#8B5CF6" />
-          <circle cx="52" cy="15" r="0.5" fill="#8B5CF6" />
-          <circle cx="55" cy="11" r="0.5" fill="#8B5CF6" />
-          <circle cx="60" cy="14" r="0.5" fill="#8B5CF6" />
-          <circle cx="65" cy="12" r="0.5" fill="#8B5CF6" />
-          <circle cx="70" cy="18" r="0.5" fill="#8B5CF6" />
-          <circle cx="75" cy="15" r="0.5" fill="#8B5CF6" />
-          <circle cx="78" cy="22" r="0.5" fill="#8B5CF6" />
-          <circle cx="82" cy="25" r="0.5" fill="#8B5CF6" />
-          <circle cx="85" cy="28" r="0.5" fill="#8B5CF6" />
-          <circle cx="90" cy="30" r="0.5" fill="#8B5CF6" />
-          {/* Africa dots */}
-          <circle cx="48" cy="30" r="0.5" fill="#8B5CF6" />
-          <circle cx="50" cy="32" r="0.5" fill="#8B5CF6" />
-          <circle cx="52" cy="35" r="0.5" fill="#8B5CF6" />
-          <circle cx="54" cy="38" r="0.5" fill="#8B5CF6" />
-          <circle cx="57" cy="42" r="0.5" fill="#8B5CF6" />
-          <circle cx="59" cy="45" r="0.5" fill="#8B5CF6" />
-        </svg>
+        {/* 1. Slow-drifting ambient orbs — orange (primary brand) */}
+        <div
+          style={{ animation: 'orb-drift-a 22s ease-in-out infinite' }}
+          className="absolute left-[8%] top-[20%] w-[500px] h-[500px] bg-[#F27D26]/7 rounded-full blur-[130px]"
+        />
+        {/* orange secondary — bottom right */}
+        <div
+          style={{ animation: 'orb-drift-b 28s ease-in-out infinite 4s' }}
+          className="absolute right-[6%] bottom-[18%] w-[420px] h-[420px] bg-[#C6904E]/6 rounded-full blur-[110px]"
+        />
+        {/* purple accent — top right */}
+        <div
+          style={{ animation: 'orb-drift-c 18s ease-in-out infinite 2s' }}
+          className="absolute right-[20%] top-[10%] w-[340px] h-[340px] bg-purple-600/5 rounded-full blur-[100px]"
+        />
+        {/* purple accent — bottom left */}
+        <div
+          style={{ animation: 'orb-drift-a 25s ease-in-out infinite 8s' }}
+          className="absolute left-[18%] bottom-[12%] w-[300px] h-[300px] bg-purple-500/4 rounded-full blur-[90px]"
+        />
 
-        <svg className="absolute top-4 right-4 w-[280px] h-[180px] opacity-15 md:opacity-25" viewBox="0 0 100 60" fill="none">
-          {/* Australia / South America dots */}
-          <circle cx="75" cy="40" r="0.5" fill="#F27D26" />
-          <circle cx="78" cy="42" r="0.5" fill="#F27D26" />
-          <circle cx="80" cy="45" r="0.5" fill="#F27D26" />
-          <circle cx="83" cy="42" r="0.5" fill="#F27D26" />
-          <circle cx="85" cy="48" r="0.5" fill="#F27D26" />
-          <circle cx="88" cy="46" r="0.5" fill="#F27D26" />
-          {/* Abstract network connections */}
-          <path d="M10,20 Q45,12 85,28" stroke="#8B5CF6" strokeWidth="0.1" strokeDasharray="1 2" />
-          <path d="M22,12 Q52,15 78,42" stroke="#F27D26" strokeWidth="0.1" strokeDasharray="1 1" />
-          <path d="M5,10 Q50,32 88,46" stroke="#8B5CF6" strokeWidth="0.1" strokeDasharray="1 3" />
-        </svg>
+        {/* 2. Cinematic diagonal light ray — sweeps slowly left to right every 14s */}
+        <div
+          style={{ animation: 'ray-sweep 14s ease-in-out infinite 3s' }}
+          className="absolute inset-y-0 left-0 w-[180px] bg-gradient-to-r from-transparent via-[#F27D26]/8 to-transparent"
+        />
+        {/* second subtler ray, offset timing */}
+        <div
+          style={{ animation: 'ray-sweep 18s ease-in-out infinite 9s' }}
+          className="absolute inset-y-0 left-0 w-[120px] bg-gradient-to-r from-transparent via-purple-400/5 to-transparent"
+        />
+
+        {/* 3. Floating bokeh particles — site's signature live background effect */}
+        {[
+          { left: '7%',  top: '70%', size: 3.5, delay: 0,    dur: 18, orange: true  },
+          { left: '18%', top: '55%', size: 2.5, delay: 3.2,  dur: 22, orange: false },
+          { left: '31%', top: '80%', size: 4,   delay: 1.5,  dur: 16, orange: true  },
+          { left: '45%', top: '65%', size: 2,   delay: 5.8,  dur: 20, orange: false },
+          { left: '58%', top: '75%', size: 3,   delay: 2.4,  dur: 19, orange: true  },
+          { left: '70%', top: '60%', size: 2.5, delay: 7.1,  dur: 24, orange: true  },
+          { left: '82%', top: '72%', size: 3.5, delay: 0.8,  dur: 17, orange: false },
+          { left: '12%', top: '40%', size: 2,   delay: 4.6,  dur: 21, orange: true  },
+          { left: '62%', top: '45%', size: 3,   delay: 6.3,  dur: 23, orange: false },
+          { left: '90%', top: '50%', size: 2.5, delay: 1.9,  dur: 15, orange: true  },
+        ].map((p, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full opacity-0 blur-[0.5px]"
+            style={{
+              left: p.left,
+              top: p.top,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              background: p.orange ? '#F27D26' : '#C6904E',
+              boxShadow: p.orange
+                ? '0 0 6px rgba(242,125,38,0.35)'
+                : '0 0 5px rgba(198,144,78,0.3)',
+              animation: `float-bokeh-ts ${p.dur}s ease-in-out infinite`,
+              animationDelay: `${p.delay}s`,
+            }}
+          />
+        ))}
+
+        {/* 4. Scanline film-grain overlay — 2px lines, extremely subtle, cinematic feel */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.12) 2px, rgba(255,255,255,0.12) 4px)',
+            backgroundSize: '100% 4px',
+            animation: 'scanline-scroll 0.18s steps(1) infinite',
+          }}
+        />
+
+        {/* 4. Radial vignette to keep edges very dark */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_95%)]" />
       </div>
 
       {/* Desktop scattered layout (lg and up) */}
