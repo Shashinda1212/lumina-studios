@@ -9,6 +9,7 @@ export default defineConfig(() => {
     assetsInclude: ['**/*.glb', '**/*.gltf'],
     resolve: {
       alias: {
+        '@/components': path.resolve(__dirname, './src/components'),
         '@': path.resolve(__dirname, '.'),
       },
     },

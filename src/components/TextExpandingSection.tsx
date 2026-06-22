@@ -77,7 +77,7 @@ export const TextExpandingSection = () => {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: "+=150%", // Scroll distance
+                end: "+=200%", // Slightly longer scroll track for smooth entry, hold, and exit
                 pin: true,
                 scrub: 1,
                 anticipatePin: 1,
@@ -86,15 +86,18 @@ export const TextExpandingSection = () => {
             }
         });
 
+        // 1. Entrance Phase
         scrollTl.to(text1Ref.current, {
             x: "-40vw",
             opacity: 0,
+            duration: 0.5,
             ease: "power1.inOut"
         }, 0);
 
         scrollTl.to(text2Ref.current, {
             x: "40vw",
             opacity: 0,
+            duration: 0.5,
             ease: "power1.inOut"
         }, 0);
 
@@ -102,22 +105,31 @@ export const TextExpandingSection = () => {
             scale: 1,
             autoAlpha: 1,
             ease: "power2.out",
-            duration: 0.35,
+            duration: 0.4,
         }, 0.1);
 
         scrollTl.to(".title-word", {
             yPercent: 0,
             stagger: 0.005,
             ease: "power2.out",
-            duration: 0.2,
+            duration: 0.3,
         }, 0.25);
 
         scrollTl.to(".subtitle-word", {
             yPercent: 0,
             stagger: 0.002,
             ease: "power2.out",
-            duration: 0.2,
+            duration: 0.3,
         }, 0.35);
+
+        // 2. Exit Phase (Smoothly animate out content before unpinning)
+        scrollTl.to(nextItemRef.current, {
+            y: -100,
+            opacity: 0,
+            scale: 0.95,
+            ease: "power2.in",
+            duration: 0.4,
+        }, 1.2);
 
     }, { scope: containerRef });
 

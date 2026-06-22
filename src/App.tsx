@@ -7,6 +7,7 @@ import { Hero } from './components/Hero';
 import { CreativeProcess } from './components/CreativeProcess';
 import { TextExpandingSection } from './components/TextExpandingSection';
 import FlipFadeText from './components/ui/flip-fade-text';
+import { TestimonialsSection } from './components/TestimonialsSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,7 +93,7 @@ export default function App() {
   }, [loading]);
 
   return (
-    <div className="min-h-screen w-full bg-[#0A0A0A] text-white font-sans selection:bg-[#F27D26] selection:text-[#0A0A0A] overflow-x-hidden">
+    <div className="dark min-h-screen w-full bg-[#0A0A0A] text-white font-sans selection:bg-[#F27D26] selection:text-[#0A0A0A] overflow-x-hidden">
       <AnimatePresence mode="wait">
         {loading ? (
           <motion.div
@@ -148,6 +149,7 @@ export default function App() {
             <Hero videoSrc={videoSrc} />
             <CreativeProcess />
             <TextExpandingSection />
+            <TestimonialsSection />
           </motion.div>
         )}
       </AnimatePresence>
