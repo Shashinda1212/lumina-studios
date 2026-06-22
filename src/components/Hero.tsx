@@ -1,103 +1,261 @@
-import { ArrowRight, Menu } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Menu, Instagram, Video as VideoIcon, Youtube, Clapperboard, Box, PlayCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-export const Hero = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+interface HeroProps {
+    videoSrc?: string | null;
+}
+
+// Words for typewriter animation
+const words = ["CRAFTED.", "DIRECTED.", "CAPTURED.", "DESIGNED."];
+
+const TypewriterText = () => {
+    const [index, setIndex] = useState(0);
+    const [text, setText] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            const currentWord = words[index];
+            if (!isDeleting) {
+                setText(currentWord.substring(0, text.length + 1));
+                if (text.length === currentWord.length) {
+                    setTimeout(() => setIsDeleting(true), 2500); // Wait longer before deleting
+                }
+            } else {
+                setText(currentWord.substring(0, text.length - 1));
+                if (text.length === 0) {
+                    setIsDeleting(false);
+                    setIndex((prev) => (prev + 1) % words.length);
+                }
+            }
+        }, isDeleting ? 40 : 120); // Faster delete, slightly slower type
+        return () => clearTimeout(timeout);
+    }, [text, isDeleting, index]);
+
     return (
-        <section className="h-screen w-full relative flex flex-col overflow-hidden">
+        <span className="text-[#C6904E] relative inline-block pr-4">
+            {text}
+            <span className="absolute right-0 top-[10%] w-1.5 md:w-2.5 h-[80%] bg-[#C6904E] animate-pulse"></span>
+        </span>
+    );
+};
+
+export const Hero = ({ videoSrc }: HeroProps) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLElement>(null);
+    const footerRef = useRef<HTMLElement>(null);
+
+    useGSAP(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            }
+        });
+
+        if (contentRef.current) {
+            tl.to(contentRef.current, {
+                y: -150,
+                opacity: 0,
+                ease: "none",
+            }, 0);
+        }
+
+        if (footerRef.current) {
+            tl.to(footerRef.current, {
+                y: -100,
+                opacity: 0,
+                ease: "none",
+            }, 0);
+        }
+        
+        if (videoRef.current) {
+            tl.to(videoRef.current, {
+                y: 150,
+                ease: "none",
+            }, 0);
+        }
+    }, { scope: sectionRef });
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    video.play().catch(() => { });
+                } else {
+                    video.pause();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        observer.observe(video);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    // Text Reveal Animation Variants
+    const fadeUpVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: (custom: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: custom * 0.15, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }
+        })
+    };
+
+    return (
+        <motion.section 
+            ref={sectionRef as any}
+            exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+            className="h-screen w-full relative flex flex-col overflow-hidden bg-[#050505] text-white"
+        >
             {/* Background Video */}
             <video
-                autoPlay
+                ref={videoRef}
+                loop={true}
                 muted
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-            >
-                <source src="/background.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-black/50 z-0 pointer-events-none"></div>
-
-            {/* Viewfinder Frame Overlays (Decorative) */}
-            <div className="absolute top-6 md:top-8 left-6 md:left-8 w-8 h-8 md:w-12 md:h-12 border-t-2 border-l-2 border-white/20 pointer-events-none z-0"></div>
-            <div className="absolute top-6 md:top-8 right-6 md:right-8 w-8 h-8 md:w-12 md:h-12 border-t-2 border-r-2 border-white/20 pointer-events-none z-0"></div>
-            <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 w-8 h-8 md:w-12 md:h-12 border-b-2 border-l-2 border-white/20 pointer-events-none z-0"></div>
-            <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 w-8 h-8 md:w-12 md:h-12 border-b-2 border-r-2 border-white/20 pointer-events-none z-0"></div>
-
-            {/* Vertical Sidebar Labels */}
-            <div className="absolute left-6 top-1/2 -translate-y-1/2 flex-col items-center space-y-12 opacity-20 hidden lg:flex pointer-events-none z-0">
-                <span className="rotate-90 text-[10px] uppercase tracking-[0.8em] origin-center whitespace-nowrap">ISO 400</span>
-                <span className="rotate-90 text-[10px] uppercase tracking-[0.8em] origin-center whitespace-nowrap">F/2.8</span>
-                <span className="rotate-90 text-[10px] uppercase tracking-[0.8em] origin-center whitespace-nowrap">24FPS</span>
-            </div>
-
-            {/* Grain Overlay */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 0)', backgroundSize: '4px 4px' }}></div>
+                src={videoSrc || '/background2.webm'}
+                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-70 mix-blend-screen"
+            />
+            {/* Gradient Overlay to match the dark left side of the image */}
+            <div className="absolute inset-0 bg-linear-to-r from-black/95 via-black/60 to-transparent z-0 pointer-events-none"></div>
+            {/* Ambient gold glow behind text */}
+            <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#C6904E]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4 z-0 pointer-events-none"></div>
 
             {/* Header */}
-            <nav className="flex justify-between items-center px-6 md:px-16 py-8 md:py-10 relative z-30">
-                <div className="flex items-center space-x-4 md:space-x-8">
-                    <div className="flex select-none items-center">
-                        <span className="text-xl md:text-2xl font-bold tracking-tighter leading-none uppercase text-white">
-                            KANISHKA WIDURANGA
-                        </span>
-                    </div>
-
-                    <div className="hidden md:flex items-center space-x-3 ml-8 pl-8 border-l border-white/10">
-                        <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-[#FF3B30] rounded-full animate-pulse"></div>
-                        <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-medium opacity-60">Live Preview</span>
-                    </div>
+            <nav className="flex justify-between items-center px-8 md:px-47 py-8 md:py-10 relative z-30">
+                <div className="flex items-center space-x-6">
+                    <span className="text-sm md:text-base font-bold tracking-widest uppercase">
+                        KANISHKA WIDURANGA
+                    </span>
+                    <div className="h-4 w-px bg-white/20"></div>
+                    <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
+                        Videographer
+                    </span>
                 </div>
 
-                <button className="flex items-center gap-3 text-xs md:text-[10px] font-medium tracking-[0.4em] uppercase opacity-60 hover:opacity-100 transition-opacity duration-300 group">
-                    <span className="hidden sm:inline">Menu</span>
-                    <Menu className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
+                <button className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity">
+                    <span>Menu</span>
+                    <Menu className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1} />
                 </button>
             </nav>
 
-            {/* Main Hero Content */}
-            <main className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-32 relative z-10 w-full overflow-y-auto lg:overflow-visible pb-20 lg:pb-0 items-start">
-                <div className="flex flex-col space-y-2 max-w-5xl animate-fade-in-up w-full">
-                    <h1 className="flex flex-col mx-auto lg:mx-0 w-full max-w-4xl">
-                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[4.5rem] leading-[0.95] font-black tracking-tighter block text-[#E5E5E5] wrap-break-words">WE DON'T SHOOT VIDEOS</span>
-                        <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-[1.1] font-black tracking-tighter block italic text-transparent outline-text mt-2 sm:mt-4 wrap-break-words" style={{ WebkitTextStroke: '1px #E5E5E5' }}>
-                            WE CREATE VISUALS THAT MOVE CULTURE
-                        </span>
-                    </h1>
+            {/* Sidebar Socials */}
+            <div className="absolute left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-5 z-20 hidden lg:flex">
+                <a href="#" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                    <Instagram className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+                </a>
+                <a href="#" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                    {/* Simulated Vimeo Icon with a generic shape since lucide lacks it */}
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.653-2.24 1.959L.702 8.547c1.493-1.4 3.08-2.986 4.76-4.76 2.052-1.96 3.64-2.94 4.76-2.94 1.96 0 3.172 1.306 3.64 3.92.373 2.24.653 3.92.84 5.039.466 2.613 1.026 3.92 1.68 3.92.466 0 1.213-.653 2.24-1.959 1.119-1.307 1.772-2.333 1.959-3.08.374-1.306-.093-1.96-1.4-1.96-.56 0-1.12.093-1.68.28 1.12-3.64 3.36-5.46 6.72-5.46 2.425 0 3.545 1.12 3.358 3.36z" /></svg>
+                </a>
+                <a href="#" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                    <Youtube className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+                </a>
 
-                    <div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6 max-w-3xl border-l border-neutral-800 pl-6 md:pl-8">
-                        <button className="w-full sm:w-auto bg-white text-[#0A0A0A] px-8 py-3.5 md:py-4 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase hover:bg-[#F27D26] hover:text-white transition-all duration-300">
-                            Start Your Project
-                        </button>
-                        <button className="w-full sm:w-auto group px-6 py-3.5 md:py-4 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-4 hover:opacity-70 transition-all duration-300">
-                            View Our Reel
-                            <div className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center">
-                                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" strokeWidth={1.5} />
-                            </div>
-                        </button>
-                    </div>
+                <div className="mt-16 flex items-center justify-center relative">
+                    <div className="absolute top-0 w-px h-10 bg-white/20 -translate-y-12"></div>
+                    <span className="rotate-270 text-[8px] uppercase tracking-[0.4em] opacity-40 whitespace-nowrap origin-center translate-y-16">
+                        Follow For More
+                    </span>
                 </div>
+            </div>
+
+            {/* Main Hero Content */}
+            <main ref={contentRef} className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-32 xl:pl-48 relative z-10 w-full max-w-7xl items-start">
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    className="flex flex-col space-y-4 max-w-3xl"
+                >
+                    {/* Available badge */}
+                    <motion.div custom={1} variants={fadeUpVariants} className="flex items-center space-x-3 mb-6">
+                        <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]"></div>
+                        <span className="text-[9px] uppercase tracking-[0.3em] text-white/70 font-semibold">Available for projects worldwide</span>
+                    </motion.div>
+
+                    <motion.h2 custom={2} variants={fadeUpVariants} className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] text-white/80 mb-2 font-medium">
+                        Stories aren't told.
+                    </motion.h2>
+
+                    <motion.h1 custom={3} variants={fadeUpVariants} className="text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black tracking-tight leading-[0.95] uppercase">
+                        <span className="text-white block mb-1 drop-shadow-lg">They're</span>
+                        <TypewriterText />
+                    </motion.h1>
+
+                    <motion.p custom={4} variants={fadeUpVariants} className="mt-8 text-sm md:text-base text-white/70 max-w-md leading-relaxed font-light">
+                        I create cinematic visuals that connect, inspire, and leave a lasting impact.
+                    </motion.p>
+
+                    <motion.div custom={5} variants={fadeUpVariants} className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                        <button className="w-full sm:w-auto bg-[#C6904E] text-white px-8 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#a87941] transition-all duration-300 flex items-center justify-center gap-4 group">
+                            Let's Create Together
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
+                        </button>
+
+                        <button className="w-full sm:w-auto px-6 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 text-white/80 hover:text-white transition-all duration-300 group">
+                            Play Reel
+                            <PlayCircle className="w-6 h-6 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" strokeWidth={1} />
+                        </button>
+                    </motion.div>
+                </motion.div>
             </main>
 
-            {/* Footer / Specializations */}
-            <footer className="px-8 md:px-16 lg:px-32 py-10 md:py-12 border-t border-white/5 relative z-20 mt-auto">
-                <div className="flex flex-col md:flex-row justify-between md:items-center gap-8 md:gap-12 w-full">
+            {/* Bottom Section */}
+            <footer ref={footerRef} className="w-full px-8 md:px-16 py-10 relative z-20 mt-auto flex justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-50 w-full max-w-5xl mx-auto">
                     {[
-                        { tag: "01", label: "Music Videos" },
-                        { tag: "02", label: "Visual Direction" },
-                        { tag: "03", label: "Creative Production" },
+                        { num: "01", title: "Music Videos", desc: "High-energy visuals that bring your music to life.", icon: Clapperboard },
+                        { num: "02", title: "Visual Direction", desc: "Creative vision and storytelling that elevates your brand.", icon: VideoIcon },
+                        { num: "03", title: "Creative Production", desc: "End-to-end production with cinematic quality.", icon: Box },
                     ].map((item, i) => (
-                        <div
-                            key={item.label}
-                            className="flex flex-col gap-2 group cursor-pointer animate-fade-in-up flex-1 w-full"
-                            style={{ animationDelay: `${500 + i * 150}ms`, opacity: 0, animationFillMode: 'forwards' }}
+                        <motion.div
+                            key={item.num}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 1 + i * 0.15, ease: [0.25, 0.1, 0.25, 1] as const }}
+                            className="flex flex-col gap-4 border-t border-white/10 pt-6 group cursor-pointer hover:border-[#C6904E]/50 transition-colors duration-500"
                         >
-                            <div className="flex items-center gap-4">
-                                <span className="text-[10px] text-neutral-500 font-mono group-hover:text-[#F27D26] transition-colors">{item.tag}</span>
-                                <div className="h-px bg-white/20 w-8 md:w-16 lg:w-32 group-hover:w-full transition-all duration-700 ease-out group-hover:bg-[#F27D26]"></div>
+                            <div className="flex items-center gap-3 text-white/50 group-hover:text-[#C6904E] transition-colors duration-300">
+                                <item.icon className="w-4 h-4" strokeWidth={1.5} />
+                                <span className="text-[10px] font-mono">{item.num}</span>
                             </div>
-                            <span className="text-xs md:text-sm lg:text-base font-bold uppercase tracking-[0.2em] text-[#E5E5E5] group-hover:translate-x-2 transition-transform duration-300 ease-out">{item.label}</span>
-                        </div>
+                            <div>
+                                <h3 className="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] mb-2 text-white group-hover:text-[#C6904E] transition-colors duration-300">{item.title}</h3>
+                                <p className="text-[10px] md:text-[11px] text-white/50 leading-relaxed max-w-[250px] font-light">
+                                    {item.desc}
+                                </p>
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.4 }}
+                    transition={{ delay: 2, duration: 1 }}
+                    className="absolute right-12 bottom-16 hidden lg:flex flex-col items-center gap-4"
+                >
+                    <span className="text-[8px] uppercase tracking-[0.4em] rotate-90 origin-center whitespace-nowrap translate-y-6">Scroll</span>
+                </motion.div>
             </footer>
-        </section>
+        </motion.section>
     );
 };
