@@ -142,7 +142,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <nav className="flex justify-between items-center px-8 md:px-47 py-8 md:py-10 relative z-30">
                 <div className="flex items-center space-x-6">
                     <span className="text-sm md:text-base font-bold tracking-widest uppercase">
-                        KANISHKA WIDURANGA
+                        KANISHKA VIDURANGA
                     </span>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
@@ -209,10 +209,10 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
                         </button>
 
-                        <button className="w-full sm:w-auto px-6 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 text-white/80 hover:text-white transition-all duration-300 group">
+                        {/* <button className="w-full sm:w-auto px-6 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 text-white/80 hover:text-white transition-all duration-300 group">
                             Play Reel
                             <PlayCircle className="w-6 h-6 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" strokeWidth={1} />
-                        </button>
+                        </button> */}
                     </motion.div>
                 </motion.div>
             </main>
