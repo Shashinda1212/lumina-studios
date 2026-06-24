@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, Instagram, Video as VideoIcon, Youtube, Clapperboard, Box, PlayCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { NavigationMenu } from './NavigationMenu';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -47,6 +48,7 @@ const TypewriterText = () => {
 };
 
 export const Hero = ({ videoSrc }: HeroProps) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const sectionRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLElement>(null);
@@ -150,7 +152,10 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     </span>
                 </div>
 
-                <button className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity">
+                <button 
+                    onClick={() => setIsMenuOpen(true)}
+                    className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity"
+                >
                     <span>Menu</span>
                     <Menu className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1} />
                 </button>
@@ -256,6 +261,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     <span className="text-[8px] uppercase tracking-[0.4em] rotate-90 origin-center whitespace-nowrap translate-y-6">Scroll</span>
                 </motion.div>
             </footer>
+
+            <NavigationMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
         </motion.section>
     );
 };

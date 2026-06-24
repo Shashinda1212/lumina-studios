@@ -8,6 +8,8 @@ import { CreativeProcess } from './components/CreativeProcess';
 import { TextExpandingSection } from './components/TextExpandingSection';
 import FlipFadeText from './components/ui/flip-fade-text';
 import { TestimonialsSection } from './components/TestimonialsSection';
+import { ContactSection } from './components/ContactSection';
+import { Footer } from './components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,6 +152,8 @@ export default function App() {
             <CreativeProcess />
             <TextExpandingSection />
             <TestimonialsSection />
+            <ContactSection />
+            <Footer />
           </motion.div>
         )}
       </AnimatePresence>

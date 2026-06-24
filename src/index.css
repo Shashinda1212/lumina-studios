@@ -153,4 +153,25 @@
   html {
     @apply font-sans;
   }
+
+  /* Custom scrollbar to match dark cinematic theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 9999px;
+    border: 2px solid #050505;
+    transition: background-color 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #CE5D01;
+  }
 }
