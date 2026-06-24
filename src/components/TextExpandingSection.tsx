@@ -33,6 +33,26 @@ export const TextExpandingSection = () => {
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
 
+    const [screenSize, setScreenSize] = useState<'xs' | 'sm' | 'md' | 'lg'>('lg');
+
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            if (width < 480) {
+                setScreenSize('xs');
+            } else if (width < 768) {
+                setScreenSize('sm');
+            } else if (width < 1024) {
+                setScreenSize('md');
+            } else {
+                setScreenSize('lg');
+            }
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const items = [
         { src: downloadImg, title: "urban exploration" },
         { src: downloadImg, title: "night scene" },
@@ -71,66 +91,127 @@ export const TextExpandingSection = () => {
             ease: "power4.out",
         });
 
+        const mm = gsap.matchMedia();
 
-        // 2. Pin and Scroll Animation Setup
-        const scrollTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top",
-                end: "+=200%", // Slightly longer scroll track for smooth entry, hold, and exit
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-                fastScrollEnd: true,
-                preventOverlaps: true,
-            }
+        // Desktop scroll timelines
+        mm.add("(min-width: 1024px)", () => {
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: "+=200%",
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
+                }
+            });
+
+            scrollTl.to(text1Ref.current, {
+                x: "-40vw",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut"
+            }, 0);
+
+            scrollTl.to(text2Ref.current, {
+                x: "40vw",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut"
+            }, 0);
+
+            scrollTl.to(nextItemRef.current, {
+                scale: 1,
+                autoAlpha: 1,
+                ease: "power2.out",
+                duration: 0.4,
+            }, 0.1);
+
+            scrollTl.to(".title-word", {
+                yPercent: 0,
+                stagger: 0.005,
+                ease: "power2.out",
+                duration: 0.3,
+            }, 0.25);
+
+            scrollTl.to(".subtitle-word", {
+                yPercent: 0,
+                stagger: 0.002,
+                ease: "power2.out",
+                duration: 0.3,
+            }, 0.35);
+
+            scrollTl.to(nextItemRef.current, {
+                y: -100,
+                opacity: 0,
+                scale: 0.95,
+                ease: "power2.in",
+                duration: 0.4,
+            }, 1.2);
         });
 
-        // 1. Entrance Phase
-        scrollTl.to(text1Ref.current, {
-            x: "-40vw",
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.inOut"
-        }, 0);
+        // Mobile/Tablet scroll timelines
+        mm.add("(max-width: 1023px)", () => {
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: "+=200%",
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
+                }
+            });
 
-        scrollTl.to(text2Ref.current, {
-            x: "40vw",
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.inOut"
-        }, 0);
+            scrollTl.to(text1Ref.current, {
+                x: "-100vw",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut"
+            }, 0);
 
-        scrollTl.to(nextItemRef.current, {
-            scale: 1,
-            autoAlpha: 1,
-            ease: "power2.out",
-            duration: 0.4,
-        }, 0.1);
+            scrollTl.to(text2Ref.current, {
+                x: "100vw",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut"
+            }, 0);
 
-        scrollTl.to(".title-word", {
-            yPercent: 0,
-            stagger: 0.005,
-            ease: "power2.out",
-            duration: 0.3,
-        }, 0.25);
+            scrollTl.to(nextItemRef.current, {
+                scale: 1,
+                autoAlpha: 1,
+                ease: "power2.out",
+                duration: 0.4,
+            }, 0.1);
 
-        scrollTl.to(".subtitle-word", {
-            yPercent: 0,
-            stagger: 0.002,
-            ease: "power2.out",
-            duration: 0.3,
-        }, 0.35);
+            scrollTl.to(".title-word", {
+                yPercent: 0,
+                stagger: 0.005,
+                ease: "power2.out",
+                duration: 0.3,
+            }, 0.25);
 
-        // 2. Exit Phase (Smoothly animate out content before unpinning)
-        scrollTl.to(nextItemRef.current, {
-            y: -100,
-            opacity: 0,
-            scale: 0.95,
-            ease: "power2.in",
-            duration: 0.4,
-        }, 1.2);
+            scrollTl.to(".subtitle-word", {
+                yPercent: 0,
+                stagger: 0.002,
+                ease: "power2.out",
+                duration: 0.3,
+            }, 0.35);
 
+            scrollTl.to(nextItemRef.current, {
+                y: -100,
+                opacity: 0,
+                scale: 0.95,
+                ease: "power2.in",
+                duration: 0.4,
+            }, 1.2);
+        });
+
+        return () => mm.revert();
     }, { scope: containerRef });
 
     return (
@@ -227,10 +308,10 @@ export const TextExpandingSection = () => {
             </div>
 
             {/* Step 2: The side-by-side component that scales up in the middle */}
-            <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-between z-20 w-full h-full px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
+            <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-2 sm:gap-4 lg:gap-0 z-20 w-full h-full py-6 sm:py-10 lg:py-0 px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
                 
                 {/* Left Column: Diagonal Carousel Space */}
-                <div className="pointer-events-auto w-full lg:w-[58%] h-1/2 lg:h-full relative flex items-center justify-center z-10">
+                <div className="pointer-events-auto w-full lg:w-[58%] h-[340px] sm:h-[390px] md:h-[470px] lg:h-full relative flex items-center justify-center z-10">
                     {/* Glowing trajectory curves behind the carousel */}
                     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
                         <svg className="w-[120%] h-[120%] opacity-40" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -258,66 +339,78 @@ export const TextExpandingSection = () => {
                         items={items}
                         loop={true}
                         defaultActiveIndex={3}
-                        slideSize={210}
-                        rotationStep={15}
-                        verticalStep={50}
+                        slideSize={
+                            screenSize === 'xs' ? 130 :
+                            screenSize === 'sm' ? 160 :
+                            screenSize === 'md' ? 190 : 210
+                        }
+                        rotationStep={
+                            screenSize === 'xs' ? 8 :
+                            screenSize === 'sm' ? 10 :
+                            screenSize === 'md' ? 12 : 15
+                        }
+                        verticalStep={
+                            screenSize === 'xs' ? 25 :
+                            screenSize === 'sm' ? 35 :
+                            screenSize === 'md' ? 45 : 50
+                        }
                         className="w-full h-full bg-transparent z-10"
                     />
                 </div>
 
                 {/* Right Column: Copywriting and Features */}
-                <div className="w-full lg:w-[38%] flex flex-col justify-center text-left pointer-events-auto mt-8 lg:mt-0 z-20">
+                <div className="w-full lg:w-[38%] flex flex-col justify-center text-left pointer-events-auto mt-2 lg:mt-0 z-20">
                     {/* Accent dotted line indicator */}
-                    <div className="flex items-center gap-1.5 mb-6 select-none">
+                    <div className="flex items-center gap-1.5 mb-2 sm:mb-4 lg:mb-6 select-none">
                         <span className="text-[#F27D26]/70 tracking-[0.2em] font-semibold text-xs leading-none">•••••••••••••••••</span>
                         <div className="h-[1.5px] w-14 bg-[#F27D26]" />
                     </div>
 
                     {/* Headline */}
-                    <h1 ref={titleRef} className="text-white text-3xl sm:text-4xl lg:text-5xl font-lora leading-[1.15] tracking-tight">
+                    <h1 ref={titleRef} className="text-white text-2xl sm:text-4xl lg:text-5xl font-lora leading-[1.15] tracking-tight">
                         {splitText("Crafting cinematic visuals that transform music into", "title-word")}{" "}
-                        <span className="title text-3xl sm:text-4xl lg:text-5xl text-[#F27D26] font-bold tracking-wide italic leading-none">
+                        <span className="title text-2xl sm:text-4xl lg:text-5xl text-[#F27D26] font-bold tracking-wide italic leading-none">
                             {splitText("unforgettable stories.", "title-word")}
                         </span>
                     </h1>
 
                     {/* Subtitle */}
-                    <h5 ref={subtitleRef} className="text-neutral-400 text-[13px] leading-relaxed mt-6 mb-8 font-sans max-w-[95%]">
+                    <h5 ref={subtitleRef} className="text-neutral-400 text-[11px] sm:text-[13px] leading-relaxed mt-2 sm:mt-4 lg:mt-6 mb-4 sm:mb-6 lg:mb-8 font-sans max-w-[95%]">
                         {splitText("Where rhythm meets storytelling. We bridge the gap between sound and cinema, crafting bold visuals that transform music into immersive cinematic experiences. Every project is driven by creativity, precision, and a relentless pursuit of visual excellence.", "subtitle-word")}
                     </h5>
 
                     {/* Features Row */}
-                    <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-6 w-full">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-4 border-t border-white/5 pt-4 sm:pt-6 w-full">
                         {/* Feature 1 */}
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
-                                <Trophy className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                            <div className="w-7 h-7 sm:w-9 sm:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
-                            <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-lg">5 Years +</div>
-                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-sm">Experience</div>
+                            <div className="tracking-wide text-neutral-300 font-medium leading-tight font-sans">
+                                <div className="text-sm sm:text-lg font-bold">5 Years +</div>
+                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] sm:text-xs">Experience</div>
                             </div>
                         </div>
 
                         {/* Feature 2 */}
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
-                                <Folder className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                            <div className="w-7 h-7 sm:w-9 sm:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                <Folder className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
-                            <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-lg">200 +</div>
-                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-sm">Projects</div>
+                            <div className="tracking-wide text-neutral-300 font-medium leading-tight font-sans">
+                                <div className="text-sm sm:text-lg font-bold">200 +</div>
+                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] sm:text-xs">Projects</div>
                             </div>
                         </div>
 
                         {/* Feature 3 */}
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
-                                <Eye className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                            <div className="w-7 h-7 sm:w-9 sm:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
-                            <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-lg">15M +</div>
-                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-sm">Views</div>
+                            <div className="tracking-wide text-neutral-300 font-medium leading-tight font-sans">
+                                <div className="text-sm sm:text-lg font-bold">15M +</div>
+                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] sm:text-xs">Views</div>
                             </div>
                         </div>
                     </div>

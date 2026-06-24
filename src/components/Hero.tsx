@@ -122,7 +122,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
         <motion.section 
             ref={sectionRef as any}
             exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-            className="h-screen w-full relative flex flex-col overflow-hidden bg-[#050505] text-white"
+            className="min-h-screen md:h-screen w-full relative flex flex-col overflow-y-auto md:overflow-hidden bg-[#050505] text-white"
         >
             {/* Background Video */}
             <video
@@ -139,18 +139,18 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#C6904E]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4 z-0 pointer-events-none"></div>
 
             {/* Header */}
-            <nav className="flex justify-between items-center px-8 md:px-47 py-8 md:py-10 relative z-30">
-                <div className="flex items-center space-x-6">
-                    <span className="text-sm md:text-base font-bold tracking-widest uppercase">
+            <nav className="flex justify-between items-center px-4 sm:px-8 md:px-47 py-4 sm:py-6 md:py-10 relative z-30">
+                <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
+                    <span className="text-[10px] sm:text-xs md:text-base font-bold tracking-widest uppercase">
                         KANISHKA WIDURANGA
                     </span>
                     <div className="h-4 w-px bg-white/20"></div>
-                    <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
+                    <span className="text-[8px] sm:text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
                         Videographer
                     </span>
                 </div>
 
-                <button className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity">
+                <button className="flex items-center gap-2 sm:gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity">
                     <span>Menu</span>
                     <Menu className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1} />
                 </button>
@@ -178,38 +178,38 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </div>
 
             {/* Main Hero Content */}
-            <main ref={contentRef} className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-32 xl:pl-48 relative z-10 w-full max-w-7xl items-start">
+            <main ref={contentRef} className="flex-1 flex flex-col justify-center px-4 sm:px-8 md:px-16 lg:px-32 xl:pl-48 py-8 md:py-0 relative z-10 w-full max-w-7xl items-start">
                 <motion.div
                     initial="hidden"
                     animate="visible"
                     className="flex flex-col space-y-4 max-w-3xl"
                 >
                     {/* Available badge */}
-                    <motion.div custom={1} variants={fadeUpVariants} className="flex items-center space-x-3 mb-6">
+                    <motion.div custom={1} variants={fadeUpVariants} className="flex items-center space-x-3 mb-4 md:mb-6">
                         <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]"></div>
                         <span className="text-[9px] uppercase tracking-[0.3em] text-white/70 font-semibold">Available for projects worldwide</span>
                     </motion.div>
 
-                    <motion.h2 custom={2} variants={fadeUpVariants} className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] text-white/80 mb-2 font-medium">
+                    <motion.h2 custom={2} variants={fadeUpVariants} className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] text-white/80 mb-1 md:mb-2 font-medium">
                         Stories aren't told.
                     </motion.h2>
 
-                    <motion.h1 custom={3} variants={fadeUpVariants} className="text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black tracking-tight leading-[0.95] uppercase">
-                        <span className="text-white block mb-1 drop-shadow-lg">They're</span>
+                    <motion.h1 custom={3} variants={fadeUpVariants} className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black tracking-tight leading-[0.95] uppercase">
+                        <span className="text-white block mb-0.5 md:mb-1 drop-shadow-lg">They're</span>
                         <TypewriterText />
                     </motion.h1>
 
-                    <motion.p custom={4} variants={fadeUpVariants} className="mt-8 text-sm md:text-base text-white/70 max-w-md leading-relaxed font-light">
+                    <motion.p custom={4} variants={fadeUpVariants} className="mt-4 md:mt-8 text-sm md:text-base text-white/70 max-w-md leading-relaxed font-light">
                         I create cinematic visuals that connect, inspire, and leave a lasting impact.
                     </motion.p>
 
-                    <motion.div custom={5} variants={fadeUpVariants} className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                        <button className="w-full sm:w-auto bg-[#C6904E] text-white px-8 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#a87941] transition-all duration-300 flex items-center justify-center gap-4 group">
+                    <motion.div custom={5} variants={fadeUpVariants} className="mt-6 sm:mt-12 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 w-full sm:w-auto">
+                        <button className="w-full sm:w-auto bg-[#C6904E] text-white px-6 py-3.5 sm:px-8 sm:py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#a87941] transition-all duration-300 flex items-center justify-center gap-4 group">
                             Let's Create Together
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
                         </button>
 
-                        <button className="w-full sm:w-auto px-6 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 text-white/80 hover:text-white transition-all duration-300 group">
+                        <button className="w-full sm:w-auto px-4 py-3.5 sm:px-6 sm:py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 text-white/80 hover:text-white transition-all duration-300 group">
                             Play Reel
                             <PlayCircle className="w-6 h-6 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" strokeWidth={1} />
                         </button>
@@ -218,8 +218,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </main>
 
             {/* Bottom Section */}
-            <footer ref={footerRef} className="w-full px-8 md:px-16 py-10 relative z-20 mt-auto flex justify-center">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-50 w-full max-w-5xl mx-auto">
+            <footer ref={footerRef} className="w-full px-4 sm:px-8 md:px-16 py-6 md:py-10 relative z-20 mt-auto flex justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-50 w-full max-w-5xl mx-auto">
                     {[
                         { num: "01", title: "Music Videos", desc: "High-energy visuals that bring your music to life.", icon: Clapperboard },
                         { num: "02", title: "Visual Direction", desc: "Creative vision and storytelling that elevates your brand.", icon: VideoIcon },
@@ -230,7 +230,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 1 + i * 0.15, ease: [0.25, 0.1, 0.25, 1] as const }}
-                            className="flex flex-col gap-4 border-t border-white/10 pt-6 group cursor-pointer hover:border-[#C6904E]/50 transition-colors duration-500"
+                            className="flex flex-col gap-2 sm:gap-4 border-t border-white/10 pt-4 sm:pt-6 group cursor-pointer hover:border-[#C6904E]/50 transition-colors duration-500"
                         >
                             <div className="flex items-center gap-3 text-white/50 group-hover:text-[#C6904E] transition-colors duration-300">
                                 <item.icon className="w-4 h-4" strokeWidth={1.5} />

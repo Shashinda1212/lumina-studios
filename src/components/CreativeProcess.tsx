@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,60 +55,93 @@ export const CreativeProcess = () => {
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const contentWrapperRef = useRef<HTMLDivElement>(null);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const scrollLeft = container.scrollLeft;
+    const itemWidth = container.scrollWidth / processItems.length;
+    const index = Math.min(
+      processItems.length - 1,
+      Math.max(0, Math.round(scrollLeft / itemWidth))
+    );
+    setActiveIndex(index);
+  };
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const scrollAmount = container.clientWidth * 0.85; // approximate width of one card (85vw)
+    const targetScrollLeft = direction === 'left'
+      ? container.scrollLeft - scrollAmount
+      : container.scrollLeft + scrollAmount;
+    container.scrollTo({
+      left: targetScrollLeft,
+      behavior: 'smooth'
+    });
+  };
+
   useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=300%",
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-        fastScrollEnd: true,
-        preventOverlaps: true,
-      }
-    });
+    const mm = gsap.matchMedia();
 
-    cardsRef.current.forEach((card, i) => {
-      if (!card) return;
-
-      if (i !== 0) {
-        gsap.set(card, { autoAlpha: 0, y: 50 });
-      } else {
-        gsap.set(card, { autoAlpha: 1, y: 0 });
-      }
-
-      if (i !== 0) {
-        tl.to(card, { autoAlpha: 1, y: 0, duration: 1 });
-
-        // Smoothly reveal the new image from left to right (clip-path: inset(0 100% 0 0) -> inset(0 0 0 0))
-        if (imageRefs.current[i]) {
-          tl.to(imageRefs.current[i], {
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1,
-            ease: "power2.inOut"
-          }, "<");
+    mm.add("(min-width: 1024px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=300%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          fastScrollEnd: true,
+          preventOverlaps: true,
         }
-      }
+      });
 
-      if (i !== cardsRef.current.length - 1) {
-        tl.to(card, { autoAlpha: 0, y: -50, duration: 1 }, "+=0.5");
-      }
+      cardsRef.current.forEach((card, i) => {
+        if (!card) return;
+
+        if (i !== 0) {
+          gsap.set(card, { autoAlpha: 0, y: 50 });
+        } else {
+          gsap.set(card, { autoAlpha: 1, y: 0 });
+        }
+
+        if (i !== 0) {
+          tl.to(card, { autoAlpha: 1, y: 0, duration: 1 });
+
+          // Smoothly reveal the new image from left to right (clip-path: inset(0 100% 0 0) -> inset(0 0 0 0))
+          if (imageRefs.current[i]) {
+            tl.to(imageRefs.current[i], {
+              clipPath: "inset(0% 0% 0% 0%)",
+              duration: 1,
+              ease: "power2.inOut"
+            }, "<");
+          }
+        }
+
+        if (i !== cardsRef.current.length - 1) {
+          tl.to(card, { autoAlpha: 0, y: -50, duration: 1 }, "+=0.5");
+        }
+      });
+
+      tl.to(contentWrapperRef.current, {
+        y: -150,
+        autoAlpha: 0,
+        duration: 3,
+        ease: "power2.inOut"
+      }, "+=0.5");
     });
 
-    tl.to(contentWrapperRef.current, {
-      y: -150,
-      autoAlpha: 0,
-      duration: 3,
-      ease: "power2.inOut"
-    }, "+=0.5");
+    return () => mm.revert();
   }, { scope: sectionRef });
 
 
 
 
   return (
-    <section ref={sectionRef} className="w-full relative h-screen bg-[#0A0A0A] border-t border-white/5 z-10 overflow-hidden">
+    <section ref={sectionRef} className="w-full relative h-auto lg:h-screen bg-[#0A0A0A] border-t border-white/5 z-10 overflow-visible lg:overflow-hidden">
       {/* Premium Studio Background Image */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <img
@@ -133,6 +167,13 @@ export const CreativeProcess = () => {
           0% { transform: scale(1) translate(0px, 0px); opacity: 0.3; }
           50% { transform: scale(1.06) translate(8px, -12px); opacity: 0.55; }
           100% { transform: scale(1) translate(0px, 0px); opacity: 0.3; }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
 
@@ -169,8 +210,8 @@ export const CreativeProcess = () => {
       </div>
 
       {/* Wrapper for all visible content to slide up and fade out together */}
-      <div ref={contentWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
-        <div className="h-full w-full flex flex-col justify-center py-20 px-6 md:px-16 lg:px-32 overflow-hidden relative z-10 pointer-events-auto">
+      <div ref={contentWrapperRef} className="relative lg:absolute lg:inset-0 w-full h-auto lg:h-full z-10 pointer-events-none">
+        <div className="h-auto lg:h-full w-full flex flex-col justify-center py-12 sm:py-20 px-6 md:px-16 lg:px-32 overflow-visible lg:overflow-hidden relative z-10 pointer-events-auto">
 
 
           {/* Section Header */}
@@ -191,7 +232,7 @@ export const CreativeProcess = () => {
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center relative flex-1 w-full min-h-[50vh]">
 
             {/* Left: Dynamic Viewfinder Image Stack */}
-            <div className="w-full lg:w-1/2 h-[45vh] lg:h-full rounded-xl border border-[#F27D26]/20 bg-linear-to-br from-white/5 to-transparent relative overflow-hidden hidden md:flex items-center justify-center p-8 shadow-[0_0_50px_rgba(242,125,38,0.03)] -mt-20">
+            <div className="w-full lg:w-1/2 h-[45vh] lg:h-full rounded-xl border border-[#F27D26]/20 bg-linear-to-br from-white/5 to-transparent relative overflow-hidden hidden lg:flex items-center justify-center p-8 shadow-[0_0_50px_rgba(242,125,38,0.03)] -mt-20">
               <div className="absolute inset-0 bg-[#F27D26]/5 transition-opacity duration-700"></div>
 
               {/* Viewfinder Monitor Screen */}
@@ -248,54 +289,97 @@ export const CreativeProcess = () => {
               </div>
             </div>
 
-            {/* Right: The Sliding Cards */}
-            <div className="w-full lg:w-1/2 h-full relative flex items-center -mt-30">
-              {processItems.map((item, i) => {
-                return (
-                  <div
-                    key={item.tag}
-                    ref={(el: HTMLDivElement | null) => { cardsRef.current[i] = el; }}
-                    className="absolute w-full flex flex-col justify-center bg-[#0A0A0A] lg:bg-transparent will-change-[transform,opacity]"
-                  >
-                    <div className="flex items-center mb-6 lg:mb-8 -ml-2">
-                      <span className="text-[60px] md:text-[80px] lg:text-[120px] leading-[0.8] text-[#F27D26]/40 font-serif mr-4 lg:mr-6">{item.tag}</span>
-                      <h3 className="text-2xl md:text-4xl lg:text-5xl text-white font-jetbrains">{item.title}</h3>
-                    </div>
-
-                    <p className="text-neutral-500 text-[10px] md:text-xs tracking-widest uppercase mb-8 lg:mb-12">
-                      {item.subtitle}
-                    </p>
-
-                    <div className="flex flex-col border-t border-white/10">
-                      <div className="flex justify-between items-center py-4 lg:py-5 border-b border-white/5">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Duration</span>
-                        <span className="text-[10px] md:text-xs text-[#E5E5E5] font-mono uppercase tracking-widest">{item.duration}</span>
+            {/* Right: The Sliding Cards Wrapper */}
+            <div className="w-full lg:w-1/2 h-auto lg:h-full relative flex flex-col justify-center mt-8 lg:mt-0">
+              <div 
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="w-full h-auto lg:h-full relative flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible snap-x snap-mandatory no-scrollbar justify-start lg:justify-center gap-6 lg:gap-0 mt-0 lg:-mt-30 pb-4 lg:pb-0"
+              >
+                {processItems.map((item, i) => {
+                  return (
+                    <div
+                      key={item.tag}
+                      ref={(el: HTMLDivElement | null) => { cardsRef.current[i] = el; }}
+                      className="snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-full relative lg:absolute flex flex-col justify-center bg-[#0A0A0A]/60 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-0 lg:border-none lg:rounded-none lg:backdrop-blur-none lg:bg-transparent shadow-2xl lg:shadow-none will-change-[transform,opacity]"
+                    >
+                      <div className="flex items-center mb-4 sm:mb-6 lg:mb-8 -ml-2">
+                        <span className="text-[45px] sm:text-[60px] md:text-[80px] lg:text-[120px] leading-[0.8] text-[#F27D26]/40 font-serif mr-3 sm:mr-4 lg:mr-6">{item.tag}</span>
+                        <h3 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl text-white font-jetbrains">{item.title}</h3>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-4">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest whitespace-nowrap">Deliverables</span>
-                        <div className="flex flex-wrap gap-2 sm:justify-end">
-                          {item.deliverables.map(deliverable => (
-                            <span key={deliverable} className="px-3 py-1 text-[9px] uppercase tracking-widest border border-[#F27D26]/40 text-[#F27D26] rounded-full">
-                              {deliverable}
-                            </span>
-                          ))}
+                      {/* Inline Image for Mobile/Tablet */}
+                      <div className="w-full aspect-video rounded-lg overflow-hidden border border-white/10 mb-6 lg:hidden shadow-[0_0_30px_rgba(242,125,38,0.05)]">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      </div>
+
+                      <p className="text-neutral-500 text-[10px] md:text-xs tracking-widest uppercase mb-8 lg:mb-12">
+                        {item.subtitle}
+                      </p>
+
+                      <div className="flex flex-col border-t border-white/10">
+                        <div className="flex justify-between items-center py-4 lg:py-5 border-b border-white/5">
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Duration</span>
+                          <span className="text-[10px] md:text-xs text-[#E5E5E5] font-mono uppercase tracking-widest">{item.duration}</span>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-4">
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest whitespace-nowrap">Deliverables</span>
+                          <div className="flex flex-wrap gap-2 sm:justify-end">
+                            {item.deliverables.map(deliverable => (
+                              <span key={deliverable} className="px-3 py-1 text-[9px] uppercase tracking-widest border border-[#F27D26]/40 text-[#F27D26] rounded-full">
+                                {deliverable}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Team</span>
+                          <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.team}</span>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Tools</span>
+                          <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.tools}</span>
                         </div>
                       </div>
-
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Team</span>
-                        <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.team}</span>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Tools</span>
-                        <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.tools}</span>
-                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
+
+              {/* Carousel Navigation Panel for Mobile */}
+              <div className="flex items-center justify-center gap-6 mt-6 lg:hidden">
+                <button 
+                  onClick={() => scrollCarousel('left')}
+                  disabled={activeIndex === 0}
+                  className="p-2 rounded-full border border-white/10 bg-[#0A0A0A]/85 text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+                  aria-label="Previous step"
+                >
+                  <ChevronLeft className="w-5 h-5 text-[#F27D26]" strokeWidth={2} />
+                </button>
+
+                <div className="flex gap-2">
+                  {processItems.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        activeIndex === i ? "w-6 bg-[#F27D26]" : "w-1.5 bg-white/20"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <button 
+                  onClick={() => scrollCarousel('right')}
+                  disabled={activeIndex === processItems.length - 1}
+                  className="p-2 rounded-full border border-white/10 bg-[#0A0A0A]/85 text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+                  aria-label="Next step"
+                >
+                  <ChevronRight className="w-5 h-5 text-[#F27D26]" strokeWidth={2} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
