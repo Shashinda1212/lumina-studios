@@ -55,7 +55,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section className="relative w-full min-h-screen bg-black text-white py-24 px-6 md:px-16 lg:px-32 xl:px-48 border-t border-white/5 overflow-hidden flex flex-col justify-center">
+    <section id="contact" className="relative w-full min-h-screen bg-black text-white py-24 px-6 md:px-16 lg:px-32 xl:px-48 border-t border-white/5 overflow-hidden flex flex-col justify-center">
       {/* Self-contained styling for background dust particles and effects */}
       <style>{`
         @keyframes float-bokeh-contact {
@@ -151,11 +151,10 @@ export const ContactSection = () => {
                 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-widest leading-[1.05] mb-8 font-sans"
               >
                 Let's <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[#CE5D01]/90">
-                  Create
-                </span>{' '}
-                <br />
-                Together.
+                Create <br />
+                <span className="bg-gradient-to-r from-[#CE5D01] via-orange-400 to-[#CE5D01] bg-clip-text text-transparent">
+                  Together.
+                </span>
               </motion.h2>
 
               <motion.p
