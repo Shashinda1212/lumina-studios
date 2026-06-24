@@ -52,64 +52,81 @@ export const CreativeProcess = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const contentWrapperRef = useRef<HTMLDivElement>(null);
+  const interactiveRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
+    const mm = gsap.matchMedia();
+
+    const animateTimeline = (trigger: HTMLElement | null, start: string) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger,
+          start,
+          end: "+=300%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          fastScrollEnd: true,
+          preventOverlaps: true,
+        }
+      });
+
+      cardsRef.current.forEach((card, i) => {
+        if (!card) return;
+
+        if (i !== 0) {
+          gsap.set(card, { autoAlpha: 0, y: 50 });
+        } else {
+          gsap.set(card, { autoAlpha: 1, y: 0 });
+        }
+
+        if (i !== 0) {
+          tl.to(card, { autoAlpha: 1, y: 0, duration: 1 });
+
+          if (imageRefs.current[i]) {
+            tl.to(imageRefs.current[i], {
+              clipPath: "inset(0% 0% 0% 0%)",
+              duration: 1,
+              ease: "power2.inOut"
+            }, "<");
+          }
+        }
+
+        if (i !== cardsRef.current.length - 1) {
+          tl.to(card, { autoAlpha: 0, y: -50, duration: 1 }, "+=0.5");
+        }
+      });
+    };
+
+    // Desktop Behavior (min-width: 768px)
+    mm.add("(min-width: 768px)", () => {
+      animateTimeline(sectionRef.current, "top top");
+    });
+
+    // Mobile Behavior (max-width: 767px)
+    mm.add("(max-width: 767px)", () => {
+      animateTimeline(interactiveRef.current, "top 10%");
+
+      ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=300%",
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-        fastScrollEnd: true,
-        preventOverlaps: true,
-      }
+        end: "bottom bottom",
+        pin: bgRef.current,
+        pinSpacing: false
+      });
     });
 
-    cardsRef.current.forEach((card, i) => {
-      if (!card) return;
-
-      if (i !== 0) {
-        gsap.set(card, { autoAlpha: 0, y: 50 });
-      } else {
-        gsap.set(card, { autoAlpha: 1, y: 0 });
-      }
-
-      if (i !== 0) {
-        tl.to(card, { autoAlpha: 1, y: 0, duration: 1 });
-
-        // Smoothly reveal the new image from left to right (clip-path: inset(0 100% 0 0) -> inset(0 0 0 0))
-        if (imageRefs.current[i]) {
-          tl.to(imageRefs.current[i], {
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1,
-            ease: "power2.inOut"
-          }, "<");
-        }
-      }
-
-      if (i !== cardsRef.current.length - 1) {
-        tl.to(card, { autoAlpha: 0, y: -50, duration: 1 }, "+=0.5");
-      }
-    });
-
-    tl.to(contentWrapperRef.current, {
-      y: -150,
-      autoAlpha: 0,
-      duration: 3,
-      ease: "power2.inOut"
-    }, "+=0.5");
+    return () => mm.revert();
   }, { scope: sectionRef });
 
 
 
 
   return (
-    <section ref={sectionRef} className="w-full relative h-screen bg-[#0A0A0A] border-t border-white/5 z-10 overflow-hidden">
+    <section ref={sectionRef} className="w-full relative bg-[#0A0A0A] overflow-clip">
       {/* Premium Studio Background Image */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+      <div ref={bgRef} className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1600&auto=format&fit=crop"
           alt="Production Studio Console"
@@ -168,136 +185,128 @@ export const CreativeProcess = () => {
         })}
       </div>
 
-      {/* Wrapper for all visible content to slide up and fade out together */}
-      <div ref={contentWrapperRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
-        <div className="h-full w-full flex flex-col justify-center py-20 px-6 md:px-16 lg:px-32 overflow-hidden relative z-10 pointer-events-auto">
+      {/* BLOCK A (The Header) */}
+      <div className="pt-24 pb-12 px-6 md:px-16 lg:px-32 relative z-10">
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="w-1.5 h-1.5 bg-[#F27D26] rounded-full"></div>
+          <span className="text-[10px] uppercase tracking-[0.4em] font-medium text-[#F27D26]/80">Creative Process</span>
+        </div>
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-lora text-white tracking-tight max-w-4xl">
+          Every Frame <br className="hidden md:block" /> Engineered for <span className="text-3xl md:text-5xl lg:text-6xl font-anton-regular font-bold text-[#f27d26]">Impact</span>
+        </h2>
+        <p className="text-neutral-500 text-xs md:text-sm max-w-xl leading-relaxed mt-6">
+          We meticulously construct visual narratives using advanced technology and timeless cinematic principles, ensuring your message resonates authentically.
+        </p>
+      </div>
 
+      {/* BLOCK B (The Interactive Area) */}
+      <div ref={interactiveRef} className="flex flex-col lg:flex-row gap-6 md:gap-10 lg:gap-24 items-start lg:items-center lg:justify-between w-full px-6 md:px-16 lg:px-32 relative z-10 min-h-[85svh] lg:min-h-[85vh] pb-12 md:pb-24 lg:pb-32">
+        {/* Left: Dynamic Viewfinder Image Stack */}
+        <div className="w-full lg:w-[50%] h-[35vh] md:h-[35vh] lg:h-auto lg:aspect-[3/2] lg:max-h-[55vh] xl:max-h-[60vh] rounded-xl border border-[#F27D26]/20 bg-linear-to-br from-white/5 to-transparent relative overflow-hidden flex items-center justify-center p-2 md:p-8 shadow-2xl shadow-black/80 md:shadow-[0_0_50px_rgba(242,125,38,0.03)] -mt-10 lg:-mt-50 mb-10 lg:mb-0" >
+          <div className="absolute inset-0 bg-[#F27D26]/5 transition-opacity duration-700"></div>
 
-          {/* Section Header */}
-          <div className="flex flex-col mb-12 md:mb-16">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-1.5 h-1.5 bg-[#F27D26] rounded-full"></div>
-              <span className="text-[10px] uppercase tracking-[0.4em] font-medium text-[#F27D26]/80">Creative Process</span>
+          {/* Viewfinder Monitor Screen */}
+          <div className="w-[95%] h-[95%] md:w-[85%] md:h-[90%] bg-[#0f0f0f] border border-white/5 rounded-lg relative shadow-2xl transform -rotate-2 z-10 overflow-hidden aspect-video">
+
+            {/* Stacked Images (Reveal Left to Right) */}
+            {processItems.map((item, i) => (
+              <div
+                key={item.tag}
+                ref={(el: HTMLDivElement | null) => { imageRefs.current[i] = el; }}
+                className="absolute inset-0 w-full h-full overflow-hidden will-change-[clip-path]"
+                style={{
+                  zIndex: 10 + i,
+                  clipPath: i === 0 ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)"
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+                {/* Cinematic Overlay */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
+              </div>
+            ))}
+
+            {/* Static Viewfinder HUD Overlay (Drawn on top of all images) */}
+            <div className="absolute inset-3 pointer-events-none z-30 border border-white/10 flex flex-col justify-between p-3">
+              <div className="flex justify-between items-center text-[7px] font-mono tracking-[0.2em] text-white/40 uppercase">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] animate-pulse"></span>
+                  <span>REC</span>
+                </div>
+                <span>1080P 24FPS</span>
+              </div>
+
+              {/* Crosshair Center */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-30">
+                <div className="w-3 h-px bg-white"></div>
+                <div className="h-3 w-px bg-white absolute"></div>
+              </div>
+
+              <div className="flex justify-between items-center text-[7px] font-mono tracking-[0.2em] text-white/40 uppercase">
+                <span>ISO 800</span>
+                <span>STBY [A]</span>
+              </div>
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-lora text-white tracking-tight max-w-4xl">
-              Every Frame <br className="hidden md:block" /> Engineered for <span className="text-3xl md:text-5xl lg:text-6xl font-anton-regular font-bold text-[#f27d26]">Impact</span>
-            </h2>
-            <p className="text-neutral-500 text-xs md:text-sm max-w-xl leading-relaxed mt-6">
-              We meticulously construct visual narratives using advanced technology and timeless cinematic principles, ensuring your message resonates authentically.
-            </p>
+
           </div>
 
-          {/* Section Content Tracker */}
-          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center relative flex-1 w-full min-h-[50vh]">
+          {/* Viewfinder Lens Attachment Plate */}
+          <div className="absolute bottom-10 right-8 md:right-16 w-32 h-2.5 bg-linear-to-r from-neutral-800 to-black border border-white/10 rounded-full shadow-2xl rotate-35 flex items-center justify-end px-1.5 z-20">
+            <div className="w-4 h-1.5 bg-[#F27D26]/70 rounded-full shadow-[0_0_10px_rgba(242,125,38,0.5)]"></div>
+          </div>
+        </div>
 
-            {/* Left: Dynamic Viewfinder Image Stack */}
-            <div className="w-full lg:w-1/2 h-[45vh] lg:h-full rounded-xl border border-[#F27D26]/20 bg-linear-to-br from-white/5 to-transparent relative overflow-hidden hidden md:flex items-center justify-center p-8 shadow-[0_0_50px_rgba(242,125,38,0.03)] -mt-20">
-              <div className="absolute inset-0 bg-[#F27D26]/5 transition-opacity duration-700"></div>
-
-              {/* Viewfinder Monitor Screen */}
-              <div className="w-[85%] h-[90%] bg-[#0f0f0f] border border-white/5 rounded-lg relative shadow-2xl transform -rotate-2 z-10 overflow-hidden aspect-video">
-
-                {/* Stacked Images (Reveal Left to Right) */}
-                {processItems.map((item, i) => (
-                  <div
-                    key={item.tag}
-                    ref={(el: HTMLDivElement | null) => { imageRefs.current[i] = el; }}
-                    className="absolute inset-0 w-full h-full overflow-hidden will-change-[clip-path]"
-                    style={{
-                      zIndex: 10 + i,
-                      clipPath: i === 0 ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)"
-                    }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Cinematic Overlay */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
-                  </div>
-                ))}
-
-                {/* Static Viewfinder HUD Overlay (Drawn on top of all images) */}
-                <div className="absolute inset-3 pointer-events-none z-30 border border-white/10 flex flex-col justify-between p-3">
-                  <div className="flex justify-between items-center text-[7px] font-mono tracking-[0.2em] text-white/40 uppercase">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] animate-pulse"></span>
-                      <span>REC</span>
-                    </div>
-                    <span>1080P 24FPS</span>
-                  </div>
-
-                  {/* Crosshair Center */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-30">
-                    <div className="w-3 h-px bg-white"></div>
-                    <div className="h-3 w-px bg-white absolute"></div>
-                  </div>
-
-                  <div className="flex justify-between items-center text-[7px] font-mono tracking-[0.2em] text-white/40 uppercase">
-                    <span>ISO 800</span>
-                    <span>STBY [A]</span>
-                  </div>
+        {/* Right: The Sliding Cards */}
+        <div className="w-full lg:w-[40%] h-full flex-1 relative flex items-center lg:-mt-45 md:-mt-20 ">
+          {processItems.map((item, i) => {
+            return (
+              <div
+                key={item.tag}
+                ref={(el: HTMLDivElement | null) => { cardsRef.current[i] = el; }}
+                className="absolute w-full flex flex-col justify-center bg-transparent px-4 sm:px-6 lg:px-0 will-change-[transform,opacity]"
+              >
+                <div className="flex items-center mb-6 lg:mb-8 -ml-2">
+                  <span className="text-5xl md:text-[80px] lg:text-[120px] leading-[0.8] text-[#F27D26]/40 font-serif mr-4 lg:mr-6">{item.tag}</span>
+                  <h3 className="text-2xl md:text-4xl lg:text-5xl text-white font-jetbrains">{item.title}</h3>
                 </div>
 
-              </div>
+                <p className="text-neutral-500 text-[10px] md:text-xs tracking-widest uppercase mb-8 lg:mb-12">
+                  {item.subtitle}
+                </p>
 
-              {/* Viewfinder Lens Attachment Plate */}
-              <div className="absolute bottom-10 right-8 md:right-16 w-32 h-2.5 bg-linear-to-r from-neutral-800 to-black border border-white/10 rounded-full shadow-2xl rotate-35 flex items-center justify-end px-1.5 z-20">
-                <div className="w-4 h-1.5 bg-[#F27D26]/70 rounded-full shadow-[0_0_10px_rgba(242,125,38,0.5)]"></div>
-              </div>
-            </div>
+                <div className="flex flex-col border-t border-white/10">
+                  <div className="flex justify-between items-center py-3 lg:py-5 border-b border-white/5">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Duration</span>
+                    <span className="text-[10px] md:text-xs text-[#E5E5E5] font-mono uppercase tracking-widest">{item.duration}</span>
+                  </div>
 
-            {/* Right: The Sliding Cards */}
-            <div className="w-full lg:w-1/2 h-full relative flex items-center -mt-30">
-              {processItems.map((item, i) => {
-                return (
-                  <div
-                    key={item.tag}
-                    ref={(el: HTMLDivElement | null) => { cardsRef.current[i] = el; }}
-                    className="absolute w-full flex flex-col justify-center bg-[#0A0A0A] lg:bg-transparent will-change-[transform,opacity]"
-                  >
-                    <div className="flex items-center mb-6 lg:mb-8 -ml-2">
-                      <span className="text-[60px] md:text-[80px] lg:text-[120px] leading-[0.8] text-[#F27D26]/40 font-serif mr-4 lg:mr-6">{item.tag}</span>
-                      <h3 className="text-2xl md:text-4xl lg:text-5xl text-white font-jetbrains">{item.title}</h3>
-                    </div>
-
-                    <p className="text-neutral-500 text-[10px] md:text-xs tracking-widest uppercase mb-8 lg:mb-12">
-                      {item.subtitle}
-                    </p>
-
-                    <div className="flex flex-col border-t border-white/10">
-                      <div className="flex justify-between items-center py-4 lg:py-5 border-b border-white/5">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Duration</span>
-                        <span className="text-[10px] md:text-xs text-[#E5E5E5] font-mono uppercase tracking-widest">{item.duration}</span>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-4">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest whitespace-nowrap">Deliverables</span>
-                        <div className="flex flex-wrap gap-2 sm:justify-end">
-                          {item.deliverables.map(deliverable => (
-                            <span key={deliverable} className="px-3 py-1 text-[9px] uppercase tracking-widest border border-[#F27D26]/40 text-[#F27D26] rounded-full">
-                              {deliverable}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Team</span>
-                        <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.team}</span>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
-                        <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Tools</span>
-                        <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.tools}</span>
-                      </div>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 lg:py-5 border-b border-white/5 gap-4">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest whitespace-nowrap">Deliverables</span>
+                    <div className="flex flex-wrap gap-2 sm:justify-end">
+                      {item.deliverables.map(deliverable => (
+                        <span key={deliverable} className="px-3 py-1 text-[9px] uppercase tracking-widest border border-[#F27D26]/40 text-[#F27D26] rounded-full">
+                          {deliverable}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                )
-              })}
-            </div>
-          </div>
+
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 lg:py-5 border-b border-white/5 gap-2">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Team</span>
+                    <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.team}</span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 lg:py-5 border-b border-white/5 gap-2">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Tools</span>
+                    <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.tools}</span>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

@@ -124,7 +124,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
         <motion.section 
             ref={sectionRef as any}
             exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-            className="h-screen w-full relative flex flex-col overflow-hidden bg-[#050505] text-white"
+            className="min-h-[100svh] w-full relative flex flex-col justify-between bg-[#050505] text-white overflow-hidden"
         >
             {/* Background Video */}
             <video
@@ -133,7 +133,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 muted
                 playsInline
                 src={videoSrc || '/background2.webm'}
-                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-70 mix-blend-screen"
+                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-70 mix-blend-screen "
             />
             {/* Gradient Overlay to match the dark left side of the image */}
             <div className="absolute inset-0 bg-linear-to-r from-black/95 via-black/60 to-transparent z-0 pointer-events-none"></div>
@@ -141,8 +141,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#C6904E]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4 z-0 pointer-events-none"></div>
 
             {/* Header */}
-            <nav className="flex justify-between items-center px-8 md:px-47 py-8 md:py-10 relative z-30">
-                <div className="flex items-center space-x-6">
+            <nav className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-8 md:py-10 relative z-30">
+                <div className="flex items-center space-x-6 lg:px-23">
                     <span className="text-sm md:text-base font-bold tracking-widest uppercase">
                         KANISHKA VIDURANGA
                     </span>
@@ -183,7 +183,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </div>
 
             {/* Main Hero Content */}
-            <main ref={contentRef} className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-32 xl:pl-48 relative z-10 w-full max-w-7xl items-start">
+            <main ref={contentRef} className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-32 xl:pl-48 mt-10 lg:mt-0 relative z-10 w-full max-w-7xl items-start">
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -199,12 +199,12 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                         Stories aren't told.
                     </motion.h2>
 
-                    <motion.h1 custom={3} variants={fadeUpVariants} className="text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black tracking-tight leading-[0.95] uppercase">
+                    <motion.h1 custom={3} variants={fadeUpVariants} className="text-5xl sm:text-6xl md:text-8xl lg:text-[7.5rem] font-black tracking-tight leading-[0.95] uppercase">
                         <span className="text-white block mb-1 drop-shadow-lg">They're</span>
                         <TypewriterText />
                     </motion.h1>
 
-                    <motion.p custom={4} variants={fadeUpVariants} className="mt-8 text-sm md:text-base text-white/70 max-w-md leading-relaxed font-light">
+                    <motion.p custom={4} variants={fadeUpVariants} className="mt-8 text-xs sm:text-sm md:text-base text-white/70 max-w-md leading-relaxed font-light">
                         I create cinematic visuals that connect, inspire, and leave a lasting impact.
                     </motion.p>
 
@@ -226,8 +226,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </main>
 
             {/* Bottom Section */}
-            <footer ref={footerRef} className="w-full px-8 md:px-16 py-10 relative z-20 mt-auto flex justify-center">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-50 w-full max-w-5xl mx-auto">
+            <footer ref={footerRef} className="w-full px-8 md:px-16 pt-10 pb-6 md:pb-10 relative z-20 mt-auto flex justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 w-full max-w-5xl mx-auto">
                     {[
                         { num: "01", title: "Music Videos", desc: "High-energy visuals that bring your music to life.", icon: Clapperboard },
                         { num: "02", title: "Visual Direction", desc: "Creative vision and storytelling that elevates your brand.", icon: VideoIcon },
