@@ -33,6 +33,27 @@ export const TextExpandingSection = () => {
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
 
+    const [slideSize, setSlideSize] = useState(210);
+    const [verticalStep, setVerticalStep] = useState(50);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 640) {
+                setSlideSize(125);
+                setVerticalStep(25);
+            } else if (window.innerWidth < 1024) {
+                setSlideSize(145);
+                setVerticalStep(35);
+            } else {
+                setSlideSize(210);
+                setVerticalStep(50);
+            }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const items = [
         { src: downloadImg, title: "urban exploration" },
         { src: downloadImg, title: "night scene" },
@@ -192,7 +213,7 @@ export const TextExpandingSection = () => {
             </div>
 
             {/* 7. Sound Equalizer Neon Audio Waveform (From Sound theme) */}
-            <div className="absolute bottom-[6%] right-[6%] w-[25%] h-[40px] pointer-events-none z-0 opacity-[0.15] flex items-end justify-between gap-[2.5px]">
+            <div className="hidden lg:flex absolute bottom-[6%] right-[6%] w-[25%] h-[40px] pointer-events-none z-0 opacity-[0.15] flex items-end justify-between gap-[2.5px]">
                 {[...Array(20)].map((_, i) => {
                     const delay = i * 0.12;
                     const height = Math.random() * 70 + 30;
@@ -227,10 +248,10 @@ export const TextExpandingSection = () => {
             </div>
 
             {/* Step 2: The side-by-side component that scales up in the middle */}
-            <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-between z-20 w-full h-full px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
+            <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-center gap-2 xs:gap-4 md:gap-6 lg:justify-between z-20 w-full h-full px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
                 
                 {/* Left Column: Diagonal Carousel Space */}
-                <div className="pointer-events-auto w-full lg:w-[58%] h-1/2 lg:h-full relative flex items-center justify-center z-10">
+                <div className="pointer-events-auto w-full lg:w-[58%] h-[320px] xs:h-[335px] md:h-[370px] lg:h-full shrink-0 relative flex items-center justify-center z-10">
                     {/* Glowing trajectory curves behind the carousel */}
                     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
                         <svg className="w-[120%] h-[120%] opacity-40" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -258,66 +279,66 @@ export const TextExpandingSection = () => {
                         items={items}
                         loop={true}
                         defaultActiveIndex={3}
-                        slideSize={210}
+                        slideSize={slideSize}
                         rotationStep={15}
-                        verticalStep={50}
+                        verticalStep={verticalStep}
                         className="w-full h-full bg-transparent z-10"
                     />
                 </div>
 
                 {/* Right Column: Copywriting and Features */}
-                <div className="w-full lg:w-[38%] flex flex-col justify-center text-left pointer-events-auto mt-8 lg:mt-0 z-20">
+                <div className="w-full lg:w-[38%] flex flex-col justify-center text-left pointer-events-auto mt-4 md:mt-6 lg:mt-0 z-20">
                     {/* Accent dotted line indicator */}
-                    <div className="flex items-center gap-1.5 mb-6 select-none">
+                    <div className="flex items-center gap-1.5 mb-3 md:mb-4 lg:mb-6 select-none">
                         <span className="text-[#F27D26]/70 tracking-[0.2em] font-semibold text-xs leading-none">•••••••••••••••••</span>
                         <div className="h-[1.5px] w-14 bg-[#F27D26]" />
                     </div>
 
                     {/* Headline */}
-                    <h1 ref={titleRef} className="text-white text-3xl sm:text-4xl lg:text-5xl font-lora leading-[1.15] tracking-tight">
+                    <h1 ref={titleRef} className="text-white text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-lora leading-[1.15] tracking-tight">
                         {splitText("Crafting cinematic visuals that transform music into", "title-word")}{" "}
-                        <span className="title text-3xl sm:text-4xl lg:text-5xl text-[#F27D26] font-bold tracking-wide italic leading-none">
+                        <span className="title text-2xl xs:text-3xl md:text-4xl lg:text-5xl text-[#F27D26] font-bold tracking-wide italic leading-none">
                             {splitText("unforgettable stories.", "title-word")}
                         </span>
                     </h1>
 
                     {/* Subtitle */}
-                    <h5 ref={subtitleRef} className="text-neutral-400 text-[13px] leading-relaxed mt-6 mb-8 font-sans max-w-[95%]">
+                    <h5 ref={subtitleRef} className="text-neutral-400 text-[11px] sm:text-xs lg:text-[13px] leading-relaxed mt-3 mb-4 md:mt-4 md:mb-6 lg:mt-6 lg:mb-8 font-sans max-w-[95%]">
                         {splitText("Where rhythm meets storytelling. We bridge the gap between sound and cinema, crafting bold visuals that transform music into immersive cinematic experiences. Every project is driven by creativity, precision, and a relentless pursuit of visual excellence.", "subtitle-word")}
                     </h5>
 
                     {/* Features Row */}
-                    <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-6 w-full">
+                    <div className="grid grid-cols-3 gap-2 xs:gap-3 md:gap-4 border-t border-white/5 pt-3 xs:pt-4 md:pt-6 w-full">
                         {/* Feature 1 */}
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
-                                <Trophy className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                        <div className="flex items-center gap-1.5 xs:gap-2.5">
+                            <div className="w-7 h-7 xs:w-8 h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                <Trophy className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-lg">5 Years +</div>
-                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-sm">Experience</div>
+                                <div className="text-xs xs:text-sm md:text-lg">5 Years +</div>
+                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs md:text-sm">Experience</div>
                             </div>
                         </div>
 
                         {/* Feature 2 */}
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
-                                <Folder className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                        <div className="flex items-center gap-1.5 xs:gap-2.5">
+                            <div className="w-7 h-7 xs:w-8 h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                <Folder className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-lg">200 +</div>
-                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-sm">Projects</div>
+                                <div className="text-xs xs:text-sm md:text-lg">200 +</div>
+                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs md:text-sm">Projects</div>
                             </div>
                         </div>
 
                         {/* Feature 3 */}
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
-                                <Eye className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                        <div className="flex items-center gap-1.5 xs:gap-2.5">
+                            <div className="w-7 h-7 xs:w-8 h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                <Eye className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-lg">15M +</div>
-                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-sm">Views</div>
+                                <div className="text-xs xs:text-sm md:text-lg">15M +</div>
+                                <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs md:text-sm">Views</div>
                             </div>
                         </div>
                     </div>

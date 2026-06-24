@@ -129,7 +129,7 @@ export function DiagonalCarousel({
     >
       <div className={cn("absolute inset-0 overflow-hidden", viewportClassName)}>
         <motion.div
-          className="absolute left-1/2 top-[25%] flex w-fit"
+          className="absolute left-1/2 top-3 md:top-3 lg:top-[25%] flex w-fit"
           animate={{ x: -(currentIndex * safeSlideSize + safeSlideSize / 2) }}
           transition={transition}
         >
@@ -207,7 +207,7 @@ export function DiagonalCarousel({
       {showControls && (
         <div
           className={cn(
-            "absolute inset-x-4 bottom-8 z-10 mx-auto flex w-fit items-center justify-center gap-3 rounded-full border border-white/10 bg-[#0A0A0A]/85 px-3 py-1 text-neutral-100 shadow-2xl backdrop-blur-md",
+            "absolute inset-x-4 bottom-0 md:bottom-0 lg:bottom-12 z-10 mx-auto flex w-fit items-center justify-center gap-3 rounded-full border border-white/10 bg-[#0A0A0A]/85 px-3 py-1 text-neutral-100 shadow-2xl backdrop-blur-md",
             controlsClassName
           )}
         >
