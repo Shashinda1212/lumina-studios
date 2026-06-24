@@ -311,7 +311,7 @@ export const TextExpandingSection = () => {
             <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-2 sm:gap-4 lg:gap-0 z-20 w-full h-full py-6 sm:py-10 lg:py-0 px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
                 
                 {/* Left Column: Diagonal Carousel Space */}
-                <div className="pointer-events-auto w-full lg:w-[58%] h-[340px] sm:h-[390px] md:h-[470px] lg:h-full relative flex items-center justify-center z-10">
+                <div className="pointer-events-auto w-full lg:w-[58%] h-[320px] sm:h-[390px] md:h-[470px] lg:h-full relative flex items-center justify-center z-10">
                     {/* Glowing trajectory curves behind the carousel */}
                     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
                         <svg className="w-[120%] h-[120%] opacity-40" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
