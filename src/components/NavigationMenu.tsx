@@ -62,9 +62,8 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
 
   const navLinks = [
     { name: 'HOME', href: '#home' },
-    { name: 'SERVICES', href: '#services' },
     { name: 'PROJECTS', href: '#projects' },
-    { name: 'ABOUT', href: '#about' },
+    { name: 'CLIENTS', href: '#testimonials' },
     { name: 'CONTACT', href: '#contact' },
   ];
 

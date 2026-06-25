@@ -1,31 +1,51 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUp } from 'lucide-react';
 import { AvatarGroup, AvatarGroupTooltip } from '@/components/animate-ui/components/animate/avatar-group';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/animate-ui/components/animate/avatar';
 const AVATARS = [
   {
-    src: '/images/smokio.jpg',
-    fallback: 'KF',
+    src: '/images/smokio.webp',
+    fallback: 'SM',
     tooltip: 'Smokio',
   },
   {
-    src: '/images/reezy.jpg',
+    src: '/images/reezy.webp',
     fallback: 'RZ',
     tooltip: 'Reezy',
   },
   {
-    src: '/images/keefa.jpg',
-    fallback: 'SM',
+    src: '/images/keefa.webp',
+    fallback: 'KF',
     tooltip: 'Keefa',
+  },
+  {
+    src: '/images/manasick.webp',
+    fallback: 'MS',
+    tooltip: 'Manasick',
+  },
+  {
+    src: '/images/masterd.webp',
+    fallback: 'MD',
+    tooltip: 'MasterD',
+  },
+  {
+    src: '/images/whitecapper.webp',
+    fallback: 'WC',
+    tooltip: 'Whitecapper',
+  },
+  {
+    src: '/images/jenesroger.webp',
+    fallback: 'JR',
+    tooltip: 'JenesRoger',
+  },
+  {
+    src: '/images/suwahas.webp',
+    fallback: 'SK',
+    tooltip: 'Suwahas',
   }
 ];
 
 export const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const containerVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -88,9 +108,9 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-3">
               {[
+                { name: 'Home', href: '#home' },
                 { name: 'Projects', href: '#projects' },
-                { name: 'Services', href: '#services' },
-                { name: 'About Me', href: '#about' },
+                { name: 'Clients', href: '#testimonials' },
                 { name: 'Contact Us', href: '#contact' },
               ].map((link) => (
                 <li key={link.name}>
@@ -122,15 +142,6 @@ export const Footer = () => {
                 ))}
               </AvatarGroup>
             </div>
-
-            {/* Back to top button */}
-            <button
-              onClick={scrollToTop}
-              className="mt-2 text-[10px] uppercase tracking-widest text-white/60 hover:text-[#CE5D01] flex items-center gap-2 group w-fit cursor-pointer transition-colors duration-300"
-            >
-              <span>Back to Top</span>
-              <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-1 transition-transform duration-300" />
-            </button>
           </motion.div>
         </div>
 

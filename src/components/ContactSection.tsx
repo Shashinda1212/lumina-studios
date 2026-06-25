@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Instagram, Youtube, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Instagram, Youtube, ArrowRight, Facebook, Linkedin } from 'lucide-react';
 
 export const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -216,31 +216,82 @@ export const ContactSection = () => {
             </motion.div>
 
             {/* Social links */}
-            <motion.div variants={itemVariants} className="flex items-center gap-4">
-              <a
-                href="#"
-                className="p-3 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
-              >
-                <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              </a>
-              <a
-                href="#"
-                className="p-3 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-4 h-4 fill-current group-hover:scale-110 transition-transform"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.653-2.24 1.959L.702 8.547c1.493-1.4 3.08-2.986 4.76-4.76 2.052-1.96 3.64-2.94 4.76-2.94 1.96 0 3.172 1.306 3.64 3.92.373 2.24.653 3.92.84 5.039.466 2.613 1.026 3.92 1.68 3.92.466 0 1.213-.653 2.24-1.959 1.119-1.307 1.772-2.333 1.959-3.08.374-1.306-.093-1.96-1.4-1.96-.56 0-1.12.093-1.68.28 1.12-3.64 3.36-5.46 6.72-5.46 2.425 0 3.545 1.12 3.358 3.36z" />
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="p-3 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
-              >
-                <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              </a>
+            <motion.div variants={itemVariants} className="grid grid-cols-2 gap-6 border-t border-white/5 pt-8">
+              <div className="space-y-3">
+                <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-500 font-semibold block">
+                  Studio Accounts
+                </span>
+                <div className="flex items-center gap-2.5">
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#CE5D01] hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
+                    aria-label="Studio Instagram"
+                  >
+                    <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#CE5D01] hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
+                    aria-label="Studio Vimeo"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-4 h-4 fill-current group-hover:scale-110 transition-transform"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.653-2.24 1.959L.702 8.547c1.493-1.4 3.08-2.986 4.76-4.76 2.052-1.96 3.64-2.94 4.76-2.94 1.96 0 3.172 1.306 3.64 3.92.373 2.24.653 3.92.84 5.039.466 2.613 1.026 3.92 1.68 3.92.466 0 1.213-.653 2.24-1.959 1.119-1.307 1.772-2.333 1.959-3.08.374-1.306-.093-1.96-1.4-1.96-.56 0-1.12.093-1.68.28 1.12-3.64 3.36-5.46 6.72-5.46 2.425 0 3.545 1.12 3.358 3.36z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#CE5D01] hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
+                    aria-label="Studio YouTube"
+                  >
+                    <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-500 font-semibold block">
+                  Personal Accounts
+                </span>
+                <div className="flex items-center gap-2.5">
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#CE5D01] hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
+                    aria-label="Personal Instagram"
+                  >
+                    <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#CE5D01] hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
+                    aria-label="Personal Facebook"
+                  >
+                    <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#CE5D01] hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
+                    aria-label="Personal LinkedIn"
+                  >
+                    <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </div>
 
@@ -348,7 +399,7 @@ export const ContactSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-x-8 bottom-8 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-center text-xs tracking-wider"
+                  className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-center text-xs tracking-wider"
                 >
                   Thank you! Your message has been sent successfully. I'll get back to you shortly.
                 </motion.div>

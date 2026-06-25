@@ -145,7 +145,10 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <nav className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-8 md:py-10 relative z-30">
                 {/* Desktop Navbar Left (100% original styling preserved) */}
                 <div className="hidden md:flex items-center space-x-6 lg:px-23">
-                    <span className="text-sm md:text-base font-bold tracking-widest uppercase">
+                    <span 
+                        onClick={() => window.location.reload()}
+                        className="text-sm md:text-base font-bold tracking-widest uppercase cursor-pointer hover:text-[#C6904E] transition-colors duration-300"
+                    >
                         KANISHKA VIDURANGA
                     </span>
                     <div className="h-4 w-px bg-white/20"></div>
@@ -156,7 +159,10 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
                 {/* Mobile Navbar Left (Wrapping-safe inline styling) */}
                 <div className="block md:hidden text-left">
-                    <span className="text-sm font-bold tracking-widest uppercase inline">
+                    <span 
+                        onClick={() => window.location.reload()}
+                        className="text-sm font-bold tracking-widest uppercase inline cursor-pointer hover:text-[#C6904E] transition-colors duration-300"
+                    >
                         KANISHKA VIDURANGA
                     </span>
                     <span className="mx-2 h-3 w-px bg-white/20 inline-block align-middle"></span>

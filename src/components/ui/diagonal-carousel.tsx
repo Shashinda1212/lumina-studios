@@ -2,13 +2,14 @@
 
 import * as React from "react";
 import { motion, type Transition } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Youtube } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface DiagonalCarouselItem {
   src: string;
   title: string;
   alt?: string;
+  youtubeUrl?: string;
 }
 
 export interface DiagonalCarouselProps
@@ -152,52 +153,77 @@ export function DiagonalCarousel({
                 }}
                 transition={transition}
               >
-                <div className="flex flex-col items-center min-h-[40px] justify-center">
-                  <motion.p
-                    className={cn(
-                      "whitespace-nowrap text-xs tracking-wider font-mono font-medium lowercase transition-colors duration-300",
-                      isActive ? "text-[#E5E5E5]" : "text-neutral-500",
-                      labelClassName
-                    )}
-                    animate={{
-                      opacity: isActive ? 1 : 0,
-                      scale: isActive ? 1 : 0.7,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {item.title}
-                  </motion.p>
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeLine"
-                      className="h-[2px] w-8 bg-[#F27D26] mt-1.5 rounded-full"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </div>
+                <div className="flex flex-col items-center min-h-[40px] justify-center" />
 
-                <button
-                  type="button"
+                <div
+                  role="button"
+                  tabIndex={0}
                   aria-label={`Show ${item.title}`}
                   aria-current={isActive ? "true" : undefined}
-                  className={cn("w-full cursor-pointer relative", aspectClassName)}
+                  className={cn(
+                    "w-full cursor-pointer relative rounded-2xl overflow-hidden bg-[#0D0D0D]/90 border transition-all duration-500 flex flex-col justify-between select-none shadow-xl",
+                    isActive
+                      ? "border-2 border-[#F27D26] shadow-[0_0_35px_rgba(242,125,38,0.55)] opacity-100"
+                      : "border-white/5 opacity-40 hover:opacity-60",
+                    aspectClassName
+                  )}
                   onClick={() => selectSlide(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      selectSlide(index);
+                    }
+                  }}
                 >
-                  <img
-                    src={item.src}
-                    alt={item.alt ?? item.title}
-                    draggable={false}
-                    className={cn(
-                      "h-full w-full select-none rounded-2xl object-cover shadow-xl transition-all duration-500 border border-white/5",
-                      isActive
-                        ? "border-2 border-[#F27D26] shadow-[0_0_35px_rgba(242,125,38,0.55)] opacity-100 grayscale-0"
-                        : "opacity-40 grayscale-40 hover:opacity-60",
-                      imageClassName
+                  {/* First row: Image with 16:9 aspect ratio */}
+                  <div className="w-full aspect-video overflow-hidden shrink-0 border-b border-white/5 bg-black/40">
+                    <img
+                      src={item.src}
+                      alt={item.alt ?? item.title}
+                      draggable={false}
+                      className={cn(
+                        "h-full w-full select-none object-cover transition-all duration-500",
+                        isActive ? "grayscale-0" : "grayscale-40",
+                        imageClassName
+                      )}
+                    />
+                  </div>
+
+                  {/* Second row: Title and redirect button */}
+                  <div className="flex-1 flex flex-col justify-between p-2.5 sm:p-3.5 min-h-0">
+                    <div className="text-left font-sans">
+                      <h4 className="text-[10px] sm:text-xs md:text-sm font-semibold text-white/95 line-clamp-2 tracking-wide leading-tight sm:leading-snug select-text">
+                        {item.title}
+                      </h4>
+                    </div>
+
+                    {/* YouTube Redirect Button */}
+                    {item.youtubeUrl ? (
+                      <a
+                        href={item.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        className={cn(
+                          "mt-2 flex items-center justify-center gap-1 sm:gap-1.5 w-full text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
+                          isActive
+                            ? "bg-[#FF0000] hover:bg-[#CC0000] cursor-pointer"
+                            : "bg-neutral-800/80 text-neutral-400 pointer-events-none opacity-50"
+                        )}
+                      >
+                        <Youtube className="size-3 sm:size-4 shrink-0 fill-current" />
+                        <span>Watch</span>
+                      </a>
+                    ) : (
+                      <div className="mt-2 flex items-center justify-center gap-1 sm:gap-1.5 w-full bg-neutral-800/80 text-neutral-400 font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg border border-neutral-700/50 pointer-events-none">
+                        <Youtube className="size-3 sm:size-4 shrink-0" />
+                        <span>Watch</span>
+                      </div>
                     )}
-                  />
-                </button>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

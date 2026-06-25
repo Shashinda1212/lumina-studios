@@ -37,9 +37,9 @@ interface TestimonialItem {
 const testimonials: TestimonialItem[] = [
   {
     id: 1,
-    name: 'Sarah Chen',
-    username: 'sarah_chen',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop',
+    name: 'Jens Roger',
+    username: 'Jensroger',
+    image: '/images/jenesroger.webp',
     bio: 'Producer at Neon Edge Media. Kanishka has an exceptional eye for visual direction. His work transformed our campaign.',
     stats: { following: 142, followers: 12500, posts: 480 },
     socialLinks: { linkedin: 'https://linkedin.com', twitter: 'https://twitter.com' },
@@ -59,9 +59,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 3,
-    name: 'Elena Rostova',
-    username: 'elena_rost',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop',
+    name: 'Manasick',
+    username: 'Manasickwestnahira',
+    image: '/images/manasick.webp',
     bio: 'Marketing Lead at Velo. Creative vision and storytelling that elevated our brand presence globally.',
     stats: { following: 201, followers: 3500, posts: 95 },
     socialLinks: { linkedin: 'https://linkedin.com' },
@@ -81,9 +81,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 5,
-    name: 'Aiko Tanaka',
-    username: 'aiko_tan',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop',
+    name: 'Whitecapper',
+    username: 'Whitecapper',
+    image: '/images/whitecapper.webp',
     bio: 'Film Director. Exceptional grading, seamless VFX, and editing. Truly understood our film\'s core message.',
     stats: { following: 154, followers: 9800, posts: 310 },
     glow: 'blue',
@@ -91,9 +91,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 6,
-    name: 'Julian Vance',
-    username: 'julian_v',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=300&auto=format&fit=crop',
+    name: 'Smokio',
+    username: 'Kevinsmokio',
+    image: '/images/smokio.webp',
     bio: 'Label Manager. Handled everything from pre-production casting to final delivery with unmatched style.',
     stats: { following: 95, followers: 11000 },
     socialLinks: { twitter: 'https://twitter.com' },
@@ -102,9 +102,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 7,
-    name: 'Liam Foster',
-    username: 'liam_foster',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&auto=format&fit=crop',
+    name: 'Reezy',
+    username: 'Ramessesreezy',
+    image: '/images/reezy.webp',
     bio: 'Musician. The narrative arc they constructed for our song visual was breathtaking. Highly recommend.',
     stats: { following: 120, followers: 7200, posts: 84 },
     socialLinks: { linkedin: 'https://linkedin.com', github: 'https://github.com' },
@@ -113,9 +113,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 8,
-    name: 'Sophia Lind',
-    username: 'sophia_l',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop',
+    name: 'Keefa',
+    username: 'Keefa',
+    image: '/images/keefa.webp',
     bio: 'Creative Producer. Blown away by the speed of execution and conceptual depth. Absolute professional.',
     stats: { following: 280, followers: 16500, posts: 512 },
     socialLinks: { twitter: 'https://twitter.com' },
@@ -124,9 +124,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 9,
-    name: 'Nora Al-Mansoori',
-    username: 'nora_mans',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=300&auto=format&fit=crop',
+    name: 'M',
+    username: 'M',
+    image: '#',
     bio: 'Brand Strategist. The aesthetics are state-of-the-art. Every shot was a work of art.',
     stats: { following: 110, followers: 5200 },
     glow: 'purple',
@@ -134,9 +134,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 10,
-    name: 'Oliver Cross',
-    username: 'oliver_cross',
-    image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop',
+    name: 'Mater D',
+    username: 'MasterD',
+    image: '/images/masterd.webp',
     bio: 'Content Creator. Kanishka\'s sound integration with lighting cues was spot on. A dynamic experience.',
     stats: { following: 430, followers: 24000, posts: 720 },
     socialLinks: { linkedin: 'https://linkedin.com', twitter: 'https://twitter.com' },
@@ -155,9 +155,9 @@ const testimonials: TestimonialItem[] = [
   },
   {
     id: 12,
-    name: 'Maya Lin',
-    username: 'maya_lin',
-    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop',
+    name: 'Suwahas',
+    username: 'Suwahas',
+    image: '/images/suwahas.webp',
     bio: 'Visual Artist. Masterful pacing, transitions, and framing. A beautiful translation of abstract sound to video.',
     stats: { following: 195, followers: 8900, posts: 140 },
     socialLinks: { linkedin: 'https://linkedin.com', github: 'https://github.com' },
@@ -272,7 +272,7 @@ export const TestimonialsSection = () => {
   }, { scope: sectionRef });
 
   return (
-    <section id="about" ref={sectionRef} className="relative w-full min-h-[750px] lg:h-screen lg:min-h-[900px] flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
+    <section id="testimonials" ref={sectionRef} className="relative w-full min-h-[750px] lg:h-screen lg:min-h-[900px] flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
       {/* Self-contained styling for animations */}
       <style>{`
         @keyframes marquee-left {

@@ -1,8 +1,8 @@
 import { useEffect, useRef, ReactNode, useState, Suspense, lazy } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DiagonalCarousel } from "./ui/diagonal-carousel";
-import downloadImg from "../assets/images/download.jpg";
+import { PerspectiveCarousel } from "./ui/perspective-carousel";
+import downloadImg from "/thumbnails/maxresdefault.webp";
 import { useGSAP } from "@gsap/react";
 import { Trophy, Folder, Eye } from "lucide-react";
 
@@ -33,19 +33,19 @@ export const TextExpandingSection = () => {
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
 
-    const [slideSize, setSlideSize] = useState(210);
+    const [slideSize, setSlideSize] = useState(330);
     const [verticalStep, setVerticalStep] = useState(50);
 
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 640) {
-                setSlideSize(125);
+                setSlideSize(Math.max(120, Math.min(165, Math.round(window.innerWidth * 0.45))));
                 setVerticalStep(25);
             } else if (window.innerWidth < 1024) {
-                setSlideSize(145);
+                setSlideSize(265);
                 setVerticalStep(35);
             } else {
-                setSlideSize(210);
+                setSlideSize(330);
                 setVerticalStep(50);
             }
         };
@@ -55,17 +55,17 @@ export const TextExpandingSection = () => {
     }, []);
 
     const items = [
-        { src: downloadImg, title: "urban exploration" },
-        { src: downloadImg, title: "night scene" },
-        { src: downloadImg, title: "yellow wildflowers" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
-        { src: downloadImg, title: "street with mount fuji" },
+        { src: downloadImg, title: "urban exploration", youtubeUrl: "https://www.youtube.com/watch?v=21X5lGlDOfg" },
+        { src: downloadImg, title: "night scene", youtubeUrl: "https://www.youtube.com/watch?v=8V-wNeeL11o" },
+        { src: downloadImg, title: "yellow wildflowers", youtubeUrl: "https://www.youtube.com/watch?v=tO01J-M3g0U" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
     ];
 
 
@@ -251,37 +251,15 @@ export const TextExpandingSection = () => {
             <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-center gap-2 xs:gap-4 md:gap-6 lg:justify-between z-20 w-full h-full px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
                 
                 {/* Left Column: Diagonal Carousel Space */}
-                <div className="pointer-events-auto w-full lg:w-[58%] h-[355px] md:h-[370px] lg:h-full shrink-0 relative flex items-center justify-center z-10">
-                    {/* Glowing trajectory curves behind the carousel */}
-                    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
-                        <svg className="w-[120%] h-[120%] opacity-40" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            {/* Cyan glowing curve */}
-                            <path d="M 50,450 Q 250,280 650,150" stroke="url(#cyanGlow)" strokeWidth="2" strokeLinecap="round" />
-                            {/* Orange glowing curve */}
-                            <path d="M 90,480 Q 290,310 690,180" stroke="url(#orangeGlow)" strokeWidth="1.5" strokeLinecap="round" />
-                            
-                            <defs>
-                                <linearGradient id="cyanGlow" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#06b6d4" stopOpacity="0" />
-                                    <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.8" />
-                                    <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-                                </linearGradient>
-                                <linearGradient id="orangeGlow" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#F27D26" stopOpacity="0" />
-                                    <stop offset="50%" stopColor="#F27D26" stopOpacity="0.6" />
-                                    <stop offset="100%" stopColor="#F27D26" stopOpacity="0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
+                <div className="pointer-events-auto w-full lg:w-[58%] h-[360px] md:h-[470px] lg:h-full shrink-0 relative flex items-center justify-center z-10">
 
-                    <DiagonalCarousel
+
+                    <PerspectiveCarousel
                         items={items}
                         loop={true}
                         defaultActiveIndex={3}
-                        slideSize={slideSize}
-                        rotationStep={15}
-                        verticalStep={verticalStep}
+                        slideWidth={slideSize}
+                        rotationStep={30}
                         className="w-full h-full bg-transparent z-10"
                     />
                 </div>
