@@ -3,28 +3,22 @@ import { motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { AvatarGroup, AvatarGroupTooltip } from '@/components/animate-ui/components/animate/avatar-group';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/animate-ui/components/animate/avatar';
-
 const AVATARS = [
   {
-    src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80',
-    fallback: 'SR',
-    tooltip: 'Sophia Reyes (Client)',
+    src: '/images/smokio.jpg',
+    fallback: 'KF',
+    tooltip: 'Smokio',
   },
   {
-    src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80',
-    fallback: 'MW',
-    tooltip: 'Marcus Wong (Director)',
+    src: '/images/reezy.jpg',
+    fallback: 'RZ',
+    tooltip: 'Reezy',
   },
   {
-    src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80',
-    fallback: 'AL',
-    tooltip: 'Aria Laurent (Producer)',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80',
-    fallback: 'KB',
-    tooltip: 'Kai Bennett (Cinematographer)',
-  },
+    src: '/images/keefa.jpg',
+    fallback: 'SM',
+    tooltip: 'Keefa',
+  }
 ];
 
 export const Footer = () => {

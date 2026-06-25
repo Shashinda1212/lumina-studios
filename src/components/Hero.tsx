@@ -122,6 +122,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
     return (
         <motion.section 
+            id="home"
             ref={sectionRef as any}
             exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
             className="min-h-[100svh] w-full relative flex flex-col justify-between bg-[#050505] text-white overflow-hidden"

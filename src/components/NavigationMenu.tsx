@@ -62,11 +62,21 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
 
   const navLinks = [
     { name: 'HOME', href: '#home' },
-    { name: 'PROJECTS', href: '#projects' },
     { name: 'SERVICES', href: '#services' },
+    { name: 'PROJECTS', href: '#projects' },
     { name: 'ABOUT', href: '#about' },
     { name: 'CONTACT', href: '#contact' },
   ];
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    onClose();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -115,7 +125,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                 >
                   <motion.a
                     href={link.href}
-                    onClick={onClose}
+                    onClick={(e) => handleLinkClick(e, link.href)}
                     whileHover={{ x: 12, color: '#CE5D01' }}
                     transition={{ type: 'tween' as const, duration: 0.3, ease: 'easeOut' as const }}
                     className="inline-block text-3xl sm:text-4xl lg:text-5xl font-black tracking-[0.15em] text-white/70 hover:text-white uppercase transition-colors duration-300"

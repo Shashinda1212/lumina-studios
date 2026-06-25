@@ -124,7 +124,7 @@ export const CreativeProcess = () => {
 
 
   return (
-    <section ref={sectionRef} className="w-full relative bg-[#0A0A0A] overflow-clip">
+    <section id="services" ref={sectionRef} className="w-full relative bg-[#0A0A0A] overflow-clip">
       {/* Premium Studio Background Image */}
       <div ref={bgRef} className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <img

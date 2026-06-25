@@ -155,7 +155,7 @@ export const TextExpandingSection = () => {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="h-screen w-full flex items-center justify-center relative overflow-hidden bg-[radial-gradient(circle_at_center,#22180F_0%,#050505_80%)]">
+        <section id="projects" ref={containerRef} className="h-screen w-full flex items-center justify-center relative overflow-hidden bg-[radial-gradient(circle_at_center,#22180F_0%,#050505_80%)]">
             
             {/* Inject self-contained premium background animations */}
             <style>{`

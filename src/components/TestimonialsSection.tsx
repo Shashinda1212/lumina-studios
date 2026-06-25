@@ -272,7 +272,7 @@ export const TestimonialsSection = () => {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-[750px] lg:h-screen lg:min-h-[900px] flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
+    <section id="about" ref={sectionRef} className="relative w-full min-h-[750px] lg:h-screen lg:min-h-[900px] flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
       {/* Self-contained styling for animations */}
       <style>{`
         @keyframes marquee-left {

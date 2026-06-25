@@ -78,6 +78,11 @@ export const ContactSection = () => {
 
       {/* Cinematic Live Background Effects */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Subtle central radial gradient glow behind the contact form */}
+        <div 
+          className="absolute top-1/2 left-[55%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(242,125,38,0.075)_0%,transparent_65%)] pointer-events-none z-0" 
+        />
+
         {/* Accent Glow Orbs */}
         <div
           style={{ animation: 'orb-drift-contact 20s ease-in-out infinite' }}

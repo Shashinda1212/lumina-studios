@@ -10,6 +10,7 @@ import FlipFadeText from './components/ui/flip-fade-text';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ui/ScrollToTop';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -154,6 +155,7 @@ export default function App() {
             <TestimonialsSection />
             <ContactSection />
             <Footer />
+            <ScrollToTop />
           </motion.div>
         )}
       </AnimatePresence>
