@@ -202,7 +202,7 @@ export const CreativeProcess = () => {
       {/* BLOCK B (The Interactive Area) */}
       <div ref={interactiveRef} className="flex flex-col lg:flex-row gap-6 md:gap-10 lg:gap-24 items-start lg:items-center lg:justify-between w-full px-6 md:px-16 lg:px-32 relative z-10 min-h-[85svh] lg:min-h-[85vh] pb-12 md:pb-24 lg:pb-32">
         {/* Left: Dynamic Viewfinder Image Stack */}
-        <div className="w-full lg:w-[50%] h-[35vh] md:h-[35vh] lg:h-auto lg:aspect-[3/2] lg:max-h-[55vh] xl:max-h-[60vh] rounded-xl border border-[#F27D26]/20 bg-linear-to-br from-white/5 to-transparent relative overflow-hidden flex items-center justify-center p-2 md:p-8 shadow-2xl shadow-black/80 md:shadow-[0_0_50px_rgba(242,125,38,0.03)] -mt-10 lg:-mt-50 mb-10 lg:mb-0" >
+        <div className="w-full lg:w-[50%] h-[25vh] md:h-[35vh] lg:h-auto lg:aspect-[3/2] lg:max-h-[55vh] xl:max-h-[60vh] rounded-xl border border-[#F27D26]/20 bg-linear-to-br from-white/5 to-transparent relative overflow-hidden flex items-center justify-center p-2 md:p-8 shadow-2xl shadow-black/80 md:shadow-[0_0_50px_rgba(242,125,38,0.03)] -mt-10 lg:-mt-50 mb-10 lg:mb-0" >
           <div className="absolute inset-0 bg-[#F27D26]/5 transition-opacity duration-700"></div>
 
           {/* Viewfinder Monitor Screen */}
