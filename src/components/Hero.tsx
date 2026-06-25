@@ -142,7 +142,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
             {/* Header */}
             <nav className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-8 md:py-10 relative z-30">
-                <div className="flex items-center space-x-6 lg:px-23">
+                {/* Desktop Navbar Left (100% original styling preserved) */}
+                <div className="hidden md:flex items-center space-x-6 lg:px-23">
                     <span className="text-sm md:text-base font-bold tracking-widest uppercase">
                         KANISHKA VIDURANGA
                     </span>
@@ -152,11 +153,22 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     </span>
                 </div>
 
+                {/* Mobile Navbar Left (Wrapping-safe inline styling) */}
+                <div className="block md:hidden text-left">
+                    <span className="text-sm font-bold tracking-widest uppercase inline">
+                        KANISHKA VIDURANGA
+                    </span>
+                    <span className="mx-2 h-3 w-px bg-white/20 inline-block align-middle"></span>
+                    <span className="text-[9px] tracking-[0.3em] uppercase opacity-60 font-medium inline">
+                        Videographer
+                    </span>
+                </div>
+
                 <button 
                     onClick={() => setIsMenuOpen(true)}
                     className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity"
                 >
-                    <span>Menu</span>
+                    <span className="hidden md:inline">Menu</span>
                     <Menu className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1} />
                 </button>
             </nav>
