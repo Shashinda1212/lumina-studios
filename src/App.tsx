@@ -11,6 +11,7 @@ import { TestimonialsSection } from './components/TestimonialsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ui/ScrollToTop';
+import { CursorTracker } from './components/ui/CursorTracker';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,6 +157,7 @@ export default function App() {
             <ContactSection />
             <Footer />
             <ScrollToTop />
+            <CursorTracker />
           </motion.div>
         )}
       </AnimatePresence>

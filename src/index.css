@@ -175,3 +175,9 @@
     background: #CE5D01;
   }
 }
+
+/* Custom cursor active styles to hide default cursor */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
