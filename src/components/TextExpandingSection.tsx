@@ -98,7 +98,7 @@ export const TextExpandingSection = () => {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: "+=200%", // Slightly longer scroll track for smooth entry, hold, and exit
+                end: "+=100%", // Shorter scroll track — removes dead-zone hold in the middle
                 pin: true,
                 scrub: 1,
                 anticipatePin: 1,
@@ -149,8 +149,8 @@ export const TextExpandingSection = () => {
             opacity: 0,
             scale: 0.95,
             ease: "power2.in",
-            duration: 0.4,
-        }, 1.2);
+            duration: 0.3,
+        }, 0.7);
 
     }, { scope: containerRef });
 
