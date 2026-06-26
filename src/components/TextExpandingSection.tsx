@@ -55,17 +55,17 @@ export const TextExpandingSection = () => {
     }, []);
 
     const items = [
-        { src: downloadImg, title: "urban exploration", youtubeUrl: "https://www.youtube.com/watch?v=21X5lGlDOfg" },
-        { src: downloadImg, title: "night scene", youtubeUrl: "https://www.youtube.com/watch?v=8V-wNeeL11o" },
-        { src: downloadImg, title: "yellow wildflowers", youtubeUrl: "https://www.youtube.com/watch?v=tO01J-M3g0U" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "urban exploration", description: "Discovering hidden architectural marvels in the city.", youtubeUrl: "https://www.youtube.com/watch?v=21X5lGlDOfg" },
+        { src: downloadImg, title: "night scene", description: "Neon glow and deep shadows of the midnight streets.", youtubeUrl: "https://www.youtube.com/watch?v=8V-wNeeL11o" },
+        { src: downloadImg, title: "yellow wildflowers", description: "Golden fields dancing under the warm summer breeze.", youtubeUrl: "https://www.youtube.com/watch?v=tO01J-M3g0U" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "THARAKA x Kevin Smokio x Jayss - Nirwaane (Official Music Video)", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
     ];
 
 

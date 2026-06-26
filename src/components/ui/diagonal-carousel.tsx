@@ -2,12 +2,13 @@
 
 import * as React from "react";
 import { motion, type Transition } from "framer-motion";
-import { ChevronLeft, ChevronRight, Youtube } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface DiagonalCarouselItem {
   src: string;
   title: string;
+  description?: string;
   alt?: string;
   youtubeUrl?: string;
 }
@@ -41,6 +42,23 @@ const DEFAULT_TRANSITION: Transition = {
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+
+const YoutubeIcon = ({ isActive, className }: { isActive: boolean; className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+      fill={isActive ? "#FFFFFF" : "#FF0000"}
+    />
+    <polygon
+      points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"
+      fill={isActive ? "#FF0000" : "#FFFFFF"}
+    />
+  </svg>
+);
 
 export function DiagonalCarousel({
   items,
@@ -189,12 +207,17 @@ export function DiagonalCarousel({
                     />
                   </div>
 
-                  {/* Second row: Title and redirect button */}
+                  {/* Second row: Title, Description and redirect button */}
                   <div className="flex-1 flex flex-col justify-between p-2.5 sm:p-3.5 min-h-0">
-                    <div className="text-left font-sans">
+                    <div className="text-center font-sans flex flex-col gap-1">
                       <h4 className="text-[10px] sm:text-xs md:text-sm font-semibold text-white/95 line-clamp-2 tracking-wide leading-tight sm:leading-snug select-text">
                         {item.title}
                       </h4>
+                      {item.description && (
+                        <p className="text-[8px] sm:text-[10px] text-neutral-400 line-clamp-2 font-light leading-normal select-text mt-1">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
 
                     {/* YouTube Redirect Button */}
@@ -207,18 +230,18 @@ export function DiagonalCarousel({
                           e.stopPropagation();
                         }}
                         className={cn(
-                          "mt-2 flex items-center justify-center gap-1 sm:gap-1.5 w-full text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
+                          "mt-3 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-[150px] mx-auto text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
                           isActive
                             ? "bg-[#FF0000] hover:bg-[#CC0000] cursor-pointer"
                             : "bg-neutral-800/80 text-neutral-400 pointer-events-none opacity-50"
                         )}
                       >
-                        <Youtube className="size-3 sm:size-4 shrink-0 fill-current" />
+                        <YoutubeIcon isActive={isActive} className="size-3.5 sm:size-4.5 shrink-0" />
                         <span>Watch</span>
                       </a>
                     ) : (
-                      <div className="mt-2 flex items-center justify-center gap-1 sm:gap-1.5 w-full bg-neutral-800/80 text-neutral-400 font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg border border-neutral-700/50 pointer-events-none">
-                        <Youtube className="size-3 sm:size-4 shrink-0" />
+                      <div className="mt-3 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-[150px] mx-auto bg-neutral-800/80 text-neutral-400 font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg border border-neutral-700/50 pointer-events-none">
+                        <YoutubeIcon isActive={false} className="size-3.5 sm:size-4.5 shrink-0" />
                         <span>Watch</span>
                       </div>
                     )}
