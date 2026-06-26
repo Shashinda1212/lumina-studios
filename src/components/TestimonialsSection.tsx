@@ -448,7 +448,7 @@ export const TestimonialsSection = () => {
       <div ref={textContainerRef} className="relative z-20 flex flex-col items-center text-center max-w-xl px-6 pointer-events-auto">
         {/* Testimonials Badge */}
         <div
-          className="testimonial-badge opacity-0 flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/5 text-purple-400 text-xs font-mono tracking-widest uppercase mb-8 mt-60 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
+          className="testimonial-badge opacity-0 flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/5 text-purple-400 text-xs font-mono tracking-widest uppercase mb-8 mt-8 md:mt-60 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
         >
           <Quote className="w-3.5 h-3.5 rotate-180" />
           <span>Testimonials</span>

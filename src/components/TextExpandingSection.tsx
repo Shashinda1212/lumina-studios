@@ -35,13 +35,21 @@ export const TextExpandingSection = () => {
 
     const [slideSize, setSlideSize] = useState(330);
     const [verticalStep, setVerticalStep] = useState(50);
+    const [isMobile, setIsMobile] = useState(() => {
+        if (typeof window !== "undefined") {
+            return window.innerWidth < 768;
+        }
+        return false;
+    });
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 640) {
-                setSlideSize(Math.max(120, Math.min(165, Math.round(window.innerWidth * 0.45))));
+            const width = window.innerWidth;
+            setIsMobile(width < 768);
+            if (width < 640) {
+                setSlideSize(Math.max(120, Math.min(165, Math.round(width * 0.45))));
                 setVerticalStep(25);
-            } else if (window.innerWidth < 1024) {
+            } else if (width < 1024) {
                 setSlideSize(265);
                 setVerticalStep(35);
             } else {
@@ -68,91 +76,220 @@ export const TextExpandingSection = () => {
         { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
     ];
 
-
-
     useGSAP(() => {
-        // 1. Initial State for Text Reveal
-        gsap.set([text1Ref.current, text2Ref.current], { yPercent: 100 });
-        gsap.set(".title-word", { yPercent: 100 });
-        gsap.set(".subtitle-word", { yPercent: 100 });
-        gsap.set(nextItemRef.current, { scale: 0, autoAlpha: 0 });
+        const mm = gsap.matchMedia();
 
-        // Text Reveal Timeline
-        const entryTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 70%",
-            }
+        mm.add("(min-width: 768px)", () => {
+            if (!containerRef.current || !text1Ref.current || !text2Ref.current || !nextItemRef.current) return;
+
+            // 1. Initial State for Text Reveal
+            gsap.set([text1Ref.current, text2Ref.current], { yPercent: 100 });
+            gsap.set(".title-word", { yPercent: 100 });
+            gsap.set(".subtitle-word", { yPercent: 100 });
+            gsap.set(nextItemRef.current, { scale: 0, autoAlpha: 0 });
+
+            // Text Reveal Timeline
+            const entryTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 70%",
+                }
+            });
+
+            entryTl.to([text1Ref.current, text2Ref.current], {
+                yPercent: 0,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power4.out",
+            });
+
+
+            // 2. Pin and Scroll Animation Setup
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: "+=100%", // Shorter scroll track — removes dead-zone hold in the middle
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
+                }
+            });
+
+            // 1. Entrance Phase
+            scrollTl.to(text1Ref.current, {
+                x: "-40vw",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut"
+            }, 0);
+
+            scrollTl.to(text2Ref.current, {
+                x: "40vw",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut"
+            }, 0);
+
+            scrollTl.to(nextItemRef.current, {
+                scale: 1,
+                autoAlpha: 1,
+                ease: "power2.out",
+                duration: 0.4,
+            }, 0.1);
+
+            scrollTl.to(".title-word", {
+                yPercent: 0,
+                stagger: 0.005,
+                ease: "power2.out",
+                duration: 0.3,
+            }, 0.25);
+
+            scrollTl.to(".subtitle-word", {
+                yPercent: 0,
+                stagger: 0.002,
+                ease: "power2.out",
+                duration: 0.3,
+            }, 0.35);
+
+            // 2. Exit Phase (Smoothly animate out content before unpinning)
+            scrollTl.to(nextItemRef.current, {
+                y: -100,
+                opacity: 0,
+                scale: 0.95,
+                ease: "power2.in",
+                duration: 0.3,
+            }, 0.7);
         });
 
-        entryTl.to([text1Ref.current, text2Ref.current], {
-            yPercent: 0,
-            duration: 1.2,
-            stagger: 0.15,
-            ease: "power4.out",
-        });
+        return () => mm.revert();
+    }, { scope: containerRef, dependencies: [isMobile] });
 
+    if (isMobile) {
+        return (
+            <section id="projects" className="min-h-screen w-full flex flex-col justify-center py-16 px-6 relative overflow-hidden bg-[radial-gradient(circle_at_center,#22180F_0%,#050505_80%)]">
+                {/* Style block for animations */}
+                <style>{`
+                    @keyframes float-bokeh {
+                        0% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0; }
+                        10% { opacity: 0.35; }
+                        50% { transform: translateY(-70px) translateX(25px) scale(1.25); opacity: 0.65; }
+                        90% { opacity: 0.15; }
+                        100% { transform: translateY(-140px) translateX(0px) scale(0.9); opacity: 0; }
+                    }
+                `}</style>
 
-        // 2. Pin and Scroll Animation Setup
-        const scrollTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top",
-                end: "+=100%", // Shorter scroll track — removes dead-zone hold in the middle
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-                fastScrollEnd: true,
-                preventOverlaps: true,
-            }
-        });
+                {/* Ambient glows for visual depth */}
+                <div className="absolute top-[20%] right-[-10%] w-[300px] h-[300px] bg-[#F27D26]/5 rounded-full blur-[100px] pointer-events-none z-0" />
+                <div className="absolute bottom-[10%] left-[-10%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
-        // 1. Entrance Phase
-        scrollTl.to(text1Ref.current, {
-            x: "-40vw",
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.inOut"
-        }, 0);
+                {/* Subtle High-Tech Dotted Grid Overlay */}
+                <div className="absolute inset-0 bg-[radial-gradient(rgba(242,125,38,0.02)_1px,transparent_1px)] bg-size-28px_28px pointer-events-none z-0 opacity-80" />
 
-        scrollTl.to(text2Ref.current, {
-            x: "40vw",
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.inOut"
-        }, 0);
+                {/* Floating Bokeh Particle Field */}
+                <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                    {[...Array(8)].map((_, i) => {
+                        const size = Math.random() * 5 + 3;
+                        const left = Math.random() * 100;
+                        const top = Math.random() * 100;
+                        const delay = Math.random() * 12;
+                        const duration = Math.random() * 10 + 15;
+                        const isOrange = Math.random() > 0.45;
+                        return (
+                            <div
+                                key={i}
+                                className={`absolute rounded-full blur-[1px] opacity-0 animate-[float-bokeh_20s_infinite_ease-in-out] ${
+                                    isOrange ? "bg-[#F27D26]/25 shadow-[0_0_8px_rgba(242,125,38,0.25)]" : "bg-cyan-500/25 shadow-[0_0_8px_rgba(6,182,212,0.25)]"
+                                }`}
+                                style={{
+                                    width: `${size}px`,
+                                    height: `${size}px`,
+                                    left: `${left}%`,
+                                    top: `${top}%`,
+                                    animationDelay: `${delay}s`,
+                                    animationDuration: `${duration}s`,
+                                }}
+                            />
+                        );
+                    })}
+                </div>
 
-        scrollTl.to(nextItemRef.current, {
-            scale: 1,
-            autoAlpha: 1,
-            ease: "power2.out",
-            duration: 0.4,
-        }, 0.1);
+                <div className="flex flex-col gap-8 z-10 w-full relative">
+                    {/* Right Column details showing on top for better hierarchy on mobile */}
+                    <div className="w-full flex flex-col justify-center text-left">
+                        {/* Accent dotted line indicator */}
+                        <div className="flex items-center gap-1.5 mb-4 select-none">
+                            <span className="text-[#F27D26]/70 tracking-[0.2em] font-semibold text-xs leading-none">•••••••••••••••••</span>
+                            <div className="h-[1.5px] w-14 bg-[#F27D26]" />
+                        </div>
 
-        scrollTl.to(".title-word", {
-            yPercent: 0,
-            stagger: 0.005,
-            ease: "power2.out",
-            duration: 0.3,
-        }, 0.25);
+                        {/* Headline */}
+                        <h1 className="text-white text-2xl xs:text-3xl font-lora leading-[1.2] tracking-tight">
+                            Crafting cinematic visuals that transform music into{" "}
+                            <span className="text-[#F27D26] font-bold tracking-wide italic leading-none">
+                                unforgettable stories.
+                            </span>
+                        </h1>
 
-        scrollTl.to(".subtitle-word", {
-            yPercent: 0,
-            stagger: 0.002,
-            ease: "power2.out",
-            duration: 0.3,
-        }, 0.35);
+                        {/* Subtitle */}
+                        <h5 className="text-neutral-400 text-xs leading-relaxed mt-3 mb-5 font-sans">
+                            Where rhythm meets storytelling. We bridge the gap between sound and cinema, crafting bold visuals that transform music into immersive cinematic experiences. Every project is driven by creativity, precision, and a relentless pursuit of visual excellence.
+                        </h5>
 
-        // 2. Exit Phase (Smoothly animate out content before unpinning)
-        scrollTl.to(nextItemRef.current, {
-            y: -100,
-            opacity: 0,
-            scale: 0.95,
-            ease: "power2.in",
-            duration: 0.3,
-        }, 0.7);
+                        {/* Features Row */}
+                        <div className="grid grid-cols-3 gap-3 border-t border-white/5 pt-4 w-full">
+                            {/* Feature 1 */}
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                    <Trophy className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                                </div>
+                                <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
+                                    <div className="text-xs xs:text-sm">5 Years +</div>
+                                    <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs">Experience</div>
+                                </div>
+                            </div>
 
-    }, { scope: containerRef });
+                            {/* Feature 2 */}
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                    <Folder className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                                </div>
+                                <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
+                                    <div className="text-xs xs:text-sm">200 +</div>
+                                    <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs">Projects</div>
+                                </div>
+                            </div>
+
+                            {/* Feature 3 */}
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                                    <Eye className="w-4 h-4 text-[#F27D26]" strokeWidth={1.5} />
+                                </div>
+                                <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
+                                    <div className="text-xs xs:text-sm">15M +</div>
+                                    <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs">Views</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Left Column: Diagonal Carousel Space directly below */}
+                    <div className="w-full h-[360px] xs:h-[400px] shrink-0 relative flex items-center justify-center z-10">
+                        <PerspectiveCarousel
+                            items={items}
+                            loop={true}
+                            defaultActiveIndex={3}
+                            slideWidth={slideSize}
+                            rotationStep={30}
+                            className="w-full h-full bg-transparent z-10"
+                        />
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <section id="projects" ref={containerRef} className="h-screen w-full flex items-center justify-center relative overflow-hidden bg-[radial-gradient(circle_at_center,#22180F_0%,#050505_80%)]">
@@ -252,8 +389,6 @@ export const TextExpandingSection = () => {
                 
                 {/* Left Column: Diagonal Carousel Space */}
                 <div className="pointer-events-auto w-full lg:w-[58%] h-[360px] md:h-[470px] lg:h-full shrink-0 relative flex items-center justify-center z-10">
-
-
                     <PerspectiveCarousel
                         items={items}
                         loop={true}
