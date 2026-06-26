@@ -320,7 +320,7 @@ export const ContactSection = () => {
                     href="tel:+15550192834"
                     className="text-sm font-medium tracking-wide text-white hover:text-[#F27D26] transition-colors duration-300"
                   >
-                    +1 (555) 019-2834
+                    +94 76 600 4462
                   </a>
                 </div>
               </div>

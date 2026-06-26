@@ -428,7 +428,7 @@ export const TextExpandingSection = () => {
                                 <Trophy className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-xs xs:text-sm md:text-lg">5 Years +</div>
+                                <div className="text-xs xs:text-sm md:text-lg">4 Years +</div>
                                 <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs md:text-sm">Experience</div>
                             </div>
                         </div>
@@ -439,7 +439,7 @@ export const TextExpandingSection = () => {
                                 <Folder className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-xs xs:text-sm md:text-lg">200 +</div>
+                                <div className="text-xs xs:text-sm md:text-lg">20 +</div>
                                 <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs md:text-sm">Projects</div>
                             </div>
                         </div>
@@ -450,7 +450,7 @@ export const TextExpandingSection = () => {
                                 <Eye className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
-                                <div className="text-xs xs:text-sm md:text-lg">15M +</div>
+                                <div className="text-xs xs:text-sm md:text-lg">1M +</div>
                                 <div className="text-neutral-500 font-normal lowercase mt-0.5 text-[9px] xs:text-xs md:text-sm">Views</div>
                             </div>
                         </div>
