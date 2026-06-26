@@ -76,6 +76,9 @@ export default function App() {
   useEffect(() => {
     if (loading) return;
 
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
     const lenis = new Lenis({
       lerp: 0.1,
       smoothWheel: true,
