@@ -37,12 +37,12 @@ export const CursorTracker = () => {
   const mouseY = useMotionValue(-100);
 
   // Spring Settings for Outer Trail
-  const outerSpringConfig = { damping: 30, stiffness: 220, mass: 0.6 };
+  const outerSpringConfig = { damping: 26, stiffness: 350, mass: 0.35 };
   const outerX = useSpring(mouseX, outerSpringConfig);
   const outerY = useSpring(mouseY, outerSpringConfig);
 
   // Spring Settings for Inner Dot (very responsive, tiny delay for smoothness)
-  const innerSpringConfig = { damping: 40, stiffness: 450, mass: 0.2 };
+  const innerSpringConfig = { damping: 30, stiffness: 600, mass: 0.15 };
   const innerX = useSpring(mouseX, innerSpringConfig);
   const innerY = useSpring(mouseY, innerSpringConfig);
 
