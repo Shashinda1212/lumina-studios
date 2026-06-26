@@ -58,13 +58,13 @@ export const CreativeProcess = () => {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    const animateTimeline = (trigger: HTMLElement | null, start: string) => {
+    const animateTimeline = (trigger: HTMLElement | null, start: string, scrubValue: number | boolean) => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger,
           start,
           end: "+=300%",
-          scrub: 1,
+          scrub: scrubValue,
           pin: true,
           anticipatePin: 1,
           fastScrollEnd: true,
@@ -101,12 +101,12 @@ export const CreativeProcess = () => {
 
     // Desktop Behavior (min-width: 768px)
     mm.add("(min-width: 768px)", () => {
-      animateTimeline(sectionRef.current, "top top");
+      animateTimeline(sectionRef.current, "top top", 1);
     });
 
-    // Mobile Behavior (max-width: 767px)
+    // Mobile Behavior (max-width: 767px) - Use direct scrub to avoid delay-interpolated rendering work on mobile GPUs
     mm.add("(max-width: 767px)", () => {
-      animateTimeline(interactiveRef.current, "top 10%");
+      animateTimeline(interactiveRef.current, "top 10%", true);
 
       ScrollTrigger.create({
         trigger: sectionRef.current,

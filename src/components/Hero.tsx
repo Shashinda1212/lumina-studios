@@ -55,37 +55,70 @@ export const Hero = ({ videoSrc }: HeroProps) => {
     const footerRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
+        const mm = gsap.matchMedia();
+
+        mm.add("(min-width: 769px)", () => {
+            // Full parallax timeline for desktop/tablet screens
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            });
+
+            if (contentRef.current) {
+                tl.to(contentRef.current, {
+                    y: -150,
+                    opacity: 0,
+                    ease: "none",
+                }, 0);
+            }
+
+            if (footerRef.current) {
+                tl.to(footerRef.current, {
+                    y: -100,
+                    opacity: 0,
+                    ease: "none",
+                }, 0);
+            }
+            
+            if (videoRef.current) {
+                tl.to(videoRef.current, {
+                    y: 150,
+                    ease: "none",
+                }, 0);
             }
         });
 
-        if (contentRef.current) {
-            tl.to(contentRef.current, {
-                y: -150,
-                opacity: 0,
-                ease: "none",
-            }, 0);
-        }
+        mm.add("(max-width: 768px)", () => {
+            // Simplified scroll timeline for mobile screens (removes heavy Y translations on text/video)
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            });
 
-        if (footerRef.current) {
-            tl.to(footerRef.current, {
-                y: -100,
-                opacity: 0,
-                ease: "none",
-            }, 0);
-        }
-        
-        if (videoRef.current) {
-            tl.to(videoRef.current, {
-                y: 150,
-                ease: "none",
-            }, 0);
-        }
+            if (contentRef.current) {
+                tl.to(contentRef.current, {
+                    opacity: 0,
+                    ease: "none",
+                }, 0);
+            }
+
+            if (footerRef.current) {
+                tl.to(footerRef.current, {
+                    opacity: 0,
+                    ease: "none",
+                }, 0);
+            }
+        });
+
+        return () => mm.revert();
     }, { scope: sectionRef });
 
     useEffect(() => {
@@ -134,6 +167,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 muted
                 playsInline
                 src={videoSrc || '/background2.webm'}
+                style={{ willChange: "transform" }}
                 className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-70 mix-blend-screen "
             />
             {/* Gradient Overlay to match the dark left side of the image */}
@@ -202,7 +236,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </div>
 
             {/* Main Hero Content */}
-            <main ref={contentRef} className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-32 xl:pl-48 mt-10 lg:mt-0 relative z-10 w-full max-w-7xl items-start">
+            <main ref={contentRef} style={{ willChange: "transform, opacity" }} className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-32 xl:pl-48 mt-10 lg:mt-0 relative z-10 w-full max-w-7xl items-start">
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -245,7 +279,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </main>
 
             {/* Bottom Section */}
-            <footer ref={footerRef} className="w-full px-8 md:px-16 pt-10 pb-6 md:pb-10 relative z-20 mt-auto flex justify-center">
+            <footer ref={footerRef} style={{ willChange: "transform, opacity" }} className="w-full px-8 md:px-16 pt-10 pb-6 md:pb-10 relative z-20 mt-auto flex justify-center">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 w-full max-w-5xl mx-auto">
                     {[
                         { num: "01", title: "Music Videos", desc: "High-energy visuals that bring your music to life.", icon: Clapperboard },
