@@ -97,13 +97,13 @@ export const Footer = () => {
             {/* Ambient available badge in footer */}
             <div className="flex items-center space-x-2 opacity-50">
               <div className="w-1.5 h-1.5 bg-[#CE5D01] rounded-full animate-pulse shadow-[0_0_6px_rgba(206,93,1,0.8)]"></div>
-              <span className="text-[9px] uppercase tracking-widest text-white/80">Available Worldwide</span>
+              <span className="text-sm uppercase tracking-widest text-white/80">Available Worldwide</span>
             </div>
           </motion.div>
 
           {/* Column 2: Quick Links */}
-          <motion.div variants={itemVariants} className="md:col-span-3 flex flex-col gap-4">
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-2">
+          <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col gap-4">
+            <h4 className="text-sm uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-2">
               Navigation
             </h4>
             <ul className="space-y-3">
@@ -116,7 +116,7 @@ export const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-xs text-white/60 hover:text-white hover:shadow-[0_0_10px_rgba(206,93,1,0.2)] focus:text-white transition-all duration-300 relative group py-1 block w-fit"
+                    className="text-sm text-white/60 hover:text-white hover:shadow-[0_0_10px_rgba(206,93,1,0.2)] focus:text-white transition-all duration-300 relative group py-1 block w-fit"
                   >
                     <span className="relative z-10">{link.name}</span>
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-[#CE5D01] group-hover:w-full transition-all duration-300"></span>
@@ -127,9 +127,9 @@ export const Footer = () => {
           </motion.div>
 
           {/* Column 3: Social Links & Contact Intro */}
-          <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col gap-6">
+          <motion.div variants={itemVariants} className="md:col-span-3 flex flex-col gap-6">
             <div>
-              <h4 className="text-[10px] uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-4">
+              <h4 className="text-sm uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-4">
                 TRUSTED BY
               </h4>
               <AvatarGroup>
@@ -147,11 +147,11 @@ export const Footer = () => {
 
         {/* Bottom Bar Separator */}
         <motion.div variants={itemVariants} className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] text-white/40 tracking-wider text-center md:text-left">
+          <p className="text-[12px] text-white/40 tracking-wider text-center md:text-left">
             &copy; {new Date().getFullYear()} Kanishka Viduranga. All rights reserved.
           </p>
 
-          <p className="text-[10px] text-white/40 tracking-wider text-center">
+          <p className="text-[15px] text-white/40 tracking-wider text-center">
             Designed & Developed by{' '}
             <a
               href="https://rc-website-52f60.web.app/"
@@ -166,13 +166,13 @@ export const Footer = () => {
           <div className="flex items-center gap-6">
             <a
               href="#"
-              className="text-[10px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
+              className="text-[12px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
             >
               Privacy Policy
             </a>
             <a
               href="#"
-              className="text-[10px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
+              className="text-[12px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
             >
               Terms of Service
             </a>
