@@ -208,13 +208,13 @@ export function PerspectiveCarousel({
                     </div>
 
                     {/* Second row: Title, Description and redirect button */}
-                    <div className="flex-1 flex flex-col justify-between p-2.5 sm:p-3.5 min-h-0">
+                    <div className="flex-1 flex flex-col justify-between p-2.5 sm:p-3.5 min-h-0 mt-3">
                       <div className="text-center font-sans flex flex-col gap-1">
                         <h4 className="text-[10px] sm:text-xs md:text-sm font-semibold text-white/95 line-clamp-2 tracking-wide leading-tight sm:leading-snug select-text">
                           {item.title}
                         </h4>
                         {item.description && (
-                          <p className="text-[8px] sm:text-[10px] text-neutral-400 line-clamp-2 font-light leading-normal select-text mt-1">
+                          <p className="text-[8px] sm:text-[10px] text-neutral-400 line-clamp-2 font-light leading-normal select-text mt-3">
                             {item.description}
                           </p>
                         )}
@@ -230,7 +230,7 @@ export function PerspectiveCarousel({
                             e.stopPropagation();
                           }}
                           className={cn(
-                            "mt-3 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-[150px] mx-auto text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
+                            "mb-8 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-[150px] mx-auto text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
                             isActive
                               ? "bg-[#FF0000] hover:bg-[#CC0000] cursor-pointer"
                               : "bg-neutral-800/80 text-neutral-400 pointer-events-none opacity-50"
