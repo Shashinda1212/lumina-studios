@@ -152,11 +152,11 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                   <span>hello@luminastudios.com</span>
                 </a>
                 <a
-                  href="tel:+15550192834"
+                  href="tel:+94766004462"
                   className="flex items-center gap-3 text-xs text-white/60 hover:text-[#CE5D01] transition-colors duration-300"
                 >
                   <Phone className="w-4 h-4" strokeWidth={1.5} />
-                  <span>+1 (555) 019-2834</span>
+                  <span>+94 76 600 4462</span>
                 </a>
               </div>
 

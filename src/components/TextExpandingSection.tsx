@@ -280,7 +280,7 @@ export const TextExpandingSection = () => {
                         <PerspectiveCarousel
                             items={items}
                             loop={true}
-                            defaultActiveIndex={3}
+                            defaultActiveIndex={Math.floor(items.length / 2)}
                             slideWidth={slideSize}
                             rotationStep={30}
                             className="w-full h-full bg-transparent z-10"
@@ -392,7 +392,7 @@ export const TextExpandingSection = () => {
                     <PerspectiveCarousel
                         items={items}
                         loop={true}
-                        defaultActiveIndex={3}
+                        defaultActiveIndex={Math.floor(items.length / 2)}
                         slideWidth={slideSize}
                         rotationStep={30}
                         className="w-full h-full bg-transparent z-10"

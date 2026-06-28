@@ -85,7 +85,7 @@ export const Footer = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16">
           {/* Column 1: Brand Info */}
-          <motion.div variants={itemVariants} className="md:col-span-5 flex flex-col justify-between gap-6">
+          <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-6">
             <div>
               <span className="text-sm font-bold tracking-[0.4em] uppercase block mb-4">
                 KANISHKA VIDURANGA
@@ -102,7 +102,7 @@ export const Footer = () => {
           </motion.div>
 
           {/* Column 2: Quick Links */}
-          <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col gap-4">
+          <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col gap-4">
             <h4 className="text-sm uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-2">
               Navigation
             </h4>
@@ -127,7 +127,7 @@ export const Footer = () => {
           </motion.div>
 
           {/* Column 3: Social Links & Contact Intro */}
-          <motion.div variants={itemVariants} className="md:col-span-3 flex flex-col gap-6">
+          <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-3 flex flex-col gap-6">
             <div>
               <h4 className="text-sm uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-4">
                 TRUSTED BY
@@ -147,7 +147,7 @@ export const Footer = () => {
 
         {/* Bottom Bar Separator */}
         <motion.div variants={itemVariants} className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[12px] text-white/40 tracking-wider text-center md:text-left">
+          <p className="text-[15px] text-white/40 tracking-wider text-center md:text-left">
             &copy; {new Date().getFullYear()} Kanishka Viduranga. All rights reserved.
           </p>
 
@@ -166,13 +166,13 @@ export const Footer = () => {
           <div className="flex items-center gap-6">
             <a
               href="#"
-              className="text-[12px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
+              className="text-[15px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
             >
               Privacy Policy
             </a>
             <a
               href="#"
-              className="text-[12px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
+              className="text-[15px] text-white/40 hover:text-white hover:underline transition-colors duration-300"
             >
               Terms of Service
             </a>

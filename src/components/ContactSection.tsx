@@ -317,7 +317,7 @@ export const ContactSection = () => {
                 <div>
                   <h4 className="text-[10px] uppercase tracking-widest text-neutral-500 mb-1">Phone</h4>
                   <a
-                    href="tel:+15550192834"
+                    href="tel:+94766004462"
                     className="text-sm font-medium tracking-wide text-white hover:text-[#F27D26] transition-colors duration-300"
                   >
                     +94 76 600 4462
@@ -332,7 +332,7 @@ export const ContactSection = () => {
                 <div>
                   <h4 className="text-[10px] uppercase tracking-widest text-neutral-500 mb-1">Location</h4>
                   <p className="text-sm font-medium tracking-wide text-white">
-                    Los Angeles, CA / London, UK
+                    Universe
                   </p>
                 </div>
               </div>
@@ -387,16 +387,16 @@ export const ContactSection = () => {
                 </span>
                 <div className="flex items-center gap-2.5">
                   <a
-                    href="#"
+                    href="https://www.youtube.com/@Film_BY_KV"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
-                    aria-label="Personal Instagram"
+                    aria-label="Personal YouTube"
                   >
-                    <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                    <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/kanishka.vidurangak"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
@@ -405,13 +405,23 @@ export const ContactSection = () => {
                     <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.tiktok.com/@film_by_kv"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
-                    aria-label="Personal LinkedIn"
+                    aria-label="Personal TikTok"
                   >
-                    <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-4 h-4 group-hover:scale-110 transition-transform"
+                    >
+                      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                    </svg>
                   </a>
                 </div>
               </div>
