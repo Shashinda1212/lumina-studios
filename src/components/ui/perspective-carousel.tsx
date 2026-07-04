@@ -151,6 +151,7 @@ export function PerspectiveCarousel({
           className="absolute left-1/2 top-1/2 flex w-fit -translate-y-1/2 items-center"
           animate={{ x: -(currentIndex * safeSlideWidth + safeSlideWidth / 2) }}
           transition={transition}
+          style={{ willChange: "transform", transform: "translateZ(0)" }}
         >
           {items.map((item, index) => {
             const isActive = currentIndex === index;
@@ -171,7 +172,7 @@ export function PerspectiveCarousel({
                     scale: isActive ? 1 : safeInactiveScale,
                   }}
                   transition={transition}
-                  style={{ transformStyle: "preserve-3d" }}
+                  style={{ transformStyle: "preserve-3d", willChange: "transform", transform: "translateZ(0)" }}
                 >
                   <div
                     role="button"

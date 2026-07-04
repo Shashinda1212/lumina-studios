@@ -151,6 +151,7 @@ export function DiagonalCarousel({
           className="absolute left-1/2 top-3 md:top-3 lg:top-[25%] flex w-fit"
           animate={{ x: -(currentIndex * safeSlideSize + safeSlideSize / 2) }}
           transition={transition}
+          style={{ willChange: "transform", transform: "translateZ(0)" }}
         >
           {items.map((item, index) => {
             const isActive = currentIndex === index;
@@ -163,7 +164,7 @@ export function DiagonalCarousel({
                   "flex shrink-0 flex-col items-center gap-2 will-change-transform",
                   slideClassName
                 )}
-                style={{ width: safeSlideSize }}
+                style={{ width: safeSlideSize, willChange: "transform", transform: "translateZ(0)" }}
                 animate={{
                   rotate: distance * rotationStep,
                   scale: isActive ? 1 : safeInactiveScale,

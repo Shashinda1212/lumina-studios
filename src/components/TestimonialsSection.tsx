@@ -187,88 +187,121 @@ export const TestimonialsSection = () => {
   const row2 = testimonials.slice(6, 12);
 
   useGSAP(() => {
-    // 1. Central copy animations
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 75%",
-        toggleActions: "play none none none",
-      }
+    const mm = gsap.matchMedia();
+
+    // Desktop/Tablet layout animations
+    mm.add("(min-width: 769px)", () => {
+      // 1. Central copy animations
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+          toggleActions: "play none none none",
+        }
+      });
+
+      tl.fromTo(".testimonial-badge", 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
+      );
+
+      tl.fromTo(".testimonial-title", 
+        { opacity: 0, y: 35 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.55"
+      );
+
+      tl.fromTo(".testimonial-desc", 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.55"
+      );
+
+      // 2. Desktop scattered cards layout entrance (fanning out and rotating from the center)
+      gsap.fromTo(".testimonial-card-wrapper",
+        {
+          opacity: 0,
+          scale: 0.45,
+          x: (i) => {
+            return i % 2 === 0 ? -150 : 150;
+          },
+          y: (i) => {
+            return i < 6 ? -100 : 100;
+          },
+          rotation: (i) => {
+            const targetRot = parseFloat(testimonials[i].position.rotate.replace('deg', '')) || 0;
+            return targetRot * 2.5;
+          }
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          y: 0,
+          rotation: (i) => {
+            return parseFloat(testimonials[i].position.rotate.replace('deg', '')) || 0;
+          },
+          duration: 1.6,
+          ease: "power4.out",
+          stagger: {
+            amount: 0.8,
+            from: "center",
+          },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 65%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
     });
 
-    tl.fromTo(".testimonial-badge", 
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
-    );
-
-    tl.fromTo(".testimonial-title", 
-      { opacity: 0, y: 35 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-      "-=0.55"
-    );
-
-    tl.fromTo(".testimonial-desc", 
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-      "-=0.55"
-    );
-
-    // 2. Desktop scattered cards layout entrance (fanning out and rotating from the center)
-    gsap.fromTo(".testimonial-card-wrapper",
-      {
-        opacity: 0,
-        scale: 0.45,
-        x: (i) => {
-          // Even indices move from left, odd indices from right to converge to center
-          return i % 2 === 0 ? -150 : 150;
-        },
-        y: (i) => {
-          // Top row items move from above, bottom row from below
-          return i < 6 ? -100 : 100;
-        },
-        rotation: (i) => {
-          // Exaggerate rotation slightly on start, resolve to position rotation
-          const targetRot = parseFloat(testimonials[i].position.rotate.replace('deg', '')) || 0;
-          return targetRot * 2.5;
-        }
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        x: 0,
-        y: 0,
-        rotation: (i) => {
-          return parseFloat(testimonials[i].position.rotate.replace('deg', '')) || 0;
-        },
-        duration: 1.6,
-        ease: "power4.out",
-        stagger: {
-          amount: 0.8,
-          from: "center",
-        },
+    // Mobile layout animations
+    mm.add("(max-width: 768px)", () => {
+      // Simplified copy animations for mobile (smaller translations, slightly faster duration)
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 65%",
+          start: "top 80%",
           toggleActions: "play none none none",
         }
-      }
-    );
+      });
 
-    // 3. Mobile marquee entrance
-    gsap.fromTo(".testimonial-marquee-container",
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          toggleActions: "play none none none",
+      tl.fromTo(".testimonial-badge", 
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+      );
+
+      tl.fromTo(".testimonial-title", 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        "-=0.3"
+      );
+
+      tl.fromTo(".testimonial-desc", 
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        "-=0.3"
+      );
+
+      // 3. Mobile marquee entrance (simplified y translation for smoother frame delivery)
+      gsap.fromTo(".testimonial-marquee-container",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none none",
+          }
         }
-      }
-    );
+      );
+    });
+
+    return () => mm.revert();
   }, { scope: sectionRef });
 
   return (
@@ -298,42 +331,36 @@ export const TestimonialsSection = () => {
         }
         /* Live orb drift animations */
         @keyframes orb-drift-a {
-          0%   { transform: translate(0px, 0px) scale(1);   opacity: 0.45; }
-          33%  { transform: translate(60px, -40px) scale(1.08); opacity: 0.6; }
-          66%  { transform: translate(-30px, 50px) scale(0.95); opacity: 0.4; }
-          100% { transform: translate(0px, 0px) scale(1);   opacity: 0.45; }
+          0%   { transform: translate(0px, 0px) scale(1); }
+          33%  { transform: translate(30px, -50px) scale(1.05); }
+          66%  { transform: translate(-20px, 20px) scale(0.95); }
+          100% { transform: translate(0px, 0px) scale(1); }
         }
         @keyframes orb-drift-b {
-          0%   { transform: translate(0px, 0px) scale(1);   opacity: 0.35; }
-          40%  { transform: translate(-50px, 40px) scale(1.06); opacity: 0.5; }
-          75%  { transform: translate(40px, -30px) scale(0.97); opacity: 0.3; }
-          100% { transform: translate(0px, 0px) scale(1);   opacity: 0.35; }
+          0%   { transform: translate(0px, 0px) scale(1); }
+          50%  { transform: translate(-40px, 40px) scale(1.1); }
+          100% { transform: translate(0px, 0px) scale(1); }
         }
         @keyframes orb-drift-c {
-          0%   { transform: translate(0px, 0px) scale(1);   opacity: 0.3; }
-          50%  { transform: translate(35px, 55px) scale(1.1);  opacity: 0.5; }
-          100% { transform: translate(0px, 0px) scale(1);   opacity: 0.3; }
+          0%   { transform: translate(0px, 0px) scale(1); }
+          50%  { transform: translate(40px, -40px) scale(0.98); }
+          100% { transform: translate(0px, 0px) scale(1); }
         }
-        /* Cinematic diagonal light ray sweep */
         @keyframes ray-sweep {
-          0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
-          10%  { opacity: 0.06; }
-          50%  { opacity: 0.09; }
-          90%  { opacity: 0.06; }
-          100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+          0%   { transform: translateX(-100%) skewX(-15deg); }
+          100% { transform: translateX(200%) skewX(-15deg); }
         }
-        /* Subtle scanline flicker */
-        @keyframes scanline-scroll {
-          0%   { transform: translateY(0); }
-          100% { transform: translateY(4px); }
-        }
-        /* Floating bokeh particles — same as CreativeProcess & TextExpandingSection */
         @keyframes float-bokeh-ts {
           0%   { transform: translateY(0px)   translateX(0px)  scale(1);    opacity: 0; }
           8%   { opacity: 0.4; }
           50%  { transform: translateY(-65px) translateX(18px) scale(1.2);  opacity: 0.55; }
           92%  { opacity: 0.15; }
           100% { transform: translateY(-130px) translateX(0px) scale(0.9); opacity: 0; }
+        }
+        @media (max-width: 768px) {
+          .mobile-reduce-motion {
+            animation: none !important;
+          }
         }
       `}</style>
 
@@ -343,33 +370,33 @@ export const TestimonialsSection = () => {
         {/* 1. Slow-drifting ambient orbs — orange (primary brand) */}
         <div
           style={{ animation: 'orb-drift-a 22s ease-in-out infinite' }}
-          className="absolute left-[8%] top-[20%] w-[500px] h-[500px] bg-[#F27D26]/7 rounded-full blur-[130px]"
+          className="absolute left-[8%] top-[20%] w-[500px] h-[500px] bg-[#F27D26]/7 rounded-full blur-[130px] mobile-reduce-motion"
         />
         {/* orange secondary — bottom right */}
         <div
           style={{ animation: 'orb-drift-b 28s ease-in-out infinite 4s' }}
-          className="absolute right-[6%] bottom-[18%] w-[420px] h-[420px] bg-[#C6904E]/6 rounded-full blur-[110px]"
+          className="absolute right-[6%] bottom-[18%] w-[420px] h-[420px] bg-[#C6904E]/6 rounded-full blur-[110px] mobile-reduce-motion"
         />
         {/* purple accent — top right */}
         <div
           style={{ animation: 'orb-drift-c 18s ease-in-out infinite 2s' }}
-          className="absolute right-[20%] top-[10%] w-[340px] h-[340px] bg-purple-600/5 rounded-full blur-[100px]"
+          className="absolute right-[20%] top-[10%] w-[340px] h-[340px] bg-purple-600/5 rounded-full blur-[100px] mobile-reduce-motion"
         />
         {/* purple accent — bottom left */}
         <div
           style={{ animation: 'orb-drift-a 25s ease-in-out infinite 8s' }}
-          className="absolute left-[18%] bottom-[12%] w-[300px] h-[300px] bg-purple-500/4 rounded-full blur-[90px]"
+          className="absolute left-[18%] bottom-[12%] w-[300px] h-[300px] bg-purple-500/4 rounded-full blur-[90px] mobile-reduce-motion"
         />
 
         {/* 2. Cinematic diagonal light ray — sweeps slowly left to right every 14s */}
         <div
           style={{ animation: 'ray-sweep 14s ease-in-out infinite 3s' }}
-          className="absolute inset-y-0 left-0 w-[180px] bg-gradient-to-r from-transparent via-[#F27D26]/8 to-transparent"
+          className="absolute inset-y-0 left-0 w-[180px] bg-gradient-to-r from-transparent via-[#F27D26]/8 to-transparent mobile-reduce-motion"
         />
         {/* second subtler ray, offset timing */}
         <div
           style={{ animation: 'ray-sweep 18s ease-in-out infinite 9s' }}
-          className="absolute inset-y-0 left-0 w-[120px] bg-gradient-to-r from-transparent via-purple-400/5 to-transparent"
+          className="absolute inset-y-0 left-0 w-[120px] bg-gradient-to-r from-transparent via-purple-400/5 to-transparent mobile-reduce-motion"
         />
 
         {/* 3. Floating bokeh particles — site's signature live background effect */}

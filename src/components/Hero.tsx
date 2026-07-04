@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Menu, Instagram, Video as VideoIcon, Youtube, Clapperboard, Box, PlayCircle } from 'lucide-react';
+import { ArrowRight, Menu, Instagram, Video as VideoIcon, Youtube, Clapperboard, Box, PlayCircle, Facebook, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NavigationMenu } from './NavigationMenu';
 import gsap from "gsap";
@@ -99,7 +99,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     trigger: sectionRef.current,
                     start: "top top",
                     end: "bottom top",
-                    scrub: true,
+                    scrub: 1,
                 }
             });
 
@@ -216,17 +216,18 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
             {/* Sidebar Socials */}
             <div className="absolute left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-5 z-20 hidden lg:flex">
-                <a href="#" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                <a href="https://www.instagram.com/kv___production/" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
                     <Instagram className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                 </a>
-                <a href="#" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
-                    {/* Simulated Vimeo Icon with a generic shape since lucide lacks it */}
-                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.653-2.24 1.959L.702 8.547c1.493-1.4 3.08-2.986 4.76-4.76 2.052-1.96 3.64-2.94 4.76-2.94 1.96 0 3.172 1.306 3.64 3.92.373 2.24.653 3.92.84 5.039.466 2.613 1.026 3.92 1.68 3.92.466 0 1.213-.653 2.24-1.959 1.119-1.307 1.772-2.333 1.959-3.08.374-1.306-.093-1.96-1.4-1.96-.56 0-1.12.093-1.68.28 1.12-3.64 3.36-5.46 6.72-5.46 2.425 0 3.545 1.12 3.358 3.36z" /></svg>
-                </a>
-                <a href="#" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                <a href="https://www.youtube.com/@Film_bykv" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
                     <Youtube className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                 </a>
-
+                <a href="https://www.facebook.com/film.by.kv.1" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                    <Facebook className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+                </a>
+                <a href="https://www.linkedin.com/in/kanishka-viduranga-a36990376/" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                    <Linkedin className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+                </a>
                 <div className="mt-16 flex items-center justify-center relative">
                     <div className="absolute top-0 w-px h-10 bg-white/20 -translate-y-12"></div>
                     <span className="rotate-270 text-[8px] uppercase tracking-[0.4em] opacity-40 whitespace-nowrap origin-center translate-y-16">

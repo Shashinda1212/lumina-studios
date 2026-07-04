@@ -14,16 +14,6 @@ const AVATARS = [
     tooltip: 'Reezy',
   },
   {
-    src: '/images/keefa.webp',
-    fallback: 'KF',
-    tooltip: 'Keefa',
-  },
-  {
-    src: '/images/manasick.webp',
-    fallback: 'MS',
-    tooltip: 'Manasick',
-  },
-  {
     src: '/images/masterd.webp',
     fallback: 'MD',
     tooltip: 'MasterD',
@@ -38,11 +28,6 @@ const AVATARS = [
     fallback: 'JR',
     tooltip: 'JenesRoger',
   },
-  {
-    src: '/images/suwahas.webp',
-    fallback: 'SK',
-    tooltip: 'Suwahas',
-  }
 ];
 
 export const Footer = () => {
@@ -80,7 +65,7 @@ export const Footer = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-50px' }}
+        viewport={{ once: true, margin: '50px' }}
         className="max-w-7xl mx-auto relative z-10"
       >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16">

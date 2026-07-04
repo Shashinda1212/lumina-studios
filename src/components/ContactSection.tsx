@@ -93,44 +93,49 @@ export const ContactSection = () => {
           0%, 100% { transform: translateY(0px) scaleY(1); }
           50% { transform: translateY(8px) scaleY(0.97); }
         }
+        @media (max-width: 768px) {
+          .mobile-reduce-motion {
+            animation: none !important;
+          }
+        }
       `}</style>
 
       {/* Cinematic Live Background Effects */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Subtle base radial gradient glow behind the contact form */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-[radial-gradient(circle_at_center,rgba(242,125,38,0.035)_0%,transparent_70%)] pointer-events-none z-0" 
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-[radial-gradient(circle_at_center,rgba(242,125,38,0.035)_0%,transparent_70%)] pointer-events-none z-0"
         />
 
         {/* Dynamic Glow Mesh Orbs matching site theme & uploaded image colors */}
         {/* Left Side: Warm Red/Amber Glow */}
         <div
           style={{ animation: 'orb-drift-contact-1 30s ease-in-out infinite' }}
-          className="absolute left-[-10%] top-[15%] w-[650px] h-[650px] bg-[#b91c1c]/8 rounded-full blur-[150px] opacity-75"
+          className="absolute left-[-10%] top-[15%] w-[650px] h-[650px] bg-[#b91c1c]/8 rounded-full blur-[150px] opacity-75 mobile-reduce-motion"
         />
-        
+
         {/* Right Side: Warm Orange/Amber Glow */}
         <div
           style={{ animation: 'orb-drift-contact-2 25s ease-in-out infinite' }}
-          className="absolute right-[-5%] bottom-[10%] w-[600px] h-[600px] bg-[#F27D26]/12 rounded-full blur-[140px] opacity-80"
+          className="absolute right-[-5%] bottom-[10%] w-[600px] h-[600px] bg-[#F27D26]/12 rounded-full blur-[140px] opacity-80 mobile-reduce-motion"
         />
 
         {/* Center/Right: Premium Gold Accent Glow */}
         <div
           style={{ animation: 'orb-drift-contact-3 28s ease-in-out infinite 3s' }}
-          className="absolute right-[10%] bottom-[20%] w-[500px] h-[500px] bg-[#C6904E]/10 rounded-full blur-[130px] opacity-70"
+          className="absolute right-[10%] bottom-[20%] w-[500px] h-[500px] bg-[#C6904E]/10 rounded-full blur-[130px] opacity-70 mobile-reduce-motion"
         />
 
         {/* Right Upper: Deep Red highlight */}
         <div
           style={{ animation: 'orb-drift-contact-1 35s ease-in-out infinite 1s' }}
-          className="absolute right-[5%] bottom-[40%] w-[450px] h-[450px] bg-[#b91c1c]/5 rounded-full blur-[120px] opacity-60"
+          className="absolute right-[5%] bottom-[40%] w-[450px] h-[450px] bg-[#b91c1c]/5 rounded-full blur-[120px] opacity-60 mobile-reduce-motion"
         />
 
         {/* Premium Cinematic Wave Lines (Matching uploaded image) */}
         <div className="absolute inset-0 opacity-40">
-          <svg 
-            viewBox="0 0 1440 900" 
+          <svg
+            viewBox="0 0 1440 900"
             className="absolute inset-0 w-full h-full"
             preserveAspectRatio="none"
           >
@@ -157,60 +162,60 @@ export const ContactSection = () => {
 
             {/* broad blurred glow backings */}
             <g style={{ animation: 'wave-float-1 22s ease-in-out infinite' }} className="opacity-40">
-              <path 
-                d="M -100 820 C 400 960, 900 780, 1540 350" 
-                fill="none" 
-                stroke="url(#wave-grad-1)" 
-                strokeWidth="9" 
-                className="blur-[8px]" 
+              <path
+                d="M -100 820 C 400 960, 900 780, 1540 350"
+                fill="none"
+                stroke="url(#wave-grad-1)"
+                strokeWidth="9"
+                className="blur-[8px]"
               />
-              <path 
-                d="M -50 880 C 450 980, 950 750, 1540 300" 
-                fill="none" 
-                stroke="url(#wave-grad-2)" 
-                strokeWidth="11" 
-                className="blur-[10px]" 
+              <path
+                d="M -50 880 C 450 980, 950 750, 1540 300"
+                fill="none"
+                stroke="url(#wave-grad-2)"
+                strokeWidth="11"
+                className="blur-[10px]"
               />
-              <path 
-                d="M -150 780 C 300 900, 800 700, 1540 450" 
-                fill="none" 
-                stroke="url(#wave-grad-3)" 
-                strokeWidth="7" 
-                className="blur-[6px]" 
+              <path
+                d="M -150 780 C 300 900, 800 700, 1540 450"
+                fill="none"
+                stroke="url(#wave-grad-3)"
+                strokeWidth="7"
+                className="blur-[6px]"
               />
             </g>
 
             {/* sharp cores */}
             <g style={{ animation: 'wave-float-2 25s ease-in-out infinite' }} className="opacity-80">
-              <path 
-                d="M -100 820 C 400 960, 900 780, 1540 350" 
-                fill="none" 
-                stroke="url(#wave-grad-1)" 
-                strokeWidth="2" 
+              <path
+                d="M -100 820 C 400 960, 900 780, 1540 350"
+                fill="none"
+                stroke="url(#wave-grad-1)"
+                strokeWidth="2"
               />
-              <path 
-                d="M -100 860 C 350 920, 850 820, 1540 400" 
-                fill="none" 
-                stroke="url(#wave-grad-2)" 
-                strokeWidth="1.2" 
+              <path
+                d="M -100 860 C 350 920, 850 820, 1540 400"
+                fill="none"
+                stroke="url(#wave-grad-2)"
+                strokeWidth="1.2"
               />
-              <path 
-                d="M -50 880 C 450 980, 950 750, 1540 300" 
-                fill="none" 
-                stroke="url(#wave-grad-2)" 
-                strokeWidth="1.8" 
+              <path
+                d="M -50 880 C 450 980, 950 750, 1540 300"
+                fill="none"
+                stroke="url(#wave-grad-2)"
+                strokeWidth="1.8"
               />
-              <path 
-                d="M -150 780 C 300 900, 800 700, 1540 450" 
-                fill="none" 
-                stroke="url(#wave-grad-3)" 
-                strokeWidth="1.2" 
+              <path
+                d="M -150 780 C 300 900, 800 700, 1540 450"
+                fill="none"
+                stroke="url(#wave-grad-3)"
+                strokeWidth="1.2"
               />
-              <path 
-                d="M -80 840 C 500 990, 1000 680, 1540 250" 
-                fill="none" 
-                stroke="url(#wave-grad-1)" 
-                strokeWidth="1.5" 
+              <path
+                d="M -80 840 C 500 990, 1000 680, 1540 250"
+                fill="none"
+                stroke="url(#wave-grad-1)"
+                strokeWidth="1.5"
               />
             </g>
           </svg>
@@ -259,7 +264,7 @@ export const ContactSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '50px' }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24"
         >
           {/* Left Column: Contact Info & Brand Message */}
@@ -332,7 +337,7 @@ export const ContactSection = () => {
                 <div>
                   <h4 className="text-[10px] uppercase tracking-widest text-neutral-500 mb-1">Location</h4>
                   <p className="text-sm font-medium tracking-wide text-white">
-                    Universe
+                    Sri Lanka
                   </p>
                 </div>
               </div>
@@ -346,7 +351,34 @@ export const ContactSection = () => {
                 </span>
                 <div className="flex items-center gap-2.5">
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/kanishka-viduranga-a36990376/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    aria-label="Studio LinkedIn"
+                  >
+                    <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/film.by.kv.1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    aria-label="Personal Facebook"
+                  >
+                    <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href="https://www.youtube.com/@Film_bykv"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    aria-label="Personal YouTube"
+                  >
+                    <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/kv___production/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
@@ -354,30 +386,7 @@ export const ContactSection = () => {
                   >
                     <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                   </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
-                    aria-label="Studio Vimeo"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="w-4 h-4 fill-current group-hover:scale-110 transition-transform"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.653-2.24 1.959L.702 8.547c1.493-1.4 3.08-2.986 4.76-4.76 2.052-1.96 3.64-2.94 4.76-2.94 1.96 0 3.172 1.306 3.64 3.92.373 2.24.653 3.92.84 5.039.466 2.613 1.026 3.92 1.68 3.92.466 0 1.213-.653 2.24-1.959 1.119-1.307 1.772-2.333 1.959-3.08.374-1.306-.093-1.96-1.4-1.96-.56 0-1.12.093-1.68.28 1.12-3.64 3.36-5.46 6.72-5.46 2.425 0 3.545 1.12 3.358 3.36z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
-                    aria-label="Studio YouTube"
-                  >
-                    <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                  </a>
+
                 </div>
               </div>
 

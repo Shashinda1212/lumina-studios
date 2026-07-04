@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react'; // useMemo එකතු කළා
+import React, { useEffect, useRef, useMemo, useState } from 'react'; // useMemo එකතු කළා
 import { Canvas } from '@react-three/fiber';
 import { useGLTF, useAnimations, Float, Environment, Preload } from '@react-three/drei';
 import * as THREE from 'three';
@@ -96,27 +96,51 @@ const FallbackVisual = () => (
 );
 
 export const Drone = ({ active = true }: { active?: boolean }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inViewport, setInViewport] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInViewport(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(el);
+    return () => {
+      observer.unobserve(el);
+    };
+  }, []);
+
+  const shouldRender = active && inViewport;
+
   return (
-    <CanvasErrorBoundary fallback={<FallbackVisual />}>
-      <Canvas 
-        camera={{ position: [0, 0, 4.5], fov: 45 }}
-        frameloop={active ? 'always' : 'never'}
-        dpr={[1, 1.5]} // Clamp Device Pixel Ratio to 1.5 max for performance
-        gl={{ 
-          antialias: true,
-          powerPreference: 'high-performance', // Hint browser to use discrete GPU if available
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.1
-        }}
-      >
-        <ambientLight intensity={0.15} />
-        <directionalLight position={[5, 8, 5]} intensity={1.8} castShadow shadow-mapSize={[1024, 1024]} />
-        <directionalLight position={[-5, 5, 5]} intensity={0.6} />
-        <directionalLight position={[0, 5, -8]} intensity={2.2} color="#ffffff" />
-        <Environment preset="city" environmentIntensity={0.6} />
-        <Model />
-        <Preload all />
-      </Canvas>
-    </CanvasErrorBoundary>
+    <div ref={containerRef} className="w-full h-full">
+      <CanvasErrorBoundary fallback={<FallbackVisual />}>
+        <Canvas 
+          camera={{ position: [0, 0, 4.5], fov: 45 }}
+          frameloop={shouldRender ? 'always' : 'never'}
+          dpr={[1, Math.min(1.5, window.devicePixelRatio)]}
+          gl={{ 
+            antialias: true,
+            powerPreference: 'high-performance', // Hint browser to use discrete GPU if available
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: 1.1
+          }}
+        >
+          <ambientLight intensity={0.15} />
+          <directionalLight position={[5, 8, 5]} intensity={1.8} castShadow shadow-mapSize={[1024, 1024]} />
+          <directionalLight position={[-5, 5, 5]} intensity={0.6} />
+          <directionalLight position={[0, 5, -8]} intensity={2.2} color="#ffffff" />
+          <Environment preset="city" environmentIntensity={0.6} />
+          <Model />
+          <Preload all />
+        </Canvas>
+      </CanvasErrorBoundary>
+    </div>
   );
 };

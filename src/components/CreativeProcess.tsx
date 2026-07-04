@@ -301,7 +301,7 @@ export const CreativeProcess = () => {
                     <div
                       key={item.tag}
                       ref={(el: HTMLDivElement | null) => { cardsRef.current[i] = el; }}
-                      className="snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-full relative lg:absolute flex flex-col justify-center bg-[#0A0A0A]/60 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-0 lg:border-none lg:rounded-none lg:backdrop-blur-none lg:bg-transparent shadow-2xl lg:shadow-none will-change-[transform,opacity]"
+                      className="snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-full relative lg:absolute flex flex-col justify-center bg-[#0A0A0A]/90 backdrop-blur-none sm:bg-[#0A0A0A]/60 sm:backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-0 lg:border-none lg:rounded-none lg:backdrop-blur-none lg:bg-transparent shadow-2xl lg:shadow-none will-change-[transform,opacity]"
                     >
                       <div className="flex items-center mb-4 sm:mb-6 lg:mb-8 -ml-2">
                         <span className="text-[45px] sm:text-[60px] md:text-[80px] lg:text-[120px] leading-[0.8] text-[#F27D26]/40 font-serif mr-3 sm:mr-4 lg:mr-6">{item.tag}</span>
