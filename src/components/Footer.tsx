@@ -14,11 +14,6 @@ const AVATARS = [
     tooltip: 'Reezy',
   },
   {
-    src: '/images/masterd.webp',
-    fallback: 'MD',
-    tooltip: 'MasterD',
-  },
-  {
     src: '/images/whitecapper.webp',
     fallback: 'WC',
     tooltip: 'Whitecapper',
