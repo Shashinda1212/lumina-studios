@@ -126,8 +126,8 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar Separator */}
-        <motion.div variants={itemVariants} className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[15px] text-white/40 tracking-wider text-center md:text-left">
+        <motion.div variants={itemVariants} className="border-t border-white/10 pt-8 mt-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+          <p className="text-[15px] text-white/40 tracking-wider text-center lg:text-left">
             &copy; {new Date().getFullYear()} Kanishka Viduranga. All rights reserved.
           </p>
 

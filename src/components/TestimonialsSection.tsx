@@ -190,7 +190,7 @@ export const TestimonialsSection = () => {
     const mm = gsap.matchMedia();
 
     // Desktop/Tablet layout animations
-    mm.add("(min-width: 769px)", () => {
+    mm.add("(min-width: 1024px)", () => {
       // 1. Central copy animations
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -257,7 +257,7 @@ export const TestimonialsSection = () => {
     });
 
     // Mobile layout animations
-    mm.add("(max-width: 768px)", () => {
+    mm.add("(max-width: 1023px)", () => {
       // Simplified copy animations for mobile (smaller translations, slightly faster duration)
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -357,7 +357,7 @@ export const TestimonialsSection = () => {
           92%  { opacity: 0.15; }
           100% { transform: translateY(-130px) translateX(0px) scale(0.9); opacity: 0; }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 1023px) {
           .mobile-reduce-motion {
             animation: none !important;
           }

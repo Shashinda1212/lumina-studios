@@ -344,7 +344,7 @@ export const ContactSection = () => {
             </motion.div>
 
             {/* Social links */}
-            <motion.div variants={itemVariants} className="grid grid-cols-2 gap-6 border-t border-white/5 pt-8">
+            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-white/5 pt-8">
               <div className="space-y-3">
                 <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-500 font-semibold block">
                   Studio Accounts
