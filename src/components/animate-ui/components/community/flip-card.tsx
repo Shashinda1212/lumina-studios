@@ -51,7 +51,7 @@ export function FlipCard({ data }: FlipCardProps) {
 
   return (
     <div
-      className="mt-2 relative w-40 h-60 md:w-60 md:h-80 perspective-1000 cursor-pointer mx-auto"
+      className="relative w-52 h-72 md:w-60 md:h-80 perspective-1000 cursor-pointer mx-auto"
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FlipCard } from '@/components/animate-ui/components/community/flip-card';
-import { Quote } from 'lucide-react';
+import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -181,10 +181,41 @@ const backGlowClasses = {
 export const TestimonialsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Split mock testimonials into two rows for mobile marquee
-  const row1 = testimonials.slice(0, 6);
-  const row2 = testimonials.slice(6, 12);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -284,8 +315,8 @@ export const TestimonialsSection = () => {
         "-=0.3"
       );
 
-      // 3. Mobile marquee entrance (simplified y translation for smoother frame delivery)
-      gsap.fromTo(".testimonial-marquee-container",
+      // 3. Mobile carousel entrance
+      gsap.fromTo(".testimonial-carousel-container",
         { opacity: 0, y: 25 },
         {
           opacity: 1,
@@ -308,26 +339,12 @@ export const TestimonialsSection = () => {
     <section id="testimonials" ref={sectionRef} className="relative w-full min-h-[750px] lg:h-screen lg:min-h-[900px] flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
       {/* Self-contained styling for animations */}
       <style>{`
-        @keyframes marquee-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
         }
-        @keyframes marquee-right {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .animate-marquee-l {
-          display: flex;
-          width: max-content;
-          animation: marquee-left 40s linear infinite;
-        }
-        .animate-marquee-r {
-          display: flex;
-          width: max-content;
-          animation: marquee-right 40s linear infinite;
-        }
-        .animate-marquee-l:hover, .animate-marquee-r:hover {
-          animation-play-state: paused;
+        .scrollbar-none {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         /* Live orb drift animations */
         @keyframes orb-drift-a {
@@ -499,34 +516,73 @@ export const TestimonialsSection = () => {
         </p>
       </div>
 
-      {/* Mobile/Tablet slider / marquee layout (less than lg) */}
-      <div className="testimonial-marquee-container opacity-0 lg:hidden w-full flex flex-col gap-6 mt-16 overflow-hidden relative z-10">
-        {/* Row 1 - scrolling left */}
-        <div className="w-full overflow-hidden">
-          <div className="animate-marquee-l">
-            {/* Render items twice for infinite loop */}
-            {[...row1, ...row1].map((item, idx) => (
-              <div key={`row1-${item.id}-${idx}`} className="mx-3 scale-90 sm:scale-95 group">
-                <div className={`p-[1px] rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
-                  <FlipCard data={item} />
+      {/* Mobile/Tablet card carousel layout (less than lg) */}
+      <div className="testimonial-carousel-container opacity-0 lg:hidden w-full flex flex-col items-center gap-6 mt-16 relative z-10 px-4">
+        {/* Main Slider Wrapper */}
+        <div className="relative w-full max-w-md flex items-center justify-center">
+          {/* Left Arrow */}
+          <button 
+            onClick={prevSlide}
+            className="absolute left-2 sm:left-4 z-30 p-2.5 rounded-full border border-white/10 bg-black/60 text-white hover:bg-black/80 hover:scale-105 transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer"
+            aria-label="Previous Testimonial"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
+          {/* Cards Track */}
+          <div 
+            className="w-full overflow-hidden py-4 cursor-grab active:cursor-grabbing select-none"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div 
+              className="flex w-full transition-transform duration-500 ease-out"
+              style={{ 
+                transform: `translateX(-${currentIndex * 100}%)`
+              }}
+            >
+              {testimonials.map((item) => (
+                <div 
+                  key={`carousel-${item.id}`} 
+                  className="w-full flex-shrink-0 flex justify-center items-center px-12 sm:px-16"
+                >
+                  <div className="scale-95 sm:scale-100 group relative">
+                    {/* Backglow blur */}
+                    <div className={`absolute -inset-2 rounded-lg blur-xl opacity-25 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none ${backGlowClasses[item.glow]}`} />
+                    
+                    {/* Glowing border ring */}
+                    <div className={`p-[1px] rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
+                      <FlipCard data={item} />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {/* Right Arrow */}
+          <button 
+            onClick={nextSlide}
+            className="absolute right-2 sm:right-4 z-30 p-2.5 rounded-full border border-white/10 bg-[#050505]/60 text-white hover:bg-black/80 hover:scale-105 transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer"
+            aria-label="Next Testimonial"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
         </div>
 
-        {/* Row 2 - scrolling right */}
-        <div className="w-full overflow-hidden">
-          <div className="animate-marquee-r">
-            {/* Render items twice for infinite loop */}
-            {[...row2, ...row2].map((item, idx) => (
-              <div key={`row2-${item.id}-${idx}`} className="mx-3 scale-90 sm:scale-95 group">
-                <div className={`p-[1px] rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
-                  <FlipCard data={item} />
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Indicators / Progress Dot Navigation */}
+        <div className="flex gap-2 mt-2 max-w-full overflow-x-auto py-2 px-4 scrollbar-none">
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-300 cursor-pointer ${
+                currentIndex === idx ? 'bg-[#F27D26] w-5' : 'bg-white/20 hover:bg-white/40'
+              }`}
+              aria-label={`Go to testimonial ${idx + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
