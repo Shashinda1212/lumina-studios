@@ -1,33 +1,55 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Instagram, Youtube, ArrowRight, Facebook, Linkedin } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2, { message: 'Name must be at least 2 characters.' }),
+  email: z.string().trim().email({ message: 'Please enter a valid email address.' }),
+  subject: z.string().trim().min(1, { message: 'Subject is required.' }).max(100, { message: 'Subject must be less than 100 characters.' }),
+  message: z.string().trim().min(10, { message: 'Message must be at least 10 characters.' }).max(1000, { message: 'Message must be less than 1000 characters.' }),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const ContactSection = () => {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileError, setTurnstileError] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ContactFormValues) => {
+    if (!turnstileToken) {
+      setTurnstileError(true);
+      return;
+    }
+    setTurnstileError(false);
     setIsSubmitting(true);
-    // Simulate API request
+    // Simulate API request using sanitized data
+    console.log("Sanitized Form Data:", data);
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSubmitting(false);
     setIsSuccess(true);
-    setFormState({ name: '', email: '', subject: '', message: '' });
+    reset();
     setTimeout(() => setIsSuccess(false), 5000);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
   };
 
   // Animation variants
@@ -441,7 +463,7 @@ export const ContactSection = () => {
           <div className="lg:col-span-7 flex flex-col justify-center">
             <motion.form
               variants={itemVariants}
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit(onSubmit)}
               className="space-y-6 p-8 md:p-10 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form"
             >
               {/* Form border glow effect */}
@@ -456,13 +478,11 @@ export const ContactSection = () => {
                   <input
                     type="text"
                     id="name"
-                    name="name"
-                    required
-                    value={formState.name}
-                    onChange={handleChange}
+                    {...register('name')}
                     placeholder="John Doe"
                     className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#F27D26] focus:ring-1 focus:ring-[#F27D26] focus:shadow-[0_0_15px_rgba(242,125,38,0.1)] transition-all duration-300"
                   />
+                  {errors.name && <p className="text-red-500 text-xs tracking-wider mt-1">{errors.name.message}</p>}
                 </div>
 
                 {/* Email Field */}
@@ -473,13 +493,11 @@ export const ContactSection = () => {
                   <input
                     type="email"
                     id="email"
-                    name="email"
-                    required
-                    value={formState.email}
-                    onChange={handleChange}
+                    {...register('email')}
                     placeholder="john@example.com"
                     className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#F27D26] focus:ring-1 focus:ring-[#F27D26] focus:shadow-[0_0_15px_rgba(242,125,38,0.1)] transition-all duration-300"
                   />
+                  {errors.email && <p className="text-red-500 text-xs tracking-wider mt-1">{errors.email.message}</p>}
                 </div>
               </div>
 
@@ -491,13 +509,11 @@ export const ContactSection = () => {
                 <input
                   type="text"
                   id="subject"
-                  name="subject"
-                  required
-                  value={formState.subject}
-                  onChange={handleChange}
+                  {...register('subject')}
                   placeholder="Project Collaboration / Music Video shoot"
                   className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#F27D26] focus:ring-1 focus:ring-[#F27D26] focus:shadow-[0_0_15px_rgba(242,125,38,0.1)] transition-all duration-300"
                 />
+                {errors.subject && <p className="text-red-500 text-xs tracking-wider mt-1">{errors.subject.message}</p>}
               </div>
 
               {/* Message Field */}
@@ -507,14 +523,27 @@ export const ContactSection = () => {
                 </label>
                 <textarea
                   id="message"
-                  name="message"
-                  required
                   rows={5}
-                  value={formState.message}
-                  onChange={handleChange}
+                  {...register('message')}
                   placeholder="Tell me about your project, timeline, and vision..."
                   className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#F27D26] focus:ring-1 focus:ring-[#F27D26] focus:shadow-[0_0_15px_rgba(242,125,38,0.1)] transition-all duration-300 resize-none"
                 />
+                {errors.message && <p className="text-red-500 text-xs tracking-wider mt-1">{errors.message.message}</p>}
+              </div>
+
+              {/* Turnstile Widget */}
+              <div className="flex flex-col gap-2 pt-2 pb-2">
+                <Turnstile
+                  siteKey={import.meta.env.VITE_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+                  options={{ theme: 'dark' }}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    setTurnstileError(false);
+                  }}
+                />
+                {turnstileError && (
+                  <p className="text-red-500 text-xs tracking-wider">Please complete the security check to continue.</p>
+                )}
               </div>
 
               {/* Submit Button */}
