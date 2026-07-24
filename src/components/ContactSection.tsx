@@ -323,7 +323,7 @@ export const ContactSection = () => {
             {/* Contact details */}
             <motion.div variants={itemVariants} className="space-y-6 mb-12">
               <div className="flex items-start gap-4 group">
-                <div className="p-3 border border-white/10 rounded-full bg-white/5 text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[#F27D26]/5 transition-all duration-300">
+                <div className="p-3 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[linear-gradient(rgba(242,125,38,0.05),rgba(242,125,38,0.05))] transition-all duration-300">
                   <Mail className="w-5 h-5" strokeWidth={1.5} />
                 </div>
                 <div>
@@ -338,7 +338,7 @@ export const ContactSection = () => {
               </div>
 
               <div className="flex items-start gap-4 group">
-                <div className="p-3 border border-white/10 rounded-full bg-white/5 text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[#F27D26]/5 transition-all duration-300">
+                <div className="p-3 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[linear-gradient(rgba(242,125,38,0.05),rgba(242,125,38,0.05))] transition-all duration-300">
                   <Phone className="w-5 h-5" strokeWidth={1.5} />
                 </div>
                 <div>
@@ -353,7 +353,7 @@ export const ContactSection = () => {
               </div>
 
               <div className="flex items-start gap-4 group">
-                <div className="p-3 border border-white/10 rounded-full bg-white/5 text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[#F27D26]/5 transition-all duration-300">
+                <div className="p-3 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[linear-gradient(rgba(242,125,38,0.05),rgba(242,125,38,0.05))] transition-all duration-300">
                   <MapPin className="w-5 h-5" strokeWidth={1.5} />
                 </div>
                 <div>
@@ -366,8 +366,8 @@ export const ContactSection = () => {
             </motion.div>
 
             {/* Social links */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-white/5 pt-8">
-              <div className="space-y-3">
+            <motion.div variants={itemVariants} className="block md:flex md:flex-row md:gap-12 border-t border-white/5 pt-8">
+              <div className="space-y-3 mb-10 md:mb-0 relative z-30">
                 <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-500 font-semibold block">
                   Studio Accounts
                 </span>
@@ -376,7 +376,7 @@ export const ContactSection = () => {
                     href="https://www.linkedin.com/in/kanishka-viduranga-a36990376/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Studio LinkedIn"
                   >
                     <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -385,7 +385,7 @@ export const ContactSection = () => {
                     href="https://www.facebook.com/film.by.kv.1"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Personal Facebook"
                   >
                     <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -394,7 +394,7 @@ export const ContactSection = () => {
                     href="https://www.youtube.com/@Film_bykv"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Personal YouTube"
                   >
                     <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -403,7 +403,7 @@ export const ContactSection = () => {
                     href="https://www.instagram.com/kv___production/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Studio Instagram"
                   >
                     <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -412,7 +412,7 @@ export const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3 relative z-20 bg-transparent">
                 <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-500 font-semibold block">
                   Personal Accounts
                 </span>
@@ -421,7 +421,7 @@ export const ContactSection = () => {
                     href="https://www.youtube.com/@Film_BY_KV"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Personal YouTube"
                   >
                     <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -430,7 +430,7 @@ export const ContactSection = () => {
                     href="https://www.facebook.com/kanishka.vidurangak"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Personal Facebook"
                   >
                     <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -439,7 +439,7 @@ export const ContactSection = () => {
                     href="https://www.tiktok.com/@film_by_kv"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 border border-white/10 rounded-full bg-white/5 text-white/80 hover:text-[#F27D26] hover:bg-[#F27D26]/10 hover:border-[#F27D26]/40 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center shrink-0 w-10 h-10 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-white/80 hover:text-[#F27D26] hover:bg-[linear-gradient(rgba(242,125,38,0.1),rgba(242,125,38,0.1))] hover:border-[#F27D26]/40 transition-all duration-300 group"
                     aria-label="Personal TikTok"
                   >
                     <svg
@@ -460,14 +460,14 @@ export const ContactSection = () => {
           </div>
 
           {/* Right Column: Form */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
+          <div className="lg:col-span-7 flex flex-col justify-center mt-8 lg:mt-0">
             <motion.form
               variants={itemVariants}
               onSubmit={handleFormSubmit(onSubmit)}
-              className="space-y-6 p-8 md:p-10 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form"
+              className="space-y-5 md:space-y-6 px-5 py-6 pt-4 md:p-10 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form"
             >
               {/* Form border glow effect */}
-              <div className="absolute inset-0 border border-[#F27D26]/0 group-hover/form:border-[#F27D26]/15 rounded-2xl pointer-events-none transition-all duration-500 shadow-[0_0_50px_rgba(0,0,0,0.8)] group-hover/form:shadow-[0_0_50px_rgba(242,125,38,0.03)]" />
+              <div className="absolute inset-0 border border-[#F27D26]/0 group-hover/form:border-[#F27D26]/15 rounded-2xl pointer-events-none transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.8)] lg:shadow-[0_0_50px_rgba(0,0,0,0.8)] group-hover/form:shadow-[0_0_50px_rgba(242,125,38,0.03)]" />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name Field */}

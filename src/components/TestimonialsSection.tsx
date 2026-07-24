@@ -36,60 +36,6 @@ interface TestimonialItem {
 
 const testimonials: TestimonialItem[] = [
   {
-    id: 1,
-    name: 'Jens Roger',
-    username: 'Jensroger',
-    image: '/images/jenesroger.webp',
-    bio: 'Producer at Neon Edge Media. Kanishka has an exceptional eye for visual direction. His work transformed our campaign.',
-    stats: { following: 142, followers: 12500, posts: 480 },
-    socialLinks: { linkedin: 'https://linkedin.com', twitter: 'https://twitter.com' },
-    glow: 'purple',
-    position: { left: '3%', top: '10%', rotate: '-6deg' }
-  },
-  {
-    id: 2,
-    name: 'Marcus Miller',
-    username: 'marcus_m',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
-    bio: 'Independent Artist. The music video he directed for us was absolutely cinematic. Masterclass in production.',
-    stats: { following: 89, followers: 8400, posts: 120 },
-    socialLinks: { github: 'https://github.com', twitter: 'https://twitter.com' },
-    glow: 'orange',
-    position: { left: '2%', bottom: '15%', rotate: '4deg' }
-  },
-  {
-    id: 3,
-    name: 'Manasick',
-    username: 'Manasickwestnahira',
-    image: '/images/manasick.webp',
-    bio: 'Marketing Lead at Velo. Creative vision and storytelling that elevated our brand presence globally.',
-    stats: { following: 201, followers: 3500, posts: 95 },
-    socialLinks: { linkedin: 'https://linkedin.com' },
-    glow: 'orange',
-    position: { left: '14%', top: '5%', rotate: '8deg' }
-  },
-  {
-    id: 4,
-    name: 'David Kojo',
-    username: 'david_k',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop',
-    bio: 'Creative Director at Echo. Stunning 8K visuals and meticulous post-production. A pleasure to work with.',
-    stats: { following: 310, followers: 4800, posts: 190 },
-    socialLinks: { github: 'https://github.com', linkedin: 'https://linkedin.com' },
-    glow: 'purple',
-    position: { left: '13%', bottom: '26%', rotate: '-4deg' }
-  },
-  {
-    id: 5,
-    name: 'Whitecapper',
-    username: 'Whitecapper',
-    image: '/images/whitecapper.webp',
-    bio: 'Film Director. Exceptional grading, seamless VFX, and editing. Truly understood our film\'s core message.',
-    stats: { following: 154, followers: 9800, posts: 310 },
-    glow: 'blue',
-    position: { left: '25%', top: '12%', rotate: '-2deg' }
-  },
-  {
     id: 6,
     name: 'Smokio',
     username: 'Kevinsmokio',
@@ -98,7 +44,7 @@ const testimonials: TestimonialItem[] = [
     stats: { following: 95, followers: 11000 },
     socialLinks: { twitter: 'https://twitter.com' },
     glow: 'orange',
-    position: { left: '35%', top: '4%', rotate: '5deg' }
+    position: { left: '28%', top: '6%', rotate: '-5deg' }
   },
   {
     id: 7,
@@ -109,28 +55,28 @@ const testimonials: TestimonialItem[] = [
     stats: { following: 120, followers: 7200, posts: 84 },
     socialLinks: { linkedin: 'https://linkedin.com', github: 'https://github.com' },
     glow: 'orange',
-    position: { right: '35%', top: '4%', rotate: '-5deg' }
+    position: { right: '28%', top: '6%', rotate: '5deg' }
   },
   {
-    id: 8,
-    name: 'Keefa',
-    username: 'Keefa',
-    image: '/images/keefa.webp',
-    bio: 'Creative Producer. Blown away by the speed of execution and conceptual depth. Absolute professional.',
-    stats: { following: 280, followers: 16500, posts: 512 },
-    socialLinks: { twitter: 'https://twitter.com' },
-    glow: 'purple',
-    position: { right: '25%', top: '12%', rotate: '2deg' }
+    id: 5,
+    name: 'Whitecapper',
+    username: 'Whitecapper',
+    image: '/images/whitecapper.webp',
+    bio: 'Film Director. Exceptional grading, seamless VFX, and editing. Truly understood our film\'s core message.',
+    stats: { following: 154, followers: 9800, posts: 310 },
+    glow: 'blue',
+    position: { left: '14%', bottom: '26%', rotate: '3deg' }
   },
   {
-    id: 9,
-    name: 'M',
-    username: 'M',
-    image: '#',
-    bio: 'Brand Strategist. The aesthetics are state-of-the-art. Every shot was a work of art.',
-    stats: { following: 110, followers: 5200 },
-    glow: 'purple',
-    position: { right: '13%', bottom: '26%', rotate: '4deg' }
+    id: 3,
+    name: 'Manasick',
+    username: 'Manasickwestnahira',
+    image: '/images/manasick.webp',
+    bio: 'Marketing Lead at Velo. Creative vision and storytelling that elevated our brand presence globally.',
+    stats: { following: 201, followers: 3500, posts: 95 },
+    socialLinks: { linkedin: 'https://linkedin.com' },
+    glow: 'orange',
+    position: { left: '6%', top: '10%', rotate: '6deg' }
   },
   {
     id: 10,
@@ -141,17 +87,29 @@ const testimonials: TestimonialItem[] = [
     stats: { following: 430, followers: 24000, posts: 720 },
     socialLinks: { linkedin: 'https://linkedin.com', twitter: 'https://twitter.com' },
     glow: 'orange',
-    position: { right: '14%', top: '5%', rotate: '-8deg' }
+    position: { right: '6%', top: '10%', rotate: '-6deg' }
   },
   {
-    id: 11,
-    name: 'Gabriel Diaz',
-    username: 'gabriel_d',
-    image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=300&auto=format&fit=crop',
-    bio: 'Agency CEO. Elevates campaigns to cinema standard. Will definitely work on future projects together.',
-    stats: { following: 105, followers: 13500 },
-    glow: 'orange',
-    position: { right: '2%', bottom: '15%', rotate: '-4deg' }
+    id: 8,
+    name: 'Keefa',
+    username: 'Keefa',
+    image: '/images/keefa.webp',
+    bio: 'Creative Producer. Blown away by the speed of execution and conceptual depth. Absolute professional.',
+    stats: { following: 280, followers: 16500, posts: 512 },
+    socialLinks: { twitter: 'https://twitter.com' },
+    glow: 'purple',
+    position: { right: '14%', bottom: '26%', rotate: '-3deg' }
+  },
+  {
+    id: 1,
+    name: 'Jens Roger',
+    username: 'Jensroger',
+    image: '/images/jenesroger.webp',
+    bio: 'Producer at Neon Edge Media. Kanishka has an exceptional eye for visual direction. His work transformed our campaign.',
+    stats: { following: 142, followers: 12500, posts: 480 },
+    socialLinks: { linkedin: 'https://linkedin.com', twitter: 'https://twitter.com' },
+    glow: 'purple',
+    position: { left: '2%', bottom: '15%', rotate: '-4deg' }
   },
   {
     id: 12,
@@ -162,7 +120,7 @@ const testimonials: TestimonialItem[] = [
     stats: { following: 195, followers: 8900, posts: 140 },
     socialLinks: { linkedin: 'https://linkedin.com', github: 'https://github.com' },
     glow: 'orange',
-    position: { right: '3%', top: '10%', rotate: '6deg' }
+    position: { right: '2%', bottom: '15%', rotate: '4deg' }
   }
 ];
 

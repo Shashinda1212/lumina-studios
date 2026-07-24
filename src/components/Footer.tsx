@@ -67,8 +67,8 @@ export const Footer = () => {
           {/* Column 1: Brand Info */}
           <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-6">
             <div>
-              <span className="text-sm font-bold tracking-[0.4em] uppercase block mb-4">
-                KANISHKA VIDURANGA
+              <span className="text-xl md:text-2xl font-serif font-light tracking-[0.2em] mb-4 block">
+                KV <span className="inline-block -translate-y-[2px]">ᝰ</span>
               </span>
               <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed max-w-sm">
                 Engineering visual narratives that capture, connect, and endure. Crafting cinematic films, music videos, and creative productions globally.
@@ -128,7 +128,7 @@ export const Footer = () => {
         {/* Bottom Bar Separator */}
         <motion.div variants={itemVariants} className="border-t border-white/10 pt-8 mt-4 flex flex-col lg:flex-row justify-between items-center gap-4">
           <p className="text-[15px] text-white/40 tracking-wider text-center lg:text-left">
-            &copy; {new Date().getFullYear()} Kanishka Viduranga. All rights reserved.
+            &copy; {new Date().getFullYear()} KV ᝰ. All rights reserved.
           </p>
 
           <p className="text-[15px] text-white/40 tracking-wider text-center">

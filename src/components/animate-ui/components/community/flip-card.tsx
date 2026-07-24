@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { easeOut, motion } from 'motion/react';
 import * as React from 'react';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 export interface FlipCardData {
   name: string;
@@ -72,70 +72,22 @@ export function FlipCard({ data }: FlipCardProps) {
         <p className="text-sm text-muted-foreground">@{data.username}</p>
       </motion.div>
 
-      {/* BACK: Bio + Stats + Socials */}
+      {/* BACK: Review */}
       <motion.div
-        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col justify-between items-center gap-y-4 bg-gradient-to-tr from-muted via-background to-muted "
+        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-6 py-8 flex flex-col justify-center items-center gap-y-6 bg-gradient-to-tr from-muted via-background to-muted "
         initial={{ rotateY: 180 }}
         animate={isFlipped ? 'front' : 'back'}
         variants={cardVariants}
         style={{ transformStyle: 'preserve-3d', rotateY: 180 }}
       >
-        <p className="text-xs md:text-sm text-muted-foreground text-center">
-          {data.bio}
+        <div className="flex items-center justify-center gap-1.5">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Star key={star} className="w-5 h-5 text-[#CE5D01] fill-[#CE5D01]" />
+          ))}
+        </div>
+        <p className="text-sm md:text-[15px] text-foreground/80 font-medium text-center italic leading-relaxed">
+          "{data.bio}"
         </p>
-
-        <div className="px-6 flex items-center justify-between w-full">
-          <div>
-            <p className="text-base font-bold">{data.stats.following}</p>
-            <p className="text-xs text-muted-foreground">Following</p>
-          </div>
-          <div>
-            <p className="text-base font-bold">{data.stats.followers}</p>
-            <p className="text-xs text-muted-foreground">Followers</p>
-          </div>
-          {data.stats.posts && (
-            <div>
-              <p className="text-base font-bold">{data.stats.posts}</p>
-              <p className="text-xs text-muted-foreground">Posts</p>
-            </div>
-          )}
-        </div>
-
-        {/* Social Media Icons */}
-        <div className="flex items-center justify-center gap-4">
-          {data.socialLinks?.linkedin && (
-            <a
-              href={data.socialLinks.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:scale-105 transition-transform"
-            >
-              <Linkedin size={20} />
-            </a>
-          )}
-          {data.socialLinks?.github && (
-            <a
-              href={data.socialLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:scale-105 transition-transform"
-            >
-              <Github size={20} />
-            </a>
-          )}
-          {data.socialLinks?.twitter && (
-            <a
-              href={data.socialLinks.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:scale-105 transition-transform"
-            >
-              <Twitter size={20} />
-            </a>
-          )}
-        </div>
-
-        <Button>Follow</Button>
       </motion.div>
     </div>
   );

@@ -36,15 +36,14 @@ export const CursorTracker = () => {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Spring Settings for Outer Trail
-  const outerSpringConfig = { damping: 26, stiffness: 350, mass: 0.35 };
+  // Spring Settings for Outer Trail (Made snappier to reduce lag)
+  const outerSpringConfig = { damping: 25, stiffness: 800, mass: 0.1 };
   const outerX = useSpring(mouseX, outerSpringConfig);
   const outerY = useSpring(mouseY, outerSpringConfig);
 
-  // Spring Settings for Inner Dot (very responsive, tiny delay for smoothness)
-  const innerSpringConfig = { damping: 30, stiffness: 600, mass: 0.15 };
-  const innerX = useSpring(mouseX, innerSpringConfig);
-  const innerY = useSpring(mouseY, innerSpringConfig);
+  // Inner Dot uses raw values directly for zero physics lag
+  const innerX = mouseX;
+  const innerY = mouseY;
 
   // Canvas Reference for Particle System
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

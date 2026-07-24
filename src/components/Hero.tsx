@@ -181,9 +181,9 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 <div className="hidden md:flex items-center space-x-6 lg:px-23">
                     <span 
                         onClick={() => window.location.reload()}
-                        className="text-sm md:text-base font-bold tracking-widest uppercase cursor-pointer hover:text-[#C6904E] transition-colors duration-300"
+                        className="text-xl md:text-2xl font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 flex items-center"
                     >
-                        KANISHKA VIDURANGA
+                        KV <span className="ml-1 text-2xl md:text-3xl font-thin leading-none -translate-y-[2px]">ᝰ</span>
                     </span>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
@@ -195,9 +195,9 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 <div className="block md:hidden text-left">
                     <span 
                         onClick={() => window.location.reload()}
-                        className="text-sm font-bold tracking-widest uppercase inline cursor-pointer hover:text-[#C6904E] transition-colors duration-300"
+                        className="text-lg font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 inline-flex items-center align-middle"
                     >
-                        KANISHKA VIDURANGA
+                        KV <span className="ml-1 text-xl font-thin leading-none -translate-y-[1px]">ᝰ</span>
                     </span>
                     <span className="mx-2 h-3 w-px bg-white/20 inline-block align-middle"></span>
                     <span className="text-[9px] tracking-[0.3em] uppercase opacity-60 font-medium inline">
