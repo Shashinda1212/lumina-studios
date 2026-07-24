@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { Hero } from './components/Hero';
+import { CylinderSection } from './components/CylinderSection';
 import { CreativeProcess } from './components/CreativeProcess';
 import { TextExpandingSection } from './components/TextExpandingSection';
 import FlipFadeText from './components/ui/flip-fade-text';
@@ -154,6 +155,7 @@ export default function App() {
           >
             {/* Pass the cached blob URL directly to Hero */}
             <Hero videoSrc={videoSrc} />
+            <CylinderSection />
             <CreativeProcess />
             <TextExpandingSection />
             <TestimonialsSection />
