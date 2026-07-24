@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import { Preloader } from './components/Preloader';
 import { Hero } from './components/Hero';
 import { CylinderSection } from './components/CylinderSection';
 import { CreativeProcess } from './components/CreativeProcess';
 import { TextExpandingSection } from './components/TextExpandingSection';
-import FlipFadeText from './components/ui/flip-fade-text';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -17,65 +17,22 @@ import { CursorTracker } from './components/ui/CursorTracker';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(0);
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Lock body scroll while preloader runs
   useEffect(() => {
-    // Preload video as a blob to cache it entirely before playing
-    const xhr = new XMLHttpRequest();
-    // Use .webm as it is smaller and already used in Hero, can be changed to .mp4 if needed
-    xhr.open('GET', '/background2.webm', true);
-    xhr.responseType = 'blob';
-
-    xhr.onprogress = (event) => {
-      if (event.lengthComputable) {
-        const percentComplete = Math.round((event.loaded / event.total) * 100);
-        setVideoProgress(percentComplete);
-      }
-    };
-
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        const videoBlob = xhr.response;
-        const videoUrl = URL.createObjectURL(videoBlob);
-        setVideoSrc(videoUrl);
-        setVideoLoaded(true);
-        setVideoProgress(100);
-      } else {
-        // Fallback
-        setVideoSrc('/background2.webm');
-        setVideoLoaded(true);
-        setVideoProgress(100);
-      }
-    };
-
-    xhr.onerror = () => {
-      // Fallback on error
-      setVideoSrc('/background2.webm');
-      setVideoLoaded(true);
-      setVideoProgress(100);
-    };
-
-    xhr.send();
-
-    return () => xhr.abort();
-  }, []);
-
-  useEffect(() => {
-    // Unmount loading screen only when video is 100% ready
-    // Added a small delay so the user can see it hit 100% briefly
-    if (videoLoaded) {
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 600);
-      return () => clearTimeout(timer);
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-  }, [videoLoaded]);
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLoading]);
 
   useEffect(() => {
-    if (loading) return;
+    if (isLoading) return;
 
     const isMobile = window.innerWidth < 768;
     if (isMobile) return;
@@ -98,74 +55,32 @@ export default function App() {
       lenis.destroy();
       gsap.ticker.remove(tickerCallback);
     };
-  }, [loading]);
+  }, [isLoading]);
 
   return (
     <div className="dark min-h-screen w-full bg-[#0A0A0A] text-white font-sans selection:bg-[#F27D26] selection:text-[#0A0A0A] overflow-x-hidden">
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <motion.div
-            key="preloader"
-            initial={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-              y: -80,
-              transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
-            }}
-            className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#0A0A0A] overflow-hidden"
-          >
-            {/* Dynamic ambient highlight leak */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-[#F27D26]/5 rounded-full blur-[90px] pointer-events-none" />
-
-            <FlipFadeText
-              words={["INITIALIZING", "LOADING ASSETS", "PREPARING SCENE", "READY"]}
-              interval={800} // Slightly slower to match actual loading better
-              textClassName="text-3xl sm:text-5xl lg:text-6xl font-black font-jetbrains tracking-[0.25em] text-white selection:bg-transparent"
-              letterDuration={0.35}
-              staggerDelay={0.03}
-              exitStaggerDelay={0.015}
-            />
-
-            {/* Loading Percentage */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="absolute bottom-24 text-[#F27D26] font-mono text-lg tracking-[0.2em] font-bold"
-            >
-              {videoProgress}%
-            </motion.div>
-
-            {/* Subtitle brand message */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.3 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="absolute bottom-12 font-mono text-[9px] uppercase tracking-[0.45em] text-neutral-400 select-none"
-            >
-              Engineered for Impact
-            </motion.div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
-          >
-            {/* Pass the cached blob URL directly to Hero */}
-            <Hero videoSrc={videoSrc} />
-            <CylinderSection />
-            <CreativeProcess />
-            <TextExpandingSection />
-            <TestimonialsSection />
-            <ContactSection />
-            <Footer />
-            <ScrollToTop />
-            <CursorTracker />
-          </motion.div>
+      <AnimatePresence>
+        {isLoading && (
+          <Preloader onComplete={() => setIsLoading(false)} />
         )}
       </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isLoading ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1], delay: 0.1 }}
+      >
+        <Hero videoSrc="/background2.webm" />
+        <CylinderSection />
+        <CreativeProcess />
+        <TextExpandingSection />
+        <TestimonialsSection />
+        <ContactSection />
+        <Footer />
+        <ScrollToTop />
+        <CursorTracker />
+      </motion.div>
     </div>
   );
 }
+
