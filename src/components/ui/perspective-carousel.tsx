@@ -200,6 +200,12 @@ export function PerspectiveCarousel({
                         src={item.src}
                         alt={item.alt ?? item.title}
                         draggable={false}
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src.includes('maxresdefault.jpg')) {
+                            target.src = target.src.replace('maxresdefault.jpg', 'hqdefault.jpg');
+                          }
+                        }}
                         className={cn(
                           "h-full w-full select-none object-cover transition-all duration-500",
                           isActive ? "grayscale-0" : "grayscale-40",

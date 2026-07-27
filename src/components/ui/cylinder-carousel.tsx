@@ -49,13 +49,11 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
         )}
         style={{
           perspective: "35em",
-          maskImage: "linear-gradient(90deg, transparent, #000 20% 80%, transparent)",
-          WebkitMaskImage: "linear-gradient(90deg, transparent, #000 20% 80%, transparent)",
           ...style // This allows overriding perspective from the parent!
         }}
         {...props}
       >
-        <div className="w-full h-full" style={{ transform: "translateZ(var(--translate-z, 0px))", transformStyle: "preserve-3d" }}>
+        <div className="w-full h-full" style={{ transform: "translateZ(var(--translate-z, 0px))", transformStyle: "preserve-3d", willChange: "transform" }}>
           <div
             className={cn(
               "grid place-items-center [transform-style:preserve-3d] motion-reduce:!animate-[ry_128s_linear_infinite]",
@@ -64,6 +62,7 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
           style={{
             ...customStyle,
             animation: "ry var(--anim-dur) linear infinite",
+            willChange: "transform",
           }}
         >
           {/* We define the keyframes inline via a style block to ensure it works without global CSS config */}
@@ -80,6 +79,8 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
               key={i}
               src={img.src}
               alt={img.alt || `Carousel image ${i}`}
+              loading="eager"
+              decoding="async"
               className={cn(
                 "[grid-area:1/1] object-cover rounded-2xl [backface-visibility:hidden]",
                 cardClassName
@@ -88,6 +89,7 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
                 width: "var(--w)",
                 aspectRatio: "7/10",
                 "--i": i,
+                willChange: "transform",
                 // Negative translateZ creates a concave carousel (we look at the inside back wall)
                 transform: "rotateY(calc(var(--i) * var(--ba))) translateZ(calc(-1 * (0.5 * var(--w) + 0.5em) / tan(0.5 * var(--ba))))",
               } as React.CSSProperties}

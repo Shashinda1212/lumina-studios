@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CylinderCarousel } from './ui/cylinder-carousel';
 
 const baseImages = [
@@ -17,24 +17,82 @@ const carouselImages = [
   ...baseImages
 ];
 
+// For mobile 2D marquee, we duplicate enough to fill the screen and loop seamlessly
+const mobileImages = [...baseImages, ...baseImages, ...baseImages];
+
 export const CylinderSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <section className="pt-8 pb-2 bg-[#0A0A0A] overflow-hidden flex flex-col items-center justify-center relative">
+    <section className="pt-8 pb-2 bg-[#0A0A0A] overflow-hidden flex flex-col items-center justify-center relative min-h-[400px]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#F27D26]/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="w-full z-10 -mx-4 md:mx-0 overflow-hidden" style={{ minHeight: '400px' }}>
-        <CylinderCarousel 
-          images={carouselImages} 
-          cardWidth={250}
-          className="w-full h-full min-h-[400px]"
-          style={{
-            perspective: "1200px",
-            "--translate-z": "304px",
-            maskImage: "linear-gradient(90deg, transparent, #000 15% 85%, transparent)",
-            WebkitMaskImage: "linear-gradient(90deg, transparent, #000 15% 85%, transparent)"
-          } as React.CSSProperties}
-        />
-      </div>
+      {/* Fake mask gradients to blend the edges */}
+      <div className="absolute inset-y-0 left-0 w-[15%] md:w-[20%] bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-[15%] md:w-[20%] bg-gradient-to-l from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20 pointer-events-none" />
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes mobileMarquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}} />
+
+      {isMounted && (
+        isMobile ? (
+          /* HIGH PERFORMANCE 2D MARQUEE FOR MOBILE (100% Lag Free) */
+          <div className="w-full relative z-10 overflow-hidden py-10 flex items-center transform-gpu" style={{ transform: 'translateZ(0)' }}>
+            <div 
+              className="flex w-[max-content] items-center gap-4 animate-[mobileMarquee_45s_linear_infinite]"
+              style={{ willChange: 'transform' }}
+            >
+              {mobileImages.map((img, i) => (
+                <img
+                  key={`m1-${i}`}
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-[160px] sm:w-[200px] aspect-[7/10] object-cover rounded-xl shadow-lg border border-white/5 flex-shrink-0 bg-neutral-900/50"
+                  loading="eager"
+                  decoding="async"
+                />
+              ))}
+              {/* Duplicate array for seamless infinite looping */}
+              {mobileImages.map((img, i) => (
+                <img
+                  key={`m2-${i}`}
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-[160px] sm:w-[200px] aspect-[7/10] object-cover rounded-xl shadow-lg border border-white/5 flex-shrink-0 bg-neutral-900/50"
+                  loading="eager"
+                  decoding="async"
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* HEAVY 3D CYLINDER FOR DESKTOP */
+          <div className="w-full z-10 -mx-4 md:mx-0 overflow-hidden transform-gpu relative" style={{ minHeight: '400px', transform: 'translateZ(0)' }}>
+            <CylinderCarousel 
+              images={carouselImages} 
+              cardWidth={250}
+              className="w-full h-full min-h-[400px] transform-gpu"
+              style={{
+                perspective: "1200px",
+                "--translate-z": "304px",
+              } as React.CSSProperties}
+            />
+          </div>
+        )
+      )}
     </section>
   );
 };

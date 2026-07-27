@@ -36,10 +36,9 @@ export const CursorTracker = () => {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Spring Settings for Outer Trail (Made snappier to reduce lag)
-  const outerSpringConfig = { damping: 25, stiffness: 800, mass: 0.1 };
-  const outerX = useSpring(mouseX, outerSpringConfig);
-  const outerY = useSpring(mouseY, outerSpringConfig);
+  // Removed spring config to completely eliminate laggy feeling
+  const outerX = mouseX;
+  const outerY = mouseY;
 
   // Inner Dot uses raw values directly for zero physics lag
   const innerX = mouseX;
@@ -482,7 +481,7 @@ export const CursorTracker = () => {
             : '0 0 25px rgba(6, 182, 212, 0.2)'
         }}
         animate={getOuterVariants()}
-        transition={{ type: 'spring', stiffness: 400, damping: 28, mass: 0.1 }}
+        transition={{ duration: 0.15, ease: 'easeOut' }}
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex flex-col items-center justify-center border select-none overflow-hidden"
       >
         <AnimatePresence mode="wait">
@@ -547,7 +546,7 @@ export const CursorTracker = () => {
           translateY: '-50%',
         }}
         animate={getInnerVariants()}
-        transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.05 }}
+        transition={{ duration: 0.1, ease: 'easeOut' }}
         className="fixed top-0 left-0 pointer-events-none z-[9999] shadow-sm"
       />
     </>

@@ -245,50 +245,7 @@ export const TestimonialsSection = () => {
       );
     });
 
-    // Mobile layout animations
-    mm.add("(max-width: 1023px)", () => {
-      // Simplified copy animations for mobile (smaller translations, slightly faster duration)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        }
-      });
-
-      tl.fromTo(".testimonial-badge", 
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
-      );
-
-      tl.fromTo(".testimonial-title", 
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-        "-=0.3"
-      );
-
-      tl.fromTo(".testimonial-desc", 
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-        "-=0.3"
-      );
-
-      // 3. Mobile carousel entrance
-      gsap.fromTo(".testimonial-carousel-container",
-        { opacity: 0, y: 25 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-            toggleActions: "play none none none",
-          }
-        }
-      );
-    });
+    // Mobile layout animations are disabled for better scrolling performance
 
     return () => mm.revert();
   }, { scope: sectionRef });
@@ -450,7 +407,7 @@ export const TestimonialsSection = () => {
       <div ref={textContainerRef} className="relative z-20 flex flex-col items-center text-center max-w-xl px-6 pointer-events-auto">
         {/* Testimonials Badge */}
         <div
-          className="testimonial-badge opacity-0 flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/5 text-purple-400 text-xs font-mono tracking-widest uppercase mb-8 mt-8 md:mt-60 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
+          className="testimonial-badge lg:opacity-0 flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/5 text-purple-400 text-xs font-mono tracking-widest uppercase mb-8 mt-8 md:mt-60 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
         >
           <Quote className="w-3.5 h-3.5 rotate-180" />
           <span>Testimonials</span>
@@ -458,7 +415,7 @@ export const TestimonialsSection = () => {
 
         {/* Title */}
         <h2
-          className="testimonial-title opacity-0 text-4xl sm:text-5xl font-lora font-bold leading-tight tracking-tight text-white mb-6"
+          className="testimonial-title lg:opacity-0 text-4xl sm:text-5xl font-lora font-bold leading-tight tracking-tight text-white mb-6"
         >
           Trusted by<br />
           <span className="text-[#F27D26] font-sans italic font-extrabold tracking-wide">
@@ -468,14 +425,14 @@ export const TestimonialsSection = () => {
 
         {/* Subtitle */}
         <p
-          className="testimonial-desc opacity-0 text-neutral-400 text-sm md:text-base leading-relaxed mb-10 max-w-md font-light"
+          className="testimonial-desc lg:opacity-0 text-neutral-400 text-sm md:text-base leading-relaxed mb-10 max-w-md font-light"
         >
           Proud to collaborate with artists who push boundaries and inspire culture.
         </p>
       </div>
 
       {/* Mobile/Tablet card carousel layout (less than lg) */}
-      <div className="testimonial-carousel-container opacity-0 lg:hidden w-full flex flex-col items-center gap-6 mt-16 relative z-10 px-4">
+      <div className="testimonial-carousel-container lg:hidden w-full flex flex-col items-center gap-6 mt-16 relative z-10 px-4">
         {/* Main Slider Wrapper */}
         <div className="relative w-full max-w-md flex items-center justify-center">
           {/* Left Arrow */}

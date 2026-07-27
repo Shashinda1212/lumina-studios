@@ -16,13 +16,16 @@ const statusLogs = [
 ];
 
 export const Preloader = ({ onComplete }: PreloaderProps) => {
-  const [progress, setProgress] = useState(0);
   const [logIndex, setLogIndex] = useState(0);
   const [countdown, setCountdown] = useState(5);
   const [isClapping, setIsClapping] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const [showClapper, setShowClapper] = useState(false);
   const [clapped, setClapped] = useState(false);
+  
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressTextRef = useRef<HTMLSpanElement>(null);
+  const svgProgressRef = useRef<SVGCircleElement>(null);
   
   const timecodeRef = useRef<HTMLSpanElement>(null);
   const frameRef = useRef(0);
@@ -39,7 +42,13 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
       if (elapsed < 2500) {
         // 1. Countdown and loading progress (0 to 2.5s)
         const pct = (elapsed / 2500) * 100;
-        setProgress(pct);
+        
+        // Update DOM directly to avoid 60fps React re-renders of the entire component
+        if (progressBarRef.current) progressBarRef.current.style.width = `${pct}%`;
+        if (progressTextRef.current) progressTextRef.current.innerText = `${pct.toFixed(0)}% SECURE`;
+        if (svgProgressRef.current) {
+          svgProgressRef.current.style.strokeDashoffset = String(270 - (270 * pct) / 100);
+        }
         
         const logIdx = Math.min(
           statusLogs.length - 2, // Keep last log for standby phase
@@ -54,7 +63,10 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
         animFrame = requestAnimationFrame(tick);
       } else if (elapsed < 2850) {
         // 2. Reveal open clapperboard (2.5s to 2.85s)
-        setProgress(100);
+        if (progressBarRef.current) progressBarRef.current.style.width = '100%';
+        if (progressTextRef.current) progressTextRef.current.innerText = '100% SECURE';
+        if (svgProgressRef.current) svgProgressRef.current.style.strokeDashoffset = '0';
+        
         setLogIndex(statusLogs.length - 1); // "STANDBY"
         setShowClapper(true);
         
@@ -125,14 +137,17 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
       </svg>
 
       <div
-        className="fixed inset-0 z-[9999] bg-[#070707] text-[#D8D8D8] font-mono select-none overflow-hidden flex flex-col justify-between p-6 md:p-10"
-        style={{
-          maskImage: 'url(#shutter-mask)',
-          WebkitMaskImage: 'url(#shutter-mask)'
-        }}
+        className={`fixed inset-0 z-[9999] bg-[#070707] text-[#D8D8D8] font-mono select-none overflow-hidden flex flex-col justify-between p-6 md:p-10 transform-gpu desktop-mask transition-opacity duration-[1200ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${isExiting ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}
       >
         {/* Custom Styles for high-performance visual effects (Hardware Accelerated) */}
         <style dangerouslySetInnerHTML={{ __html: `
+          @media (min-width: 768px) {
+            .desktop-mask {
+              mask-image: url(#shutter-mask);
+              -webkit-mask-image: url(#shutter-mask);
+              will-change: mask-image, -webkit-mask-image;
+            }
+          }
           @keyframes vu-bounce-1 { 0%, 100% { height: 20%; } 50% { height: 80%; } }
           @keyframes vu-bounce-2 { 0%, 100% { height: 15%; } 50% { height: 95%; } }
           @keyframes vu-bounce-3 { 0%, 100% { height: 30%; } 50% { height: 60%; } }
@@ -203,7 +218,8 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.85 }}
-                className="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center"
+                className="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center transform-gpu"
+                style={{ willChange: "transform, opacity" }}
               >
                 {/* Radial sweep outer rings */}
                 <svg className="absolute inset-0 w-full h-full transform -rotate-90">
@@ -226,6 +242,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
                     className="opacity-30 animate-[spin_60s_linear_infinite]"
                   />
                   <circle
+                    ref={svgProgressRef}
                     cx="50%"
                     cy="50%"
                     r="43%"
@@ -233,8 +250,8 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
                     stroke="#C6904E"
                     strokeWidth="2"
                     strokeDasharray="270"
-                    strokeDashoffset={270 - (270 * progress) / 100}
-                    className="transition-all duration-300 ease-out"
+                    strokeDashoffset={270}
+                    className="transition-all duration-[50ms] ease-linear"
                   />
                 </svg>
 
@@ -269,7 +286,8 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
                 initial={{ opacity: 0, scale: 0.75, rotateY: -20 }}
                 animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                 transition={{ type: 'spring', damping: 18 }}
-                className="flex flex-col items-center justify-center relative perspective-[1000px]"
+                className="flex flex-col items-center justify-center relative perspective-[1000px] transform-gpu"
+                style={{ willChange: "transform, opacity" }}
               >
                 {/* Clapperboard Body */}
                 <div className="w-64 md:w-72 relative">
@@ -405,17 +423,16 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
 
             {/* Custom progress rail */}
             <div className="h-1 w-full bg-white/5 border border-white/10 rounded-full overflow-hidden relative">
-              <motion.div
-                className="h-full bg-gradient-to-r from-[#C6904E] to-[#F27D26] rounded-full animate-pulse"
-                initial={{ width: '0%' }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
+              <div
+                ref={progressBarRef}
+                className="h-full bg-gradient-to-r from-[#C6904E] to-[#F27D26] rounded-full animate-pulse transition-all duration-[50ms] ease-linear"
+                style={{ width: '0%' }}
               />
             </div>
             
             <div className="flex justify-between items-center text-[9px] text-white/25 tracking-widest">
               <span>BUFF_0.9X_4K</span>
-              <span>{progress}% SECURE</span>
+              <span ref={progressTextRef}>0% SECURE</span>
             </div>
           </div>
 

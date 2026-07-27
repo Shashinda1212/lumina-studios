@@ -167,8 +167,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 muted
                 playsInline
                 src={videoSrc || '/background2.webm'}
-                style={{ willChange: "transform" }}
-                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-70 mix-blend-screen "
+                style={{ willChange: "transform", transform: "translateZ(0)" }}
+                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-70 mix-blend-screen transform-gpu"
             />
             {/* Gradient Overlay to match the dark left side of the image */}
             <div className="absolute inset-0 bg-linear-to-r from-black/95 via-black/60 to-transparent z-0 pointer-events-none"></div>
@@ -237,7 +237,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </div>
 
             {/* Main Hero Content */}
-            <main ref={contentRef} style={{ willChange: "transform, opacity" }} className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-32 xl:pl-48 mt-10 lg:mt-0 relative z-10 w-full max-w-7xl items-start">
+            <main ref={contentRef} style={{ willChange: "transform, opacity", transform: "translateZ(0)" }} className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-32 xl:pl-48 mt-10 lg:mt-0 relative z-10 w-full max-w-7xl items-start transform-gpu">
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -280,7 +280,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </main>
 
             {/* Bottom Section */}
-            <footer ref={footerRef} style={{ willChange: "transform, opacity" }} className="w-full px-8 md:px-16 pt-10 pb-6 md:pb-10 relative z-20 mt-auto flex justify-center">
+            <footer ref={footerRef} style={{ willChange: "transform, opacity", transform: "translateZ(0)" }} className="w-full px-8 md:px-16 pt-10 pb-6 md:pb-10 relative z-20 mt-auto flex justify-center transform-gpu">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 w-full max-w-5xl mx-auto">
                     {[
                         { num: "01", title: "Music Videos", desc: "High-energy visuals that bring your music to life.", icon: Clapperboard },

@@ -25,6 +25,67 @@ const splitText = (text: string, className: string) => {
         }, []);
 };
 
+// Cache to store fetched YouTube titles so re-renders are instant
+const youtubeMetadataCache: Record<string, { title: string; author: string }> = {};
+
+export type YouTubeLinkItem = string | { url: string; title?: string; description?: string };
+
+const getYouTubeVideoId = (url: string): string | null => {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+    return match ? match[1] : null;
+};
+
+const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
+    const [metadata, setMetadata] = useState<Record<string, { title: string; author: string }>>(() => ({
+        ...youtubeMetadataCache
+    }));
+
+    const linksKey = JSON.stringify(links);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        links.forEach((item) => {
+            const url = typeof item === "string" ? item : item.url;
+            const videoId = getYouTubeVideoId(url);
+            if (!videoId || youtubeMetadataCache[videoId]) return;
+
+            fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (isMounted && data && data.title) {
+                        const fetchedData = {
+                            title: data.title,
+                            author: data.author_name ? `${data.author_name} • Official Video` : "YouTube Video"
+                        };
+                        youtubeMetadataCache[videoId] = fetchedData;
+                        setMetadata((prev) => ({ ...prev, [videoId]: fetchedData }));
+                    }
+                })
+                .catch(() => {});
+        });
+
+        return () => {
+            isMounted = false;
+        };
+    }, [linksKey]);
+
+    return links.map((item) => {
+        const url = typeof item === "string" ? item : item.url;
+        const customTitle = typeof item === "object" ? item.title : undefined;
+        const customDescription = typeof item === "object" ? item.description : undefined;
+        const videoId = getYouTubeVideoId(url);
+        const cached = videoId ? metadata[videoId] : undefined;
+
+        return {
+            src: videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : downloadImg,
+            title: customTitle || cached?.title || "Loading Video...",
+            description: customDescription || cached?.author || "YouTube Video",
+            youtubeUrl: url,
+        };
+    });
+};
+
 export const TextExpandingSection = () => {
     const containerRef = useRef<HTMLElement>(null);
     const text1Ref = useRef<HTMLDivElement>(null);
@@ -62,19 +123,23 @@ export const TextExpandingSection = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const items = [
-        { src: downloadImg, title: "urban exploration", description: "Discovering hidden architectural marvels in the city.", youtubeUrl: "https://www.youtube.com/watch?v=21X5lGlDOfg" },
-        { src: downloadImg, title: "night scene", description: "Neon glow and deep shadows of the midnight streets.", youtubeUrl: "https://www.youtube.com/watch?v=8V-wNeeL11o" },
-        { src: downloadImg, title: "yellow wildflowers", description: "Golden fields dancing under the warm summer breeze.", youtubeUrl: "https://www.youtube.com/watch?v=tO01J-M3g0U" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "THARAKA x Kevin Smokio x Jayss - Nirwaane (Official Music Video)", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
-        { src: downloadImg, title: "street with mount fuji", description: "A majestic view of Mount Fuji from a quiet Japanese street.", youtubeUrl: "https://www.youtube.com/watch?v=GxDnTa9A-oQ" },
+    // Simply put your YouTube video URLs here!
+    // Thumbnail (16:9 ratio), video title, and channel name are fetched automatically without any layout change.
+    const youtubeLinks: YouTubeLinkItem[] = [
+        "https://www.youtube.com/watch?v=21X5lGlDOfg",
+        "https://www.youtube.com/watch?v=8V-wNeeL11o",
+        "https://www.youtube.com/watch?v=tO01J-M3g0U",
+        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
+        "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
+        "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
+        "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
+        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
+        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
+        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
+        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
     ];
+
+    const items = useYouTubeVideos(youtubeLinks);
 
     useGSAP(() => {
         const mm = gsap.matchMedia();

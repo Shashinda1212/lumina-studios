@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { AvatarGroup, AvatarGroupTooltip } from '@/components/animate-ui/components/animate/avatar-group';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/animate-ui/components/animate/avatar';
 const AVATARS = [
@@ -26,46 +25,15 @@ const AVATARS = [
 ];
 
 export const Footer = () => {
-  const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1] as const,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1] as const,
-      },
-    },
-  };
-
   return (
     <footer className="relative w-full bg-black text-white pt-20 pb-10 px-6 md:px-16 lg:px-32 xl:px-48 border-t border-white/10 overflow-hidden">
-      {/* Background Subtle Accent Glow */}
-      <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-[#CE5D01]/3 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      {/* Background Subtle Accent Glow (Hidden on mobile) */}
+      <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-[#CE5D01]/3 rounded-full blur-[100px] pointer-events-none z-0 hidden md:block"></div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '50px' }}
-        className="max-w-7xl mx-auto relative z-10"
-      >
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16">
           {/* Column 1: Brand Info */}
-          <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-6">
+          <div className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-6">
             <div>
               <span className="text-xl md:text-2xl font-serif font-light tracking-[0.2em] mb-4 block">
                 KV <span className="inline-block -translate-y-[2px]">ᝰ</span>
@@ -76,13 +44,13 @@ export const Footer = () => {
             </div>
             {/* Ambient available badge in footer */}
             <div className="flex items-center space-x-2 opacity-50">
-              <div className="w-1.5 h-1.5 bg-[#CE5D01] rounded-full animate-pulse shadow-[0_0_6px_rgba(206,93,1,0.8)]"></div>
+              <div className="w-1.5 h-1.5 bg-[#CE5D01] rounded-full md:animate-pulse shadow-[0_0_6px_rgba(206,93,1,0.8)]"></div>
               <span className="text-sm uppercase tracking-widest text-white/80">Available Worldwide</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Column 2: Quick Links */}
-          <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col gap-4">
+          <div className="md:col-span-6 lg:col-span-4 flex flex-col gap-4">
             <h4 className="text-sm uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-2">
               Navigation
             </h4>
@@ -104,10 +72,10 @@ export const Footer = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Column 3: Social Links & Contact Intro */}
-          <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-3 flex flex-col gap-6">
+          <div className="md:col-span-6 lg:col-span-3 flex flex-col gap-6">
             <div>
               <h4 className="text-sm uppercase tracking-[0.3em] font-semibold text-[#CE5D01] mb-4">
                 TRUSTED BY
@@ -122,11 +90,11 @@ export const Footer = () => {
                 ))}
               </AvatarGroup>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom Bar Separator */}
-        <motion.div variants={itemVariants} className="border-t border-white/10 pt-8 mt-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+        <div className="border-t border-white/10 pt-8 mt-4 flex flex-col lg:flex-row justify-between items-center gap-4">
           <p className="text-[15px] text-white/40 tracking-wider text-center lg:text-left">
             &copy; {new Date().getFullYear()} KV ᝰ. All rights reserved.
           </p>
@@ -157,8 +125,9 @@ export const Footer = () => {
               Terms of Service
             </a>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </footer>
   );
 };
+

@@ -52,30 +52,6 @@ export const ContactSection = () => {
     setTimeout(() => setIsSuccess(false), 5000);
   };
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1] as const,
-      },
-    },
-  };
-
   return (
     <section id="contact" className="relative w-full min-h-screen bg-[#080504] text-white py-24 px-6 md:px-16 lg:px-32 xl:px-48 border-t border-white/5 overflow-hidden flex flex-col justify-center">
       {/* Self-contained styling for background dust particles and slow-drifting glow meshes */}
@@ -122,8 +98,8 @@ export const ContactSection = () => {
         }
       `}</style>
 
-      {/* Cinematic Live Background Effects */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+      {/* Cinematic Live Background Effects (Hidden on mobile for maximum performance) */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
         {/* Subtle base radial gradient glow behind the contact form */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-[radial-gradient(circle_at_center,rgba(242,125,38,0.035)_0%,transparent_70%)] pointer-events-none z-0"
@@ -282,46 +258,34 @@ export const ContactSection = () => {
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '50px' }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           {/* Left Column: Contact Info & Brand Message */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               {/* Tag / Badge */}
-              <motion.div variants={itemVariants} className="flex items-center space-x-3 mb-6">
+              <div className="flex items-center space-x-3 mb-6">
                 <div className="w-1.5 h-1.5 bg-[#F27D26] rounded-full shadow-[0_0_8px_rgba(242,125,38,0.8)]"></div>
                 <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-[#F27D26] font-semibold">
                   Get In Touch
                 </span>
-              </motion.div>
+              </div>
 
               {/* Title */}
-              <motion.h2
-                variants={itemVariants}
-                className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-widest leading-[1.05] mb-8 font-sans"
-              >
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-widest leading-[1.05] mb-8 font-sans">
                 Let's <br />
                 Create <br />
                 <span className="bg-gradient-to-r from-[#F27D26] via-[#C6904E] to-[#F27D26] bg-clip-text text-transparent">
                   Together.
                 </span>
-              </motion.h2>
+              </h2>
 
-              <motion.p
-                variants={itemVariants}
-                className="text-neutral-400 text-sm md:text-base leading-relaxed mb-12 max-w-md font-light"
-              >
+              <p className="text-neutral-400 text-sm md:text-base leading-relaxed mb-12 max-w-md font-light">
                 Have a concept in mind or want to collaborate on an upcoming production? Drop me a message and let's craft something unforgettable.
-              </motion.p>
+              </p>
             </div>
 
             {/* Contact details */}
-            <motion.div variants={itemVariants} className="space-y-6 mb-12">
+            <div className="space-y-6 mb-12">
               <div className="flex items-start gap-4 group">
                 <div className="p-3 border border-white/10 rounded-full bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))] text-neutral-400 group-hover:text-[#F27D26] group-hover:border-[#F27D26]/30 group-hover:bg-[linear-gradient(rgba(242,125,38,0.05),rgba(242,125,38,0.05))] transition-all duration-300">
                   <Mail className="w-5 h-5" strokeWidth={1.5} />
@@ -363,10 +327,10 @@ export const ContactSection = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Social links */}
-            <motion.div variants={itemVariants} className="block md:flex md:flex-row md:gap-12 border-t border-white/5 pt-8">
+            <div className="block md:flex md:flex-row md:gap-12 border-t border-white/5 pt-8">
               <div className="space-y-3 mb-10 md:mb-0 relative z-30">
                 <span className="text-[9px] uppercase tracking-[0.25em] text-neutral-500 font-semibold block">
                   Studio Accounts
@@ -456,15 +420,14 @@ export const ContactSection = () => {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right Column: Form */}
           <div className="lg:col-span-7 flex flex-col justify-center mt-8 lg:mt-0">
-            <motion.form
-              variants={itemVariants}
+            <form
               onSubmit={handleFormSubmit(onSubmit)}
-              className="space-y-5 md:space-y-6 px-5 py-6 pt-4 md:p-10 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form"
+              className="space-y-5 md:space-y-6 px-5 py-6 pt-4 md:p-10 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form transform-gpu [backface-visibility:hidden]"
             >
               {/* Form border glow effect */}
               <div className="absolute inset-0 border border-[#F27D26]/0 group-hover/form:border-[#F27D26]/15 rounded-2xl pointer-events-none transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.8)] lg:shadow-[0_0_50px_rgba(0,0,0,0.8)] group-hover/form:shadow-[0_0_50px_rgba(242,125,38,0.03)]" />
@@ -542,7 +505,7 @@ export const ContactSection = () => {
                   }}
                 />
                 {turnstileError && (
-                  <p className="text-red-500 text-xs tracking-wider">Please complete the security check to continue.</p>
+                 <p className="text-red-500 text-xs tracking-wider">Please complete the security check to continue.</p>
                 )}
               </div>
 
@@ -566,18 +529,15 @@ export const ContactSection = () => {
 
               {/* Success Notification */}
               {isSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
+                <div
                   className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-center text-xs tracking-wider"
                 >
                   Thank you! Your message has been sent successfully. I'll get back to you shortly.
-                </motion.div>
+                </div>
               )}
-            </motion.form>
+            </form>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
