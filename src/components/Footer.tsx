@@ -102,7 +102,7 @@ export const Footer = () => {
           <p className="text-[15px] text-white/40 tracking-wider text-center">
             Designed & Developed by{' '}
             <a
-              href="https://rc-website-52f60.web.app/"
+              href="https://royalcodex.co"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors duration-300 hover:text-[#CE5D01]"
