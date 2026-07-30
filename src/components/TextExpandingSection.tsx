@@ -28,7 +28,7 @@ const splitText = (text: string, className: string) => {
 // Cache to store fetched YouTube titles so re-renders are instant
 const youtubeMetadataCache: Record<string, { title: string; author: string }> = {};
 
-export type YouTubeLinkItem = string | { url: string; title?: string; description?: string };
+export type YouTubeLinkItem = string | { url: string; title?: string; description?: string; tags?: string[] };
 
 const getYouTubeVideoId = (url: string): string | null => {
     const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
@@ -74,6 +74,7 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
         const url = typeof item === "string" ? item : item.url;
         const customTitle = typeof item === "object" ? item.title : undefined;
         const customDescription = typeof item === "object" ? item.description : undefined;
+        const tags = typeof item === "object" ? item.tags : undefined;
         const videoId = getYouTubeVideoId(url);
         const cached = videoId ? metadata[videoId] : undefined;
 
@@ -82,6 +83,7 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
             title: customTitle || cached?.title || "Loading Video...",
             description: customDescription || cached?.author || "YouTube Video",
             youtubeUrl: url,
+            tags: tags,
         };
     });
 };
@@ -126,17 +128,26 @@ export const TextExpandingSection = () => {
     // Simply put your YouTube video URLs here!
     // Thumbnail (16:9 ratio), video title, and channel name are fetched automatically without any layout change.
     const youtubeLinks: YouTubeLinkItem[] = [
-        "https://www.youtube.com/watch?v=21X5lGlDOfg",
-        "https://www.youtube.com/watch?v=8V-wNeeL11o",
-        "https://www.youtube.com/watch?v=tO01J-M3g0U",
-        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
-        "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
-        "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
-        "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
-        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
-        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
-        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
-        "https://www.youtube.com/watch?v=GxDnTa9A-oQ",
+        { url: "#", tags: ["Director"] },
+        { url: "#", tags: ["Editor"] },
+        { url: "#", tags: ["Colorist"] },
+        "#",
+        {
+            url: "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
+            tags: ["Director","DOP"]
+        },
+        {
+            url: "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
+            tags: ["Director","DOP"]
+        },
+        {
+            url: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
+            tags: ["DOP"]
+        },
+        "#",
+        { url: "#", tags: ["DOP"] },
+        { url: "#", tags: ["Editor"] },
+        { url: "#", tags: ["Colorist"] },
     ];
 
     const items = useYouTubeVideos(youtubeLinks);

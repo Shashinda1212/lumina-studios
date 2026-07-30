@@ -11,6 +11,7 @@ export interface PerspectiveCarouselItem {
   description?: string;
   alt?: string;
   youtubeUrl?: string;
+  tags?: string[];
 }
 
 export interface PerspectiveCarouselProps
@@ -224,6 +225,43 @@ export function PerspectiveCarousel({
                           <p className="text-[8px] sm:text-[10px] text-neutral-400 line-clamp-2 font-light leading-normal select-text mt-3">
                             {item.description}
                           </p>
+                        )}
+
+                        {/* Tags Badge */}
+                        {item.tags && item.tags.length > 0 && (
+                          <div className="flex flex-wrap justify-center gap-1.5 mt-2.5 mb-1 pointer-events-none">
+                            {item.tags.map((tag, i) => {
+                              const isDirector = tag.toLowerCase() === "director";
+                              const isDop = tag.toLowerCase() === "dop";
+                              const isEditor = tag.toLowerCase() === "editor";
+                              const isColorist = tag.toLowerCase() === "colorist";
+
+                              let tagStyles = "";
+                              if (isDirector) {
+                                tagStyles = "bg-[#F27D26]/15 text-[#F27D26] border-[#F27D26]/25 shadow-[0_0_10px_rgba(242,125,38,0.15)]";
+                              } else if (isDop) {
+                                tagStyles = "bg-cyan-500/15 text-cyan-400 border-cyan-500/25 shadow-[0_0_10px_rgba(6,182,212,0.15)]";
+                              } else if (isEditor) {
+                                tagStyles = "bg-violet-500/15 text-violet-400 border-violet-500/25 shadow-[0_0_10px_rgba(139,92,246,0.15)]";
+                              } else if (isColorist) {
+                                tagStyles = "bg-linear-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 text-white border-white/30 shadow-[0_0_10px_rgba(236,72,153,0.15)]";
+                              } else {
+                                tagStyles = "bg-black/60 text-neutral-300 border-white/10";
+                              }
+
+                              return (
+                                <span
+                                  key={i}
+                                  className={cn(
+                                    "px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 text-[7px] sm:text-[9px] font-sans font-bold tracking-wider uppercase rounded border backdrop-blur-md transition-all duration-300 shadow-sm",
+                                    tagStyles
+                                  )}
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })}
+                          </div>
                         )}
                       </div>
  
