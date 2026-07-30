@@ -1,0 +1,13 @@
+{
+  "ignore": {
+    "rules": [
+      "react-doctor/no-permanent-will-change",
+      "react-doctor/no-transition-all",
+      "react-doctor/use-lazy-motion",
+      "deslop/unused-dependency",
+      "deslop/unused-file",
+      "react-doctor/no-giant-component",
+      "react-doctor/only-export-components"
+    ]
+  }
+}

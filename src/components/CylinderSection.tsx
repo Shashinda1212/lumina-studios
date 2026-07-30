@@ -15,10 +15,16 @@ const carouselImages = [
   ...baseImages,
   ...baseImages,
   ...baseImages
-];
+].map((img, index) => ({
+  ...img,
+  id: `carousel-${img.src}-${index}`
+}));
 
 // For mobile 2D marquee, we duplicate enough to fill the screen and loop seamlessly
-const mobileImages = [...baseImages, ...baseImages, ...baseImages];
+const mobileImages = [...baseImages, ...baseImages, ...baseImages].map((img, index) => ({
+  ...img,
+  id: `mobile-${img.src}-${index}`
+}));
 
 export const CylinderSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -55,9 +61,9 @@ export const CylinderSection = () => {
               className="flex w-[max-content] items-center gap-4 animate-[mobileMarquee_45s_linear_infinite]"
               style={{ willChange: 'transform' }}
             >
-              {mobileImages.map((img, i) => (
+              {mobileImages.map((img) => (
                 <img
-                  key={`m1-${i}`}
+                  key={`${img.id}-loop1`}
                   src={img.src}
                   alt={img.alt}
                   className="w-[160px] sm:w-[200px] aspect-[7/10] object-cover rounded-xl shadow-lg border border-white/5 flex-shrink-0 bg-neutral-900/50"
@@ -66,9 +72,9 @@ export const CylinderSection = () => {
                 />
               ))}
               {/* Duplicate array for seamless infinite looping */}
-              {mobileImages.map((img, i) => (
+              {mobileImages.map((img) => (
                 <img
-                  key={`m2-${i}`}
+                  key={`${img.id}-loop2`}
                   src={img.src}
                   alt={img.alt}
                   className="w-[160px] sm:w-[200px] aspect-[7/10] object-cover rounded-xl shadow-lg border border-white/5 flex-shrink-0 bg-neutral-900/50"

@@ -437,6 +437,7 @@ export const TestimonialsSection = () => {
         <div className="relative w-full max-w-md flex items-center justify-center">
           {/* Left Arrow */}
           <button 
+            type="button"
             onClick={prevSlide}
             className="absolute left-2 sm:left-4 z-30 p-2.5 rounded-full border border-white/10 bg-black/60 text-white hover:bg-black/80 hover:scale-105 transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer"
             aria-label="Previous Testimonial"
@@ -478,6 +479,7 @@ export const TestimonialsSection = () => {
 
           {/* Right Arrow */}
           <button 
+            type="button"
             onClick={nextSlide}
             className="absolute right-2 sm:right-4 z-30 p-2.5 rounded-full border border-white/10 bg-[#050505]/60 text-white hover:bg-black/80 hover:scale-105 transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer"
             aria-label="Next Testimonial"
@@ -488,9 +490,10 @@ export const TestimonialsSection = () => {
 
         {/* Indicators / Progress Dot Navigation */}
         <div className="flex gap-2 mt-2 max-w-full overflow-x-auto py-2 px-4 scrollbar-none">
-          {testimonials.map((_, idx) => (
+          {testimonials.map((testimonial, idx) => (
             <button
-              key={idx}
+              key={testimonial.id}
+              type="button"
               onClick={() => setCurrentIndex(idx)}
               className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-300 cursor-pointer ${
                 currentIndex === idx ? 'bg-[#F27D26] w-5' : 'bg-white/20 hover:bg-white/40'

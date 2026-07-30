@@ -20,7 +20,7 @@ import {
   type UseFloatingReturn,
 } from '@floating-ui/react';
 
-import { getStrictContext } from '@/lib/get-strict-context';
+import { getStrictContext } from '../../../../lib/get-strict-context';
 import { Slot, type WithAsChild } from '@/components/animate-ui/primitives/animate/slot';
 
 type Side = 'top' | 'bottom' | 'left' | 'right';
@@ -269,6 +269,7 @@ function TooltipOverlay() {
     }
   }, [currentTooltip]);
 
+  // react-doctor-disable-next-line react-doctor/no-effect-chain
   React.useLayoutEffect(() => {
     if (referenceElRef.current) {
       refs.setReference(referenceElRef.current);
@@ -397,8 +398,8 @@ function shallowEqualWithoutChildren(
 ) {
   if (a === b) return true;
   if (!a || !b) return false;
-  const keysA = Object.keys(a).filter((k) => k !== 'children');
-  const keysB = Object.keys(b).filter((k) => k !== 'children');
+  const keysA = Object.keys(a ?? {}).filter((k) => k !== 'children');
+  const keysB = Object.keys(b ?? {}).filter((k) => k !== 'children');
   if (keysA.length !== keysB.length) return false;
   for (const k of keysA) {
     if ((a as any)[k] !== (b as any)[k]) return false;

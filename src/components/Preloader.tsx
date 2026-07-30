@@ -29,7 +29,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
   
   const timecodeRef = useRef<HTMLSpanElement>(null);
   const frameRef = useRef(0);
-  const startTimeRef = useRef(Date.now());
+  const startTimeRef = useRef(0);
 
   // Precise 3-second timeline before the Action clap
   useEffect(() => {
@@ -96,6 +96,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
 
   // Performance Optimization: Update timecode directly in DOM to bypass React re-renders at 24 FPS
   useEffect(() => {
+    startTimeRef.current = Date.now();
     const updateTimecode = () => {
       if (isExiting) return;
 

@@ -179,12 +179,13 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <nav className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-8 md:py-10 relative z-30">
                 {/* Desktop Navbar Left (100% original styling preserved) */}
                 <div className="hidden md:flex items-center space-x-6 lg:px-23">
-                    <span 
+                    <button 
+                        type="button"
                         onClick={() => window.location.reload()}
-                        className="text-xl md:text-2xl font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 flex items-center"
+                        className="bg-transparent border-0 p-0 text-left focus:outline-none focus:ring-0 text-xl md:text-2xl font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 flex items-center"
                     >
                         KV <span className="ml-1 text-2xl md:text-3xl font-thin leading-none -translate-y-[2px]">ᝰ</span>
-                    </span>
+                    </button>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
                         Videographer
@@ -193,12 +194,13 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
                 {/* Mobile Navbar Left (Wrapping-safe inline styling) */}
                 <div className="block md:hidden text-left">
-                    <span 
+                    <button 
+                        type="button"
                         onClick={() => window.location.reload()}
-                        className="text-lg font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 inline-flex items-center align-middle"
+                        className="bg-transparent border-0 p-0 text-left focus:outline-none focus:ring-0 text-lg font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 inline-flex items-center align-middle"
                     >
                         KV <span className="ml-1 text-xl font-thin leading-none -translate-y-[1px]">ᝰ</span>
-                    </span>
+                    </button>
                     <span className="mx-2 h-3 w-px bg-white/20 inline-block align-middle"></span>
                     <span className="text-[9px] tracking-[0.3em] uppercase opacity-60 font-medium inline">
                         Videographer
@@ -206,6 +208,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 </div>
 
                 <button 
+                    type="button"
                     onClick={() => setIsMenuOpen(true)}
                     className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity"
                 >
@@ -216,16 +219,16 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
             {/* Sidebar Socials */}
             <div className="absolute left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-5 z-20 hidden lg:flex">
-                <a href="https://www.instagram.com/kv___production/" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                <a href="https://www.instagram.com/kv___production/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
                     <Instagram className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                 </a>
-                <a href="https://www.youtube.com/@Film_bykv" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                <a href="https://www.youtube.com/@Film_bykv" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
                     <Youtube className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                 </a>
-                <a href="https://www.facebook.com/film.by.kv.1" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                <a href="https://www.facebook.com/film.by.kv.1" target="_blank" rel="noopener noreferrer" aria-label="Facebook Page" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
                     <Facebook className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                 </a>
-                <a href="https://www.linkedin.com/in/kanishka-viduranga-a36990376/" target="_blank" rel="noopener noreferrer" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
+                <a href="https://www.linkedin.com/in/kanishka-viduranga-a36990376/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-2 border border-white/10 rounded-full hover:bg-white/20 transition-colors group">
                     <Linkedin className="w-3.5 h-3.5 opacity-100 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
                 </a>
                 <div className="mt-16 flex items-center justify-center relative">
@@ -264,6 +267,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
                     <motion.div custom={5} variants={fadeUpVariants} className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
                         <button 
+                            type="button"
                             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                             className="w-full sm:w-auto bg-[#C6904E] text-white px-8 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#a87941] transition-all duration-300 flex items-center justify-center gap-4 group cursor-pointer"
                         >

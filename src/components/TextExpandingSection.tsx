@@ -13,15 +13,16 @@ const splitText = (text: string, className: string) => {
         .split(" ")
         .filter(Boolean)
         .map((word, i) => (
-            <span key={i} className="inline-block overflow-hidden align-bottom">
+            <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
                 <span className={`inline-block ${className}`}>
                     {word}
                 </span>
             </span>
         ))
         .reduce<ReactNode[]>((acc, curr, i) => {
-            if (i === 0) return [curr];
-            return [...acc, " ", curr];
+            if (i > 0) acc.push(" ");
+            acc.push(curr);
+            return acc;
         }, []);
 };
 
@@ -42,6 +43,7 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
 
     const linksKey = JSON.stringify(links);
 
+    // react-doctor-disable-next-line react-doctor/no-fetch-in-effect
     useEffect(() => {
         let isMounted = true;
 
@@ -51,7 +53,12 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
             if (!videoId || youtubeMetadataCache[videoId]) return;
 
             fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`)
-                .then((res) => res.json())
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
                 .then((data) => {
                     if (isMounted && data && data.title) {
                         const fetchedData = {
@@ -68,7 +75,7 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
         return () => {
             isMounted = false;
         };
-    }, [linksKey]);
+    }, [linksKey, links]);
 
     return links.map((item) => {
         const url = typeof item === "string" ? item : item.url;
@@ -84,9 +91,35 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
             description: customDescription || cached?.author || "YouTube Video",
             youtubeUrl: url,
             tags: tags,
+            id: `video-${videoId || url}-${customTitle || ''}`,
         };
     });
 };
+
+// Simply put your YouTube video URLs here!
+// Thumbnail (16:9 ratio), video title, and channel name are fetched automatically without any layout change.
+const youtubeLinks: YouTubeLinkItem[] = [
+    { url: "#", tags: ["Director"] },
+    { url: "#", tags: ["Editor"] },
+    { url: "#", tags: ["Colorist"] },
+    "#",
+    {
+        url: "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
+        tags: ["Director","DOP"]
+    },
+    {
+        url: "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
+        tags: ["Director","DOP"]
+    },
+    {
+        url: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
+        tags: ["DOP"]
+    },
+    "#",
+    { url: "#", tags: ["DOP"] },
+    { url: "#", tags: ["Editor"] },
+    { url: "#", tags: ["Colorist"] },
+];
 
 export const TextExpandingSection = () => {
     const containerRef = useRef<HTMLElement>(null);
@@ -97,7 +130,6 @@ export const TextExpandingSection = () => {
     const subtitleRef = useRef(null);
 
     const [slideSize, setSlideSize] = useState(330);
-    const [verticalStep, setVerticalStep] = useState(50);
     const [isMobile, setIsMobile] = useState(() => {
         if (typeof window !== "undefined") {
             return window.innerWidth < 768;
@@ -111,44 +143,16 @@ export const TextExpandingSection = () => {
             setIsMobile(width < 768);
             if (width < 640) {
                 setSlideSize(Math.max(120, Math.min(165, Math.round(width * 0.45))));
-                setVerticalStep(25);
             } else if (width < 1024) {
                 setSlideSize(265);
-                setVerticalStep(35);
             } else {
                 setSlideSize(330);
-                setVerticalStep(50);
             }
         };
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
-
-    // Simply put your YouTube video URLs here!
-    // Thumbnail (16:9 ratio), video title, and channel name are fetched automatically without any layout change.
-    const youtubeLinks: YouTubeLinkItem[] = [
-        { url: "#", tags: ["Director"] },
-        { url: "#", tags: ["Editor"] },
-        { url: "#", tags: ["Colorist"] },
-        "#",
-        {
-            url: "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
-            tags: ["Director","DOP"]
-        },
-        {
-            url: "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
-            tags: ["Director","DOP"]
-        },
-        {
-            url: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
-            tags: ["DOP"]
-        },
-        "#",
-        { url: "#", tags: ["DOP"] },
-        { url: "#", tags: ["Editor"] },
-        { url: "#", tags: ["Colorist"] },
-    ];
 
     const items = useYouTubeVideos(youtubeLinks);
 

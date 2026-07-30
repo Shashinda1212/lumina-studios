@@ -352,6 +352,7 @@ export const CreativeProcess = () => {
               {/* Carousel Navigation Panel for Mobile */}
               <div className="flex items-center justify-center gap-6 mt-6 lg:hidden">
                 <button 
+                  type="button"
                   onClick={() => scrollCarousel('left')}
                   disabled={activeIndex === 0}
                   className="p-2 rounded-full border border-white/10 bg-[#0A0A0A]/85 text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
@@ -361,9 +362,9 @@ export const CreativeProcess = () => {
                 </button>
 
                 <div className="flex gap-2">
-                  {processItems.map((_, i) => (
+                  {processItems.map((item, i) => (
                     <div
-                      key={i}
+                      key={item.tag}
                       className={`h-1.5 rounded-full transition-all duration-300 ${
                         activeIndex === i ? "w-6 bg-[#F27D26]" : "w-1.5 bg-white/20"
                       }`}
@@ -372,6 +373,7 @@ export const CreativeProcess = () => {
                 </div>
 
                 <button 
+                  type="button"
                   onClick={() => scrollCarousel('right')}
                   disabled={activeIndex === processItems.length - 1}
                   className="p-2 rounded-full border border-white/10 bg-[#0A0A0A]/85 text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/10 active:scale-95 transition-all cursor-pointer"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Instagram, Youtube, ArrowRight, Facebook, Linkedin } from 'lucide-react';
 import { Turnstile } from '@marsidev/react-turnstile';
@@ -33,11 +33,11 @@ export const ContactSection = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileTokenRef = useRef<string | null>(null);
   const [turnstileError, setTurnstileError] = useState(false);
 
   const onSubmit = async (data: ContactFormValues) => {
-    if (!turnstileToken) {
+    if (!turnstileTokenRef.current) {
       setTurnstileError(true);
       return;
     }
@@ -500,7 +500,7 @@ export const ContactSection = () => {
                   siteKey={import.meta.env.VITE_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
                   options={{ theme: 'dark' }}
                   onSuccess={(token) => {
-                    setTurnstileToken(token);
+                    turnstileTokenRef.current = token;
                     setTurnstileError(false);
                   }}
                 />

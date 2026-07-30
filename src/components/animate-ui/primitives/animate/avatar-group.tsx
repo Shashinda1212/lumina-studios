@@ -101,9 +101,11 @@ function AvatarGroup({
         }}
         {...props}
       >
-        {children?.map((child, index) => (
-          <AvatarContainer
-            key={index}
+        {React.Children.toArray(children).map((child, index) => {
+          const childElement = child as React.ReactElement;
+          return (
+            <AvatarContainer
+              key={childElement.key || undefined}
             zIndex={
               invertOverlap ? React.Children.count(children) - index : index
             }
@@ -116,7 +118,8 @@ function AvatarGroup({
           >
             {child}
           </AvatarContainer>
-        ))}
+          );
+        })}
       </div>
     </TooltipProvider>
   );

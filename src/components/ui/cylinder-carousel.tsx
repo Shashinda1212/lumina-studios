@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 export interface CarouselImage {
   src: string;
   alt?: string;
+  id?: string;
 }
 
 export interface CylinderCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -76,7 +77,7 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
           
           {images.map((img, i) => (
             <img
-              key={i}
+              key={img.id}
               src={img.src}
               alt={img.alt || `Carousel image ${i}`}
               loading="eager"

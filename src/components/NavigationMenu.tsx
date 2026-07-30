@@ -7,6 +7,53 @@ interface NavigationMenuProps {
   onClose: () => void;
 }
 
+const sidebarVariants = {
+  hidden: { x: '100%' },
+  visible: {
+    x: 0,
+    transition: {
+      type: 'tween' as const,
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1] as const,
+      staggerChildren: 0.08,
+      delayChildren: 0.15,
+    },
+  },
+  exit: {
+    x: '100%',
+    transition: {
+      type: 'tween' as const,
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  },
+};
+
+const linkVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1] as const,
+    },
+  },
+};
+
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const navLinks = [
+  { name: 'HOME', href: '#home' },
+  { name: 'PROJECTS', href: '#projects' },
+  { name: 'CLIENTS', href: '#testimonials' },
+  { name: 'CONTACT', href: '#contact' },
+];
+
 export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -19,53 +66,6 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
-
-  const sidebarVariants = {
-    hidden: { x: '100%' },
-    visible: {
-      x: 0,
-      transition: {
-        type: 'tween' as const,
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const,
-        staggerChildren: 0.08,
-        delayChildren: 0.15,
-      },
-    },
-    exit: {
-      x: '100%',
-      transition: {
-        type: 'tween' as const,
-        duration: 0.4,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1] as const,
-      },
-    },
-  };
-
-  const backdropVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
-
-  const navLinks = [
-    { name: 'HOME', href: '#home' },
-    { name: 'PROJECTS', href: '#projects' },
-    { name: 'CLIENTS', href: '#testimonials' },
-    { name: 'CONTACT', href: '#contact' },
-  ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -83,6 +83,8 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
         <>
           {/* Backdrop Overlay */}
           <motion.div
+            role="presentation"
+            aria-hidden="true"
             variants={backdropVariants}
             initial="hidden"
             animate="visible"
@@ -106,6 +108,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                 Navigation Menu
               </span>
               <button
+                type="button"
                 onClick={onClose}
                 className="p-2 border border-white/10 rounded-full bg-white/5 text-white/70 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 cursor-pointer"
                 aria-label="Close menu"
@@ -167,6 +170,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                     href="https://www.linkedin.com/in/kanishka-viduranga-a36990376/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn Profile"
                     className="p-2 border border-white/10 rounded-full bg-white/5 text-white/60 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
                   >
                     <Linkedin className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -176,6 +180,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                     href="https://www.facebook.com/film.by.kv.1"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Facebook Page"
                     className="p-2 border border-white/10 rounded-full bg-white/5 text-white/60 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
                   >
                     <Facebook className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -184,6 +189,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                     href="https://www.youtube.com/@Film_bykv"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="YouTube Channel"
                     className="p-2 border border-white/10 rounded-full bg-white/5 text-white/60 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
                   >
                     <Youtube className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -192,6 +198,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
                     href="https://www.instagram.com/kv___production/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Instagram Profile"
                     className="p-2 border border-white/10 rounded-full bg-white/5 text-white/60 hover:text-white hover:bg-[#CE5D01]/10 hover:border-[#CE5D01]/40 transition-all duration-300 group"
                   >
                     <Instagram className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />

@@ -81,8 +81,8 @@ export const Footer = () => {
                 TRUSTED BY
               </h4>
               <AvatarGroup>
-                {AVATARS.map((avatar, index) => (
-                  <Avatar key={index} className="border-2 border-black cursor-pointer">
+                {AVATARS.map((avatar) => (
+                  <Avatar key={avatar.tooltip} className="border-2 border-black cursor-pointer">
                     <AvatarImage src={avatar.src} alt={avatar.tooltip} />
                     <AvatarFallback>{avatar.fallback}</AvatarFallback>
                     <AvatarGroupTooltip>{avatar.tooltip}</AvatarGroupTooltip>

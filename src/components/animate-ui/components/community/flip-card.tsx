@@ -26,6 +26,11 @@ interface FlipCardProps {
   data: FlipCardData;
 }
 
+const cardVariants = {
+  front: { rotateY: 0, transition: { duration: 0.5, ease: easeOut } },
+  back: { rotateY: 180, transition: { duration: 0.5, ease: easeOut } },
+};
+
 export function FlipCard({ data }: FlipCardProps) {
   const [isFlipped, setIsFlipped] = React.useState(false);
 
@@ -44,13 +49,17 @@ export function FlipCard({ data }: FlipCardProps) {
     if (!isTouchDevice) setIsFlipped(false);
   };
 
-  const cardVariants = {
-    front: { rotateY: 0, transition: { duration: 0.5, ease: easeOut } },
-    back: { rotateY: 180, transition: { duration: 0.5, ease: easeOut } },
-  };
-
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label={`Flip card for ${data.name}`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setIsFlipped(!isFlipped);
+        }
+      }}
       className="relative w-52 h-72 md:w-60 md:h-80 perspective-1000 cursor-pointer mx-auto"
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

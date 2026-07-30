@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};
+
 export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   
@@ -29,13 +36,6 @@ export const ScrollToTop = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <AnimatePresence>

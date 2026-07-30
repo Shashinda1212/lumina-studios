@@ -137,7 +137,7 @@ export const CursorTracker = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [isTouchDevice, isVisible]);
+  }, [isTouchDevice, isVisible, mouseX, mouseY]);
 
   // 3. Hover Target Detection
   useEffect(() => {

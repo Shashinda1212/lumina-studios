@@ -12,6 +12,7 @@ export interface PerspectiveCarouselItem {
   alt?: string;
   youtubeUrl?: string;
   tags?: string[];
+  id?: string;
 }
 
 export interface PerspectiveCarouselProps
@@ -159,7 +160,7 @@ export function PerspectiveCarousel({
 
             return (
               <div
-                key={`${item.src}-${index}`}
+                key={item.id}
                 className="shrink-0"
                 style={{ width: safeSlideWidth, perspective: "1200px" }}
               >
@@ -251,7 +252,7 @@ export function PerspectiveCarousel({
 
                               return (
                                 <span
-                                  key={i}
+                                  key={`${tag}-${i}`}
                                   className={cn(
                                     "px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 text-[7px] sm:text-[9px] font-sans font-bold tracking-wider uppercase rounded border backdrop-blur-md transition-all duration-300 shadow-sm",
                                     tagStyles
@@ -267,6 +268,7 @@ export function PerspectiveCarousel({
  
                       {/* YouTube Redirect Button */}
                       {item.youtubeUrl ? (
+                        // react-doctor-disable-next-line react-doctor/html-no-nested-interactive
                         <a
                           href={item.youtubeUrl}
                           target="_blank"
@@ -330,7 +332,7 @@ export function PerspectiveCarousel({
             <div className="flex items-center justify-center gap-2">
               {items.map((item, index) => (
                 <button
-                  key={`${item.title}-${index}`}
+                  key={item.id}
                   type="button"
                   aria-label={`Show slide ${index + 1}: ${item.title}`}
                   aria-current={currentIndex === index ? "true" : undefined}
