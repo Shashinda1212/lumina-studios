@@ -67,17 +67,17 @@ const testimonials: TestimonialItem[] = [
     glow: 'blue',
     position: { left: '14%', bottom: '26%', rotate: '3deg' }
   },
-  {
-    id: 3,
-    name: 'Manasick',
-    username: 'Manasickwestnahira',
-    image: '/images/manasick.webp',
-    bio: 'Marketing Lead at Velo. Creative vision and storytelling that elevated our brand presence globally.',
-    stats: { following: 201, followers: 3500, posts: 95 },
-    socialLinks: { linkedin: 'https://linkedin.com' },
-    glow: 'orange',
-    position: { left: '6%', top: '10%', rotate: '6deg' }
-  },
+  // {
+  //   id: 3,
+  //   name: 'Manasick',
+  //   username: 'Manasickwestnahira',
+  //   image: '/images/manasick.webp',
+  //   bio: 'Marketing Lead at Velo. Creative vision and storytelling that elevated our brand presence globally.',
+  //   stats: { following: 201, followers: 3500, posts: 95 },
+  //   socialLinks: { linkedin: 'https://linkedin.com' },
+  //   glow: 'orange',
+  //   position: { left: '6%', top: '10%', rotate: '6deg' }
+  // },
   {
     id: 10,
     name: 'Mater D',
