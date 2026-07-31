@@ -325,11 +325,11 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
                     <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2">
                       <div>
                         <span className="text-[8px] text-white/35 block">PROD.</span>
-                        <span className="font-bold text-[#C6904E] tracking-wider truncate block">K. VIDURANGA</span>
+                        <span className="font-bold text-[#C6904E] tracking-wider truncate block">KV Production</span>
                       </div>
                       <div>
                         <span className="text-[8px] text-white/35 block">DIRECTOR</span>
-                        <span className="font-bold text-white truncate block">K. VIDURANGA</span>
+                        <span className="font-bold text-white truncate block">KV</span>
                       </div>
                     </div>
 
