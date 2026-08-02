@@ -99,30 +99,28 @@ const useYouTubeVideos = (links: YouTubeLinkItem[]) => {
 // Simply put your YouTube video URLs here!
 // Thumbnail (16:9 ratio), video title, and channel name are fetched automatically without any layout change.
 const youtubeLinks: YouTubeLinkItem[] = [
-    { url: "#", tags: ["Director"] },
-    { url: "#", tags: ["Editor"] },
-    { url: "#", tags: ["Colorist"] },
-    "#",
-    
-    {
-        url: "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
-        tags: ["Director", "DOP"]
-    },
-    {
-        url: "https://youtu.be/6HFdc6RPH3M?si=foBBhz9xV5I1DKD9",
-        tags: ["Director", "DOP"]
-    },
     {
         url: "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
         tags: ["Director", "DOP"]
     },
     {
+        url: "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
+        tags: ["Director", "DOP"]
+    },
+    
+    {
+        url: "https://youtu.be/6HFdc6RPH3M?si=foBBhz9xV5I1DKD9",
+        tags: ["Director", "DOP"]
+    },
+    {
+        url: "https://youtu.be/tCut7MoIEq8?si=k6VWsy87fM-_Y37h",
+        tags: ["DOP"]
+    },
+    
+    {
         url: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
         tags: ["DOP"]
     },
-    { url: "#", tags: ["DOP"] },
-    { url: "#", tags: ["Editor"] },
-    { url: "#", tags: ["Colorist"] },
 ];
 
 export const TextExpandingSection = () => {
@@ -300,7 +298,7 @@ export const TextExpandingSection = () => {
                     })}
                 </div>
 
-                <div className="flex flex-col gap-8 z-10 w-full relative">
+                <div className="flex flex-col gap-5 xs:gap-8 z-10 w-full relative">
                     {/* Right Column details showing on top for better hierarchy on mobile */}
                     <div className="w-full flex flex-col justify-center text-left">
                         {/* Accent dotted line indicator */}
@@ -360,13 +358,14 @@ export const TextExpandingSection = () => {
                     </div>
 
                     {/* Left Column: Diagonal Carousel Space directly below */}
-                    <div className="w-full h-[360px] xs:h-[400px] shrink-0 relative flex items-center justify-center z-10">
+                    <div className="w-full h-[380px] xs:h-[400px] shrink-0 relative flex items-center justify-center z-10">
                         <PerspectiveCarousel
                             items={items}
                             loop={true}
                             defaultActiveIndex={Math.floor(items.length / 2)}
                             slideWidth={slideSize}
                             rotationStep={30}
+                            aspectClassName="aspect-[3/4.4] xs:aspect-[3/4.2] sm:aspect-[3/4]"
                             className="w-full h-full bg-transparent z-10"
                         />
                     </div>
@@ -479,6 +478,7 @@ export const TextExpandingSection = () => {
                         defaultActiveIndex={Math.floor(items.length / 2)}
                         slideWidth={slideSize}
                         rotationStep={30}
+                        aspectClassName="aspect-[3/4.4] xs:aspect-[3/4.2] sm:aspect-[3/4]"
                         className="w-full h-full bg-transparent z-10"
                     />
                 </div>
