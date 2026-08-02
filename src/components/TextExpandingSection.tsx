@@ -103,19 +103,23 @@ const youtubeLinks: YouTubeLinkItem[] = [
     { url: "#", tags: ["Editor"] },
     { url: "#", tags: ["Colorist"] },
     "#",
+    
     {
         url: "https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z",
-        tags: ["Director","DOP"]
+        tags: ["Director", "DOP"]
+    },
+    {
+        url: "https://youtu.be/6HFdc6RPH3M?si=foBBhz9xV5I1DKD9",
+        tags: ["Director", "DOP"]
     },
     {
         url: "https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP",
-        tags: ["Director","DOP"]
+        tags: ["Director", "DOP"]
     },
     {
         url: "https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng",
         tags: ["DOP"]
     },
-    "#",
     { url: "#", tags: ["DOP"] },
     { url: "#", tags: ["Editor"] },
     { url: "#", tags: ["Colorist"] },
