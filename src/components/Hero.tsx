@@ -53,6 +53,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
     const sectionRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLElement>(null);
     const footerRef = useRef<HTMLElement>(null);
+    const collageRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         const mm = gsap.matchMedia();
@@ -76,6 +77,14 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 }, 0);
             }
 
+            if (collageRef.current) {
+                tl.to(collageRef.current, {
+                    y: -150,
+                    opacity: 0,
+                    ease: "none",
+                }, 0);
+            }
+
             if (footerRef.current) {
                 tl.to(footerRef.current, {
                     y: -100,
@@ -83,7 +92,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     ease: "none",
                 }, 0);
             }
-            
+
             if (videoRef.current) {
                 tl.to(videoRef.current, {
                     y: 150,
@@ -110,6 +119,13 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                 }, 0);
             }
 
+            if (collageRef.current) {
+                tl.to(collageRef.current, {
+                    opacity: 0,
+                    ease: "none",
+                }, 0);
+            }
+
             if (footerRef.current) {
                 tl.to(footerRef.current, {
                     opacity: 0,
@@ -120,7 +136,6 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
         return () => mm.revert();
     }, { scope: sectionRef });
-
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -154,7 +169,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
     };
 
     return (
-        <motion.section 
+        <motion.section
             id="home"
             ref={sectionRef as any}
             exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
@@ -179,12 +194,12 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <nav className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-8 md:py-10 relative z-30">
                 {/* Desktop Navbar Left (100% original styling preserved) */}
                 <div className="hidden md:flex items-center space-x-6 lg:px-23">
-                    <button 
+                    <button
                         type="button"
                         onClick={() => window.location.reload()}
                         className="bg-transparent border-0 p-0 text-left focus:outline-none focus:ring-0 text-xl md:text-2xl font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 flex items-center"
                     >
-                        KV <span className="ml-1 text-2xl md:text-3xl font-thin leading-none -translate-y-[2px]">ᝰ</span>
+                        KV <span className="ml-1 text-2xl md:text-3xl font-thin leading-none -translate-y-[2px]">ᝰ</span> <div className="mx-2 h-4 w-px bg-white/20 shrink-0"></div> <img src="/images/KVLogo.webp" alt="KV Logo" className="inline-block h-[1.1em] w-auto object-contain opacity-90 hover:opacity-100 transition-opacity -translate-y-[1px]" />
                     </button>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
@@ -194,12 +209,12 @@ export const Hero = ({ videoSrc }: HeroProps) => {
 
                 {/* Mobile Navbar Left (Wrapping-safe inline styling) */}
                 <div className="block md:hidden text-left">
-                    <button 
+                    <button
                         type="button"
                         onClick={() => window.location.reload()}
                         className="bg-transparent border-0 p-0 text-left focus:outline-none focus:ring-0 text-lg font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 inline-flex items-center align-middle"
                     >
-                        KV <span className="ml-1 text-xl font-thin leading-none -translate-y-[1px]">ᝰ</span>
+                        KV <span className="ml-1 text-xl font-thin leading-none -translate-y-[1px]">ᝰ</span> <div className="mx-1.5 h-3 w-px bg-white/20 shrink-0"></div> <img src="/images/KVLogo.webp" alt="KV Logo" className="inline-block h-[1.1em] w-auto object-contain opacity-90 -translate-y-[1px]" />
                     </button>
                     <span className="mx-2 h-3 w-px bg-white/20 inline-block align-middle"></span>
                     <span className="text-[9px] tracking-[0.3em] uppercase opacity-60 font-medium inline">
@@ -207,7 +222,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     </span>
                 </div>
 
-                <button 
+                <button
                     type="button"
                     onClick={() => setIsMenuOpen(true)}
                     className="flex items-center gap-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-80 hover:opacity-100 transition-opacity"
@@ -240,7 +255,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </div>
 
             {/* Main Hero Content */}
-            <main ref={contentRef} style={{ willChange: "transform, opacity", transform: "translateZ(0)" }} className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-32 xl:pl-48 mt-10 lg:mt-0 relative z-10 w-full max-w-7xl items-start transform-gpu">
+            <main ref={contentRef} style={{ willChange: "transform, opacity", transform: "translateZ(0)" }} className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:pl-43 xl:pl-47 mt-10 lg:mt-0 relative z-10 w-full items-start transform-gpu">
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -266,7 +281,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     </motion.p>
 
                     <motion.div custom={5} variants={fadeUpVariants} className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                        <button 
+                        <button
                             type="button"
                             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                             className="w-full sm:w-auto bg-[#C6904E] text-white px-8 py-4 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#a87941] transition-all duration-300 flex items-center justify-center gap-4 group cursor-pointer"
@@ -324,6 +339,8 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             </footer>
 
             <NavigationMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+
+
         </motion.section>
     );
 };

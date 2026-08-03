@@ -8,6 +8,7 @@ const baseImages = [
   { src: '/images/Kv4.webp', alt: 'KV 4' },
   { src: '/images/Kv5.webp', alt: 'KV 5' },
   { src: '/images/Kv6.webp', alt: 'KV 6' },
+  
 ];
 
 const carouselImages = [
