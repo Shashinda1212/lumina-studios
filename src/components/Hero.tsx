@@ -203,7 +203,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     </button>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
-                        Videographer
+                        Director
                     </span>
                 </div>
 
