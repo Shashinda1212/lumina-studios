@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
 import { Preloader } from './components/Preloader';
 import { Hero } from './components/Hero';
 import { CylinderSection } from './components/CylinderSection';
@@ -13,8 +10,6 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ui/ScrollToTop';
 import { CursorTracker } from './components/ui/CursorTracker';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,32 +23,6 @@ export default function App() {
     }
     return () => {
       document.body.style.overflow = '';
-    };
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) return;
-
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
-
-    const scrollUpdate = () => ScrollTrigger.update();
-    lenis.on('scroll', scrollUpdate);
-
-    const tickerCallback = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(tickerCallback);
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(tickerCallback);
     };
   }, [isLoading]);
 
