@@ -277,7 +277,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                     </motion.h1>
 
                     <motion.p custom={4} variants={fadeUpVariants} className="mt-8 text-xs sm:text-sm md:text-base text-white/70 max-w-md leading-relaxed font-light">
-                        I create cinematic visuals that connect, inspire, and leave a lasting impact.
+                        I’m KV, a Sri Lankan film director creating cinematic stories through powerful visuals, emotion, and authentic human experiences.
                     </motion.p>
 
                     <motion.div custom={5} variants={fadeUpVariants} className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
@@ -302,9 +302,9 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             <footer ref={footerRef} style={{ willChange: "transform, opacity", transform: "translateZ(0)" }} className="w-full px-8 md:px-16 pt-10 pb-6 md:pb-10 relative z-20 mt-auto flex justify-center transform-gpu">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 w-full max-w-5xl mx-auto">
                     {[
-                        { num: "01", title: "Music Videos", desc: "High-energy visuals that bring your music to life.", icon: Clapperboard },
-                        { num: "02", title: "Visual Direction", desc: "Creative vision and storytelling that elevates your brand.", icon: VideoIcon },
-                        { num: "03", title: "Creative Production", desc: "End-to-end production with cinematic quality.", icon: Box },
+                        { num: "01", title: "FILM DIRECTION", desc: "Cinematic storytelling built around strong characters, emotion, and visual language.", icon: Clapperboard },
+                        { num: "02", title: "MUSIC VIDEOS", desc: "Story-driven visuals that turn music into a cinematic experience.", icon: VideoIcon },
+                        { num: "03", title: "VISUAL PRODUCTION", desc: "From concept to screen, bringing ambitious visual ideas to life.", icon: Box },
                     ].map((item, i) => (
                         <motion.div
                             key={item.num}

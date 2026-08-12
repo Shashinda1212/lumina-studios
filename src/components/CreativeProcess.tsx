@@ -2,50 +2,62 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const processItems = [
   {
     tag: "01",
-    title: "Conceptualization",
-    subtitle: "Defining the visual language and structural narrative.",
-    duration: "24-48 Hours",
-    deliverables: ["Mood Boards", "Storyboards", "Technical Specs"],
-    team: "Creative Directors, Visual Strategists",
-    tools: "AI-Powered Concept Generation",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop"
+    title: "Starter",
+    subtitle: "Normal quality music video and two TikTok contents",
+    duration: "2 Weeks Delivery",
+    deliverables: ["Thumbnail Included", "4K Music Video"],
+    team: "Minimal Camera Production",
+    teamLabel: "Production",
+    tools: "Color Grading & Max 3 Mins",
+    toolsLabel: "Specifications",
+    image: "/images/package_starter.png",
+    link: "https://wa.me/94766004462?text=Hi!%20I'm%20interested%20in%20booking%20the%20Starter%20Package."
   },
   {
     tag: "02",
-    title: "Pre-Production",
-    subtitle: "Orchestrating logistics and securing essential assets for the shoot.",
-    duration: "1-2 Weeks",
-    deliverables: ["Location Scouting", "Casting", "Shot Lists"],
-    team: "Producers, Location Managers",
-    tools: "Resource Scheduling Software",
-    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop"
+    title: "Creator",
+    subtitle: "Professional music video production with custom motion graphics",
+    duration: "1 Week Delivery",
+    deliverables: ["Thumbnail Included", "4K Exports"],
+    team: "Standard Production",
+    teamLabel: "Production",
+    tools: "Cinematic Color Grading & Motion Graphics",
+    toolsLabel: "Specifications",
+    image: "/images/package_creator.png",
+    link: "https://wa.me/94766004462?text=Hi!%20I'm%20interested%20in%20booking%20the%20Creator%20Package."
   },
   {
     tag: "03",
-    title: "Production",
-    subtitle: "Executing the vision with cinematic precision and advanced capabilities.",
-    duration: "Varies",
-    deliverables: ["Raw Footage", "On-Set Photography", "Audio Captures"],
-    team: "Directors, Cinematographers, Crews",
-    tools: "8K RAW Cinema Cameras",
-    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop"
+    title: "Professional",
+    subtitle: "High-end music video production with advanced cinematic visual styling",
+    duration: "2 Weeks Delivery",
+    deliverables: ["4K Delivery"],
+    team: "Full Cinematic Production",
+    teamLabel: "Production",
+    tools: "Professional Color Grading, VFX & Transitions",
+    toolsLabel: "Specifications",
+    image: "/images/package_professional.png",
+    link: "https://wa.me/94766004462?text=Hi!%20I'm%20interested%20in%20booking%20the%20Professional%20Package."
   },
   {
     tag: "04",
-    title: "Post-Production",
-    subtitle: "Refining the narrative through editing, color grading, and comprehensive VFX.",
-    duration: "2-4 Weeks",
-    deliverables: ["Final Cut", "Color Grading", "Sound Design"],
-    team: "Editors, Colorists, VFX Artists",
-    tools: "Advanced Editing Suites, Coloring Panels",
-    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1000&auto=format&fit=crop"
+    title: "Premium",
+    subtitle: "High-end brand films & events",
+    duration: "Priority Delivery",
+    deliverables: ["Brand Film / Doc", "Drone Shots"],
+    team: "Multi-Camera / Scalable Production (Based on Budget)",
+    teamLabel: "Production",
+    tools: "Premium VFX & Dedicated Support",
+    toolsLabel: "Specifications",
+    image: "/images/package_premium.png",
+    link: "https://wa.me/94766004462?text=Hi!%20I'm%20interested%20in%20booking%20the%20Premium%20Package."
   }
 ];
 
@@ -218,13 +230,13 @@ export const CreativeProcess = () => {
           <div className="flex flex-col mb-12 md:mb-16">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-1.5 h-1.5 bg-[#F27D26] rounded-full"></div>
-              <span className="text-[10px] uppercase tracking-[0.4em] font-medium text-[#F27D26]/80">Creative Process</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] font-medium text-[#F27D26]/80">Pricing Plans</span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-lora text-white tracking-tight max-w-4xl">
-              Every Frame <br className="hidden md:block" /> Engineered for <span className="text-3xl md:text-5xl lg:text-6xl font-anton-regular font-bold text-[#f27d26]">Impact</span>
+              Tailored Packages <br className="hidden md:block" /> Engineered for <span className="text-3xl md:text-5xl lg:text-6xl font-anton-regular font-bold text-[#f27d26]">Impact</span>
             </h2>
             <p className="text-neutral-500 text-xs md:text-sm max-w-xl leading-relaxed mt-6">
-              We meticulously construct visual narratives using advanced technology and timeless cinematic principles, ensuring your message resonates authentically.
+              Find the perfect production package for your project. From social starter videos to high-end brand documentaries, we deliver industry-grade results scaled to your needs.
             </p>
           </div>
 
@@ -291,7 +303,7 @@ export const CreativeProcess = () => {
 
             {/* Right: The Sliding Cards Wrapper */}
             <div className="w-full lg:w-1/2 h-auto lg:h-full relative flex flex-col justify-center mt-8 lg:mt-0">
-              <div 
+              <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
                 className="w-full h-auto lg:h-full relative flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible snap-x snap-mandatory no-scrollbar justify-start lg:justify-center gap-6 lg:gap-0 mt-0 lg:-mt-30 pb-4 lg:pb-0"
@@ -335,14 +347,28 @@ export const CreativeProcess = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
-                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Team</span>
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">{item.teamLabel || "Team"}</span>
                           <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.team}</span>
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 lg:py-5 border-b border-white/5 gap-2">
-                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Tools</span>
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-widest">{item.toolsLabel || "Tools"}</span>
                           <span className="text-[10px] text-[#E5E5E5] uppercase tracking-widest sm:text-right">{item.tools}</span>
                         </div>
+
+                        {item.link && (
+                          <div className="pt-6">
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full bg-linear-to-r from-[#F27D26] to-[#C6904E] text-white py-4 px-6 rounded-lg text-[10px] font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3 group/btn cursor-pointer shadow-[0_4px_20px_rgba(242,125,38,0.25)] hover:shadow-[0_4px_30px_rgba(242,125,38,0.45)] text-center pointer-events-auto text-decoration-none"
+                            >
+                              <span>Book Now</span>
+                              <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1.5 transition-transform duration-300" />
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )
@@ -351,7 +377,7 @@ export const CreativeProcess = () => {
 
               {/* Carousel Navigation Panel for Mobile */}
               <div className="flex items-center justify-center gap-6 mt-6 lg:hidden">
-                <button 
+                <button
                   type="button"
                   onClick={() => scrollCarousel('left')}
                   disabled={activeIndex === 0}
@@ -365,14 +391,13 @@ export const CreativeProcess = () => {
                   {processItems.map((item, i) => (
                     <div
                       key={item.tag}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        activeIndex === i ? "w-6 bg-[#F27D26]" : "w-1.5 bg-white/20"
-                      }`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${activeIndex === i ? "w-6 bg-[#F27D26]" : "w-1.5 bg-white/20"
+                        }`}
                     />
                   ))}
                 </div>
 
-                <button 
+                <button
                   type="button"
                   onClick={() => scrollCarousel('right')}
                   disabled={activeIndex === processItems.length - 1}

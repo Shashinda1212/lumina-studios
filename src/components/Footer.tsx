@@ -39,7 +39,9 @@ export const Footer = () => {
                 KV <span className="inline-block -translate-y-[2px]">ᝰ</span>
               </span>
               <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed max-w-sm">
-                Engineering visual narratives that capture, connect, and endure. Crafting cinematic films, music videos, and creative productions globally.
+                KV — Kanishka Viduranga <br />
+                Film Director · Sri Lanka <br />
+                Sri Lankan film director and visual storyteller focused on creating cinematic stories with emotion, atmosphere, and a distinctive visual language.
               </p>
             </div>
             {/* Ambient available badge in footer */}
