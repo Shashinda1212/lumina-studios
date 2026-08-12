@@ -277,7 +277,7 @@ export function PerspectiveCarousel({
                             e.stopPropagation();
                           }}
                           className={cn(
-                            "mb-2.5 sm:mb-8 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-[150px] mx-auto text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
+                            "mb-2.5 sm:mb-8 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-37.5 mx-auto text-white font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg shadow-md transition-all duration-300 transform active:scale-95",
                             isActive
                               ? "bg-[#FF0000] hover:bg-[#CC0000] cursor-pointer"
                               : "bg-neutral-800/80 text-neutral-400 pointer-events-none opacity-50"
@@ -287,7 +287,7 @@ export function PerspectiveCarousel({
                           <span>Watch</span>
                         </a>
                       ) : (
-                        <div className="mt-3 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-[150px] mx-auto bg-neutral-800/80 text-neutral-400 font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg border border-neutral-700/50 pointer-events-none">
+                        <div className="mt-3 flex items-center justify-center gap-1 sm:gap-1.5 w-[80%] max-w-37.5 mx-auto bg-neutral-800/80 text-neutral-400 font-medium text-[9px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 rounded-lg border border-neutral-700/50 pointer-events-none">
                           <YoutubeIcon isActive={false} className="size-3.5 sm:size-4.5 shrink-0" />
                           <span>Watch</span>
                         </div>

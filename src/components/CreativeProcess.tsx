@@ -190,9 +190,9 @@ export const CreativeProcess = () => {
       `}</style>
 
       {/* Warm Ambient Light Leaks / Glowing Flares (Live Effects) */}
-      <div className="absolute top-[8%] left-[20%] w-[420px] h-[420px] bg-amber-600/5 rounded-full blur-[100px] animate-[ambient-pulse-cp_14s_infinite_ease-in-out] pointer-events-none z-0" />
-      <div className="absolute bottom-[12%] right-[8%] w-[520px] h-[520px] bg-orange-600/5 rounded-full blur-[120px] animate-[ambient-pulse-cp_18s_infinite_ease-in-out_2.5s] pointer-events-none z-0" />
-      <div className="absolute top-[35%] left-[8%] w-[360px] h-[360px] bg-yellow-600/5 rounded-full blur-[90px] animate-[ambient-pulse-cp_11s_infinite_ease-in-out_5.5s] pointer-events-none z-0" />
+      <div className="absolute top-[8%] left-[20%] w-105 h-105 bg-amber-600/5 rounded-full blur-[100px] animate-[ambient-pulse-cp_14s_infinite_ease-in-out] pointer-events-none z-0" />
+      <div className="absolute bottom-[12%] right-[8%] w-130 h-130 bg-orange-600/5 rounded-full blur-[120px] animate-[ambient-pulse-cp_18s_infinite_ease-in-out_2.5s] pointer-events-none z-0" />
+      <div className="absolute top-[35%] left-[8%] w-90 h-90 bg-yellow-600/5 rounded-full blur-[90px] animate-[ambient-pulse-cp_11s_infinite_ease-in-out_5.5s] pointer-events-none z-0" />
 
       {/* Floating Bokeh Dust Particles (Live Effects) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -313,7 +313,7 @@ export const CreativeProcess = () => {
                     <div
                       key={item.tag}
                       ref={(el: HTMLDivElement | null) => { cardsRef.current[i] = el; }}
-                      className="snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-full relative lg:absolute flex flex-col justify-center bg-[#0A0A0A]/90 backdrop-blur-none sm:bg-[#0A0A0A]/60 sm:backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-0 lg:border-none lg:rounded-none lg:backdrop-blur-none lg:bg-transparent shadow-2xl lg:shadow-none will-change-[transform,opacity]"
+                      className="snap-center shrink-0 w-[85vw] sm:w-125 lg:w-full relative lg:absolute flex flex-col justify-center bg-[#0A0A0A]/90 backdrop-blur-none sm:bg-[#0A0A0A]/60 sm:backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-0 lg:border-none lg:rounded-none lg:backdrop-blur-none lg:bg-transparent shadow-2xl lg:shadow-none will-change-[transform,opacity]"
                     >
                       <div className="flex items-center mb-4 sm:mb-6 lg:mb-8 -ml-2">
                         <span className="text-[45px] sm:text-[60px] md:text-[80px] lg:text-[120px] leading-[0.8] text-[#F27D26]/40 font-serif mr-3 sm:mr-4 lg:mr-6">{item.tag}</span>

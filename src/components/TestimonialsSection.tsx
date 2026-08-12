@@ -250,7 +250,7 @@ export const TestimonialsSection = () => {
   }, { scope: sectionRef });
 
   return (
-    <section id="testimonials" ref={sectionRef} className="relative w-full min-h-[750px] lg:h-screen lg:min-h-[900px] flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
+    <section id="testimonials" ref={sectionRef} className="relative w-full min-h-187.5 lg:h-screen lg:min-h-225 flex flex-col justify-center items-center overflow-hidden bg-[#050505] text-white py-16 lg:py-0 border-t border-white/5">
       {/* Self-contained styling for animations */}
       <style>{`
         .scrollbar-none::-webkit-scrollbar {
@@ -301,33 +301,33 @@ export const TestimonialsSection = () => {
         {/* 1. Slow-drifting ambient orbs — orange (primary brand) */}
         <div
           style={{ animation: 'orb-drift-a 22s ease-in-out infinite' }}
-          className="absolute left-[8%] top-[20%] w-[500px] h-[500px] bg-[#F27D26]/7 rounded-full blur-[130px] mobile-reduce-motion"
+          className="absolute left-[8%] top-[20%] w-125 h-125 bg-[#F27D26]/7 rounded-full blur-[130px] mobile-reduce-motion"
         />
         {/* orange secondary — bottom right */}
         <div
           style={{ animation: 'orb-drift-b 28s ease-in-out infinite 4s' }}
-          className="absolute right-[6%] bottom-[18%] w-[420px] h-[420px] bg-[#C6904E]/6 rounded-full blur-[110px] mobile-reduce-motion"
+          className="absolute right-[6%] bottom-[18%] w-105 h-105 bg-[#C6904E]/6 rounded-full blur-[110px] mobile-reduce-motion"
         />
         {/* purple accent — top right */}
         <div
           style={{ animation: 'orb-drift-c 18s ease-in-out infinite 2s' }}
-          className="absolute right-[20%] top-[10%] w-[340px] h-[340px] bg-purple-600/5 rounded-full blur-[100px] mobile-reduce-motion"
+          className="absolute right-[20%] top-[10%] w-85 h-85 bg-purple-600/5 rounded-full blur-[100px] mobile-reduce-motion"
         />
         {/* purple accent — bottom left */}
         <div
           style={{ animation: 'orb-drift-a 25s ease-in-out infinite 8s' }}
-          className="absolute left-[18%] bottom-[12%] w-[300px] h-[300px] bg-purple-500/4 rounded-full blur-[90px] mobile-reduce-motion"
+          className="absolute left-[18%] bottom-[12%] w-75 h-75 bg-purple-500/4 rounded-full blur-[90px] mobile-reduce-motion"
         />
 
         {/* 2. Cinematic diagonal light ray — sweeps slowly left to right every 14s */}
         <div
           style={{ animation: 'ray-sweep 14s ease-in-out infinite 3s' }}
-          className="absolute inset-y-0 left-0 w-[180px] bg-gradient-to-r from-transparent via-[#F27D26]/8 to-transparent mobile-reduce-motion"
+          className="absolute inset-y-0 left-0 w-45 bg-linear-to-r from-transparent via-[#F27D26]/8 to-transparent mobile-reduce-motion"
         />
         {/* second subtler ray, offset timing */}
         <div
           style={{ animation: 'ray-sweep 18s ease-in-out infinite 9s' }}
-          className="absolute inset-y-0 left-0 w-[120px] bg-gradient-to-r from-transparent via-purple-400/5 to-transparent mobile-reduce-motion"
+          className="absolute inset-y-0 left-0 w-30 bg-linear-to-r from-transparent via-purple-400/5 to-transparent mobile-reduce-motion"
         />
 
         {/* 3. Floating bokeh particles — site's signature live background effect */}
@@ -394,7 +394,7 @@ export const TestimonialsSection = () => {
               <div className={`absolute -inset-2 rounded-lg blur-xl opacity-20 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none ${backGlowClasses[item.glow]}`} />
               
               {/* Glowing border ring */}
-              <div className={`p-[1px] rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
+              <div className={`p-px rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
                 <FlipCard data={item} />
               </div>
             </div>
@@ -460,14 +460,14 @@ export const TestimonialsSection = () => {
               {testimonials.map((item) => (
                 <div 
                   key={`carousel-${item.id}`} 
-                  className="w-full flex-shrink-0 flex justify-center items-center px-12 sm:px-16"
+                  className="w-full shrink-0 flex justify-center items-center px-12 sm:px-16"
                 >
                   <div className="scale-95 sm:scale-100 group relative">
                     {/* Backglow blur */}
                     <div className={`absolute -inset-2 rounded-lg blur-xl opacity-25 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none ${backGlowClasses[item.glow]}`} />
                     
                     {/* Glowing border ring */}
-                    <div className={`p-[1px] rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
+                    <div className={`p-px rounded-lg border transition-all duration-500 ${glowClasses[item.glow]}`}>
                       <FlipCard data={item} />
                     </div>
                   </div>
@@ -494,7 +494,7 @@ export const TestimonialsSection = () => {
               key={testimonial.id}
               type="button"
               onClick={() => setCurrentIndex(idx)}
-              className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-300 cursor-pointer ${
+              className={`w-2.5 h-2.5 rounded-full shrink-0 transition-all duration-300 cursor-pointer ${
                 currentIndex === idx ? 'bg-[#F27D26] w-5' : 'bg-white/20 hover:bg-white/40'
               }`}
               aria-label={`Go to testimonial ${idx + 1}`}

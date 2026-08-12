@@ -67,7 +67,7 @@ export function FlipCard({ data }: FlipCardProps) {
     >
       {/* FRONT: Profile */}
       <motion.div
-        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col items-center justify-center bg-gradient-to-br from-muted via-background to-muted text-center"
+        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col items-center justify-center bg-linear-to-br from-muted via-background to-muted text-center"
         animate={isFlipped ? 'back' : 'front'}
         variants={cardVariants}
         style={{ transformStyle: 'preserve-3d' }}
@@ -83,7 +83,7 @@ export function FlipCard({ data }: FlipCardProps) {
 
       {/* BACK: Review */}
       <motion.div
-        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-6 py-8 flex flex-col justify-center items-center gap-y-6 bg-gradient-to-tr from-muted via-background to-muted "
+        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-6 py-8 flex flex-col justify-center items-center gap-y-6 bg-linear-to-tr from-muted via-background to-muted "
         initial={{ rotateY: 180 }}
         animate={isFlipped ? 'front' : 'back'}
         variants={cardVariants}

@@ -173,7 +173,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             id="home"
             ref={sectionRef as any}
             exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-            className="min-h-[100svh] w-full relative flex flex-col justify-between bg-[#050505] text-white overflow-hidden"
+            className="min-h-svh w-full relative flex flex-col justify-between bg-[#050505] text-white overflow-hidden"
         >
             {/* Background Video */}
             <video
@@ -188,7 +188,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
             {/* Gradient Overlay to match the dark left side of the image */}
             <div className="absolute inset-0 bg-linear-to-r from-black/95 via-black/60 to-transparent z-0 pointer-events-none"></div>
             {/* Ambient gold glow behind text */}
-            <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#C6904E]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4 z-0 pointer-events-none"></div>
+            <div className="absolute top-1/2 left-0 w-150 h-150 bg-[#C6904E]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4 z-0 pointer-events-none"></div>
 
             {/* Header */}
             <nav className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-8 md:py-10 relative z-30">
@@ -199,7 +199,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                         onClick={() => window.location.reload()}
                         className="bg-transparent border-0 p-0 text-left focus:outline-none focus:ring-0 text-xl md:text-2xl font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 flex items-center"
                     >
-                        KV <span className="ml-1 text-2xl md:text-3xl font-thin leading-none -translate-y-[2px]">ᝰ</span> <div className="mx-2 h-4 w-px bg-white/20 shrink-0"></div> <img src="/images/KVLogo.webp" alt="KV Logo" className="inline-block h-[1.1em] w-auto object-contain opacity-90 hover:opacity-100 transition-opacity -translate-y-[1px]" />
+                        KV <span className="ml-1 text-2xl md:text-3xl font-thin leading-none -translate-y-0.5">ᝰ</span> <div className="mx-2 h-4 w-px bg-white/20 shrink-0"></div> <img src="/images/KVLogo.webp" alt="KV Logo" className="inline-block h-[1.1em] w-auto object-contain opacity-90 hover:opacity-100 transition-opacity -translate-y-px" />
                     </button>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span className="text-[9px] md:text-[11px] tracking-[0.3em] uppercase opacity-60 font-medium">
@@ -214,7 +214,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                         onClick={() => window.location.reload()}
                         className="bg-transparent border-0 p-0 text-left focus:outline-none focus:ring-0 text-lg font-serif font-light tracking-[0.2em] cursor-pointer hover:text-[#C6904E] transition-colors duration-300 inline-flex items-center align-middle"
                     >
-                        KV <span className="ml-1 text-xl font-thin leading-none -translate-y-[1px]">ᝰ</span> <div className="mx-1.5 h-3 w-px bg-white/20 shrink-0"></div> <img src="/images/KVLogo.webp" alt="KV Logo" className="inline-block h-[1.1em] w-auto object-contain opacity-90 -translate-y-[1px]" />
+                        KV <span className="ml-1 text-xl font-thin leading-none -translate-y-px">ᝰ</span> <div className="mx-1.5 h-3 w-px bg-white/20 shrink-0"></div> <img src="/images/KVLogo.webp" alt="KV Logo" className="inline-block h-[1.1em] w-auto object-contain opacity-90 -translate-y-px" />
                     </button>
                     <span className="mx-2 h-3 w-px bg-white/20 inline-block align-middle"></span>
                     <span className="text-[9px] tracking-[0.3em] uppercase opacity-60 font-medium inline">
@@ -319,7 +319,7 @@ export const Hero = ({ videoSrc }: HeroProps) => {
                             </div>
                             <div>
                                 <h3 className="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] mb-2 text-white group-hover:text-[#C6904E] transition-colors duration-300">{item.title}</h3>
-                                <p className="text-[10px] md:text-[11px] text-white/50 leading-relaxed max-w-[250px] font-light">
+                                <p className="text-[10px] md:text-[11px] text-white/50 leading-relaxed max-w-62.5 font-light">
                                     {item.desc}
                                 </p>
                             </div>

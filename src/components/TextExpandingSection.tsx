@@ -264,8 +264,8 @@ export const TextExpandingSection = () => {
                 `}</style>
 
                 {/* Ambient glows for visual depth */}
-                <div className="absolute top-[20%] right-[-10%] w-[300px] h-[300px] bg-[#F27D26]/5 rounded-full blur-[100px] pointer-events-none z-0" />
-                <div className="absolute bottom-[10%] left-[-10%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none z-0" />
+                <div className="absolute top-[20%] right-[-10%] w-75 h-75 bg-[#F27D26]/5 rounded-full blur-[100px] pointer-events-none z-0" />
+                <div className="absolute bottom-[10%] left-[-10%] w-87.5 h-87.5 bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
                 {/* Subtle High-Tech Dotted Grid Overlay */}
                 <div className="absolute inset-0 bg-[radial-gradient(rgba(242,125,38,0.02)_1px,transparent_1px)] bg-size-28px_28px pointer-events-none z-0 opacity-80" />
@@ -358,7 +358,7 @@ export const TextExpandingSection = () => {
                     </div>
 
                     {/* Left Column: Diagonal Carousel Space directly below */}
-                    <div className="w-full h-[380px] xs:h-[400px] shrink-0 relative flex items-center justify-center z-10">
+                    <div className="w-full h-95 xs:h-[400px] shrink-0 relative flex items-center justify-center z-10">
                         <PerspectiveCarousel
                             items={items}
                             loop={true}
@@ -398,8 +398,8 @@ export const TextExpandingSection = () => {
             `}</style>
 
             {/* Ambient glows for visual depth */}
-            <div className="absolute top-[20%] right-[-10%] w-[550px] h-[550px] bg-[#F27D26]/5 rounded-full blur-[130px] pointer-events-none z-0" />
-            <div className="absolute bottom-[10%] left-[-10%] w-[650px] h-[650px] bg-cyan-500/5 rounded-full blur-[150px] pointer-events-none z-0" />
+            <div className="absolute top-[20%] right-[-10%] w-137.5 h-137.5 bg-[#F27D26]/5 rounded-full blur-[130px] pointer-events-none z-0" />
+            <div className="absolute bottom-[10%] left-[-10%] w-162.5 h-162.5 bg-cyan-500/5 rounded-full blur-[150px] pointer-events-none z-0" />
 
             {/* 1. Subtle High-Tech Dotted Grid Overlay */}
             <div className="absolute inset-0 bg-[radial-gradient(rgba(242,125,38,0.02)_1px,transparent_1px)] bg-size-28px_28px pointer-events-none z-0 opacity-80" />
@@ -433,7 +433,7 @@ export const TextExpandingSection = () => {
             </div>
 
             {/* 7. Sound Equalizer Neon Audio Waveform (From Sound theme) */}
-            <div className="hidden lg:flex absolute bottom-[6%] right-[6%] w-[25%] h-[40px] pointer-events-none z-0 opacity-[0.15] flex items-end justify-between gap-[2.5px]">
+            <div className="hidden lg:flex absolute bottom-[6%] right-[6%] w-[25%] h-10 pointer-events-none z-0 opacity-[0.15] items-end justify-between gap-[2.5px]">
                 {[...Array(20)].map((_, i) => {
                     const delay = i * 0.12;
                     const height = Math.random() * 70 + 30;
@@ -471,7 +471,7 @@ export const TextExpandingSection = () => {
             <div ref={nextItemRef} className="absolute inset-0 flex flex-col lg:flex-row items-center justify-center gap-2 xs:gap-4 md:gap-6 lg:justify-between z-20 w-full h-full px-6 md:px-16 lg:px-24 pointer-events-none will-change-[transform,opacity]">
                 
                 {/* Left Column: Diagonal Carousel Space */}
-                <div className="pointer-events-auto w-full lg:w-[58%] h-[360px] md:h-[470px] lg:h-full shrink-0 relative flex items-center justify-center z-10">
+                <div className="pointer-events-auto w-full lg:w-[58%] h-90 md:h-117.5 lg:h-full shrink-0 relative flex items-center justify-center z-10">
                     <PerspectiveCarousel
                         items={items}
                         loop={true}
@@ -508,7 +508,7 @@ export const TextExpandingSection = () => {
                     <div className="grid grid-cols-3 gap-2 xs:gap-3 md:gap-4 border-t border-white/5 pt-3 xs:pt-4 md:pt-6 w-full">
                         {/* Feature 1 */}
                         <div className="flex items-center gap-1.5 xs:gap-2.5">
-                            <div className="w-7 h-7 xs:w-8 h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                            <div className="w-7 h-7 xs:w-8 xs:h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
                                 <Trophy className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
@@ -519,7 +519,7 @@ export const TextExpandingSection = () => {
 
                         {/* Feature 2 */}
                         <div className="flex items-center gap-1.5 xs:gap-2.5">
-                            <div className="w-7 h-7 xs:w-8 h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                            <div className="w-7 h-7 xs:w-8 xs:h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
                                 <Folder className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">
@@ -530,7 +530,7 @@ export const TextExpandingSection = () => {
 
                         {/* Feature 3 */}
                         <div className="flex items-center gap-1.5 xs:gap-2.5">
-                            <div className="w-7 h-7 xs:w-8 h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
+                            <div className="w-7 h-7 xs:w-8 xs:h-8 md:w-9 md:h-9 border border-[#F27D26]/20 bg-[#F27D26]/5 rounded-lg flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(242,125,38,0.08)]">
                                 <Eye className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-[#F27D26]" strokeWidth={1.5} />
                             </div>
                             <div className="text-[10px] tracking-wide text-neutral-300 font-medium leading-tight font-sans">

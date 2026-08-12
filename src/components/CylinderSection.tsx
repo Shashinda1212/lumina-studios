@@ -40,12 +40,12 @@ export const CylinderSection = () => {
   }, []);
 
   return (
-    <section className="pt-8 pb-2 bg-[#0A0A0A] overflow-hidden flex flex-col items-center justify-center relative min-h-[400px]">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#F27D26]/[0.02] rounded-full blur-[120px] pointer-events-none" />
+    <section className="pt-8 pb-2 bg-[#0A0A0A] overflow-hidden flex flex-col items-center justify-center relative min-h-100">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 bg-[#F27D26]/2 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Fake mask gradients to blend the edges */}
-      <div className="absolute inset-y-0 left-0 w-[15%] md:w-[20%] bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-[15%] md:w-[20%] bg-gradient-to-l from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-[15%] md:w-[20%] bg-linear-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-[15%] md:w-[20%] bg-linear-to-l from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent z-20 pointer-events-none" />
 
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes mobileMarquee {
@@ -59,7 +59,7 @@ export const CylinderSection = () => {
           /* HIGH PERFORMANCE 2D MARQUEE FOR MOBILE (100% Lag Free) */
           <div className="w-full relative z-10 overflow-hidden py-10 flex items-center transform-gpu" style={{ transform: 'translateZ(0)' }}>
             <div 
-              className="flex w-[max-content] items-center gap-4 animate-[mobileMarquee_45s_linear_infinite]"
+              className="flex w-max items-center gap-4 animate-[mobileMarquee_45s_linear_infinite]"
               style={{ willChange: 'transform' }}
             >
               {mobileImages.map((img) => (
@@ -67,7 +67,7 @@ export const CylinderSection = () => {
                   key={`${img.id}-loop1`}
                   src={img.src}
                   alt={img.alt}
-                  className="w-[160px] sm:w-[200px] aspect-[7/10] object-cover rounded-xl shadow-lg border border-white/5 flex-shrink-0 bg-neutral-900/50"
+                  className="w-40 sm:w-50 aspect-7/10 object-cover rounded-xl shadow-lg border border-white/5 shrink-0 bg-neutral-900/50"
                   loading="eager"
                   decoding="async"
                 />
@@ -78,7 +78,7 @@ export const CylinderSection = () => {
                   key={`${img.id}-loop2`}
                   src={img.src}
                   alt={img.alt}
-                  className="w-[160px] sm:w-[200px] aspect-[7/10] object-cover rounded-xl shadow-lg border border-white/5 flex-shrink-0 bg-neutral-900/50"
+                  className="w-40 sm:w-50 aspect-7/10 object-cover rounded-xl shadow-lg border border-white/5 shrink-0 bg-neutral-900/50"
                   loading="eager"
                   decoding="async"
                 />
@@ -91,7 +91,7 @@ export const CylinderSection = () => {
             <CylinderCarousel 
               images={carouselImages} 
               cardWidth={250}
-              className="w-full h-full min-h-[400px] transform-gpu"
+              className="w-full h-full min-h-100 transform-gpu"
               style={{
                 perspective: "1200px",
                 "--translate-z": "304px",

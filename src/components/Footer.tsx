@@ -28,7 +28,7 @@ export const Footer = () => {
   return (
     <footer className="relative w-full bg-black text-white pt-20 pb-10 px-6 md:px-16 lg:px-32 xl:px-48 border-t border-white/10 overflow-hidden">
       {/* Background Subtle Accent Glow (Hidden on mobile) */}
-      <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-[#CE5D01]/3 rounded-full blur-[100px] pointer-events-none z-0 hidden md:block"></div>
+      <div className="absolute bottom-0 right-1/4 w-87.5 h-87.5 bg-[#CE5D01]/3 rounded-full blur-[100px] pointer-events-none z-0 hidden md:block"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16">
@@ -36,7 +36,7 @@ export const Footer = () => {
           <div className="md:col-span-12 lg:col-span-5 flex flex-col justify-between gap-6">
             <div>
               <span className="text-xl md:text-2xl font-serif font-light tracking-[0.2em] mb-4 block">
-                KV <span className="inline-block -translate-y-[2px]">ᝰ</span>
+                KV <span className="inline-block -translate-y-0.5">ᝰ</span>
               </span>
               <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed max-w-sm">
                 KV — Kanishka Viduranga <br />

@@ -138,7 +138,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
       </svg>
 
       <div
-        className={`fixed inset-0 z-[9999] bg-[#070707] text-[#D8D8D8] font-mono select-none overflow-hidden flex flex-col justify-between p-6 md:p-10 transform-gpu desktop-mask transition-opacity duration-[1200ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${isExiting ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}
+        className={`fixed inset-0 z-9999 bg-[#070707] text-[#D8D8D8] font-mono select-none overflow-hidden flex flex-col justify-between p-6 md:p-10 transform-gpu desktop-mask transition-opacity duration-1200 ease-[cubic-bezier(0.76,0,0.24,1)] ${isExiting ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}
       >
         {/* Custom Styles for high-performance visual effects (Hardware Accelerated) */}
         <style dangerouslySetInnerHTML={{ __html: `
@@ -252,13 +252,13 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
                     strokeWidth="2"
                     strokeDasharray="270"
                     strokeDashoffset={270}
-                    className="transition-all duration-[50ms] ease-linear"
+                    className="transition-all duration-50 ease-linear"
                   />
                 </svg>
 
                 {/* Central crosshairs lines */}
-                <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/5 pointer-events-none" />
-                <div className="absolute left-0 right-0 top-1/2 h-[1px] bg-white/5 pointer-events-none" />
+                <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/5 pointer-events-none" />
+                <div className="absolute left-0 right-0 top-1/2 h-px bg-white/5 pointer-events-none" />
 
                 {/* Shutter Sweep Line (clock hand style sweep) */}
                 <motion.div 
@@ -319,7 +319,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
 
                   {/* Clapper slate text area */}
                   <div className="w-full h-36 bg-[#121212] border border-white/5 rounded-b p-3 flex flex-col justify-between text-[10px] md:text-xs text-white/70 select-none shadow-2xl relative">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/[0.01] to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-linear-to-b from-white/1 to-transparent pointer-events-none" />
                     
                     {/* Slate Rows */}
                     <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2">
@@ -426,7 +426,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
             <div className="h-1 w-full bg-white/5 border border-white/10 rounded-full overflow-hidden relative">
               <div
                 ref={progressBarRef}
-                className="h-full bg-gradient-to-r from-[#C6904E] to-[#F27D26] rounded-full animate-pulse transition-all duration-[50ms] ease-linear"
+                className="h-full bg-linear-to-r from-[#C6904E] to-[#F27D26] rounded-full animate-pulse transition-all duration-50 ease-linear"
                 style={{ width: '0%' }}
               />
             </div>
@@ -440,15 +440,15 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
           {/* Right: Audio VU meter bars (GPU-Animated using Pure CSS for 0% CPU footprint) */}
           <div className="flex flex-col items-end gap-1.5 h-10 justify-end">
             <span className="text-[8px] text-white/25 uppercase tracking-widest self-end">CH1 / CH2 AUDIO</span>
-            <div className="flex items-end gap-[3px] h-4">
-              <div className="vu-bar vu-anim-1 w-[4px] min-h-[2px] rounded-t-sm bg-green-600/40" />
-              <div className="vu-bar vu-anim-2 w-[4px] min-h-[2px] rounded-t-sm bg-green-600/40" />
-              <div className="vu-bar vu-anim-3 w-[4px] min-h-[2px] rounded-t-sm bg-green-600/40" />
-              <div className="vu-bar vu-anim-4 w-[4px] min-h-[2px] rounded-t-sm bg-[#C6904E]/60" />
-              <div className="vu-bar vu-anim-5 w-[4px] min-h-[2px] rounded-t-sm bg-[#C6904E]/60" />
-              <div className="vu-bar vu-anim-6 w-[4px] min-h-[2px] rounded-t-sm bg-green-600/40" />
-              <div className="vu-bar vu-anim-7 w-[4px] min-h-[2px] rounded-t-sm bg-red-500/60" />
-              <div className="vu-bar vu-anim-8 w-[4px] min-h-[2px] rounded-t-sm bg-red-500/60" />
+            <div className="flex items-end gap-0.75 h-4">
+              <div className="vu-bar vu-anim-1 w-1 min-h-0.5 rounded-t-sm bg-green-600/40" />
+              <div className="vu-bar vu-anim-2 w-1 min-h-0.5 rounded-t-sm bg-green-600/40" />
+              <div className="vu-bar vu-anim-3 w-1 min-h-0.5 rounded-t-sm bg-green-600/40" />
+              <div className="vu-bar vu-anim-4 w-1 min-h-0.5 rounded-t-sm bg-[#C6904E]/60" />
+              <div className="vu-bar vu-anim-5 w-1 min-h-0.5 rounded-t-sm bg-[#C6904E]/60" />
+              <div className="vu-bar vu-anim-6 w-1 min-h-0.5 rounded-t-sm bg-green-600/40" />
+              <div className="vu-bar vu-anim-7 w-1 min-h-0.5 rounded-t-sm bg-red-500/60" />
+              <div className="vu-bar vu-anim-8 w-1 min-h-0.5 rounded-t-sm bg-red-500/60" />
             </div>
           </div>
 

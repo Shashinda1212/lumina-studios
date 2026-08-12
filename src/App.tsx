@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Preloader } from './components/Preloader';
 import { Hero } from './components/Hero';
+import { AboutMe } from './components/AboutMe';
 import { CylinderSection } from './components/CylinderSection';
 import { CreativeProcess } from './components/CreativeProcess';
 import { TextExpandingSection } from './components/TextExpandingSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
+import { ProductionCarousel } from './components/ProductionCarousel';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ui/ScrollToTop';
@@ -40,9 +42,11 @@ export default function App() {
         transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1], delay: 0.1 }}
       >
         <Hero videoSrc="/background2.webm" />
+        <AboutMe />
         <CylinderSection />
         <CreativeProcess />
         <TextExpandingSection />
+        <ProductionCarousel />
         <TestimonialsSection />
         <ContactSection />
         <Footer />

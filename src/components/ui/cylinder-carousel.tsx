@@ -45,7 +45,7 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
       <div
         ref={ref}
         className={cn(
-          "w-full h-full min-h-[500px] grid place-items-center overflow-hidden",
+          "w-full h-full min-h-125 grid place-items-center overflow-hidden",
           className
         )}
         style={{
@@ -57,7 +57,7 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
         <div className="w-full h-full" style={{ transform: "translateZ(var(--translate-z, 0px))", transformStyle: "preserve-3d", willChange: "transform" }}>
           <div
             className={cn(
-              "grid place-items-center [transform-style:preserve-3d] motion-reduce:!animate-[ry_128s_linear_infinite]",
+              "grid place-items-center transform-3d motion-reduce:animate-[ry_128s_linear_infinite]!",
               containerClassName
             )}
           style={{
@@ -83,7 +83,7 @@ export const CylinderCarousel = React.forwardRef<HTMLDivElement, CylinderCarouse
               loading="eager"
               decoding="async"
               className={cn(
-                "[grid-area:1/1] object-cover rounded-2xl [backface-visibility:hidden]",
+                "[grid-area:1/1] object-cover rounded-2xl backface-hidden",
                 cardClassName
               )}
               style={{

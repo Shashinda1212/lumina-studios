@@ -461,7 +461,7 @@ export const CursorTracker = () => {
       {/* Background canvas for glowing particle trail */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-[9998] mix-blend-screen"
+        className="fixed inset-0 pointer-events-none z-9998 mix-blend-screen"
         style={{ backfaceVisibility: 'hidden' }}
       />
 
@@ -482,7 +482,7 @@ export const CursorTracker = () => {
         }}
         animate={getOuterVariants()}
         transition={{ duration: 0.15, ease: 'easeOut' }}
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex flex-col items-center justify-center border select-none overflow-hidden"
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-9999 flex flex-col items-center justify-center border select-none overflow-hidden"
       >
         <AnimatePresence mode="wait">
           {hoverIcon === 'instagram' && (
@@ -547,7 +547,7 @@ export const CursorTracker = () => {
         }}
         animate={getInnerVariants()}
         transition={{ duration: 0.1, ease: 'easeOut' }}
-        className="fixed top-0 left-0 pointer-events-none z-[9999] shadow-sm"
+        className="fixed top-0 left-0 pointer-events-none z-9999 shadow-sm"
       />
     </>
   );

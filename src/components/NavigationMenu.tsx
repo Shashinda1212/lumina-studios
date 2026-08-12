@@ -91,7 +91,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
             exit="exit"
             transition={{ duration: 0.4 }}
             onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm cursor-pointer"
+            className="fixed inset-0 z-100 bg-black/60 backdrop-blur-sm cursor-pointer"
           />
 
           {/* Sidebar Drawer Container */}
@@ -100,7 +100,7 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 right-0 z-[101] w-full sm:w-[450px] bg-black/95 backdrop-blur-md border-l border-white/10 flex flex-col justify-between p-8 sm:p-12 text-white shadow-2xl"
+            className="fixed inset-y-0 right-0 z-101 w-full sm:w-112.5 bg-black/95 backdrop-blur-md border-l border-white/10 flex flex-col justify-between p-8 sm:p-12 text-white shadow-2xl"
           >
             {/* Header / Close Button */}
             <div className="flex justify-between items-center">

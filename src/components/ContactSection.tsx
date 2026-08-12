@@ -98,36 +98,36 @@ export const ContactSection = () => {
         }
       `}</style>
 
-      {/* Cinematic Live Background Effects (Hidden on mobile for maximum performance) */}
+      {/* Cinematic Live Background Effects (Hidden on mobile) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
         {/* Subtle base radial gradient glow behind the contact form */}
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-[radial-gradient(circle_at_center,rgba(242,125,38,0.035)_0%,transparent_70%)] pointer-events-none z-0"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-300 h-300 bg-[radial-gradient(circle_at_center,rgba(242,125,38,0.035)_0%,transparent_70%)] pointer-events-none z-0"
         />
 
         {/* Dynamic Glow Mesh Orbs matching site theme & uploaded image colors */}
         {/* Left Side: Warm Red/Amber Glow */}
         <div
           style={{ animation: 'orb-drift-contact-1 30s ease-in-out infinite' }}
-          className="absolute left-[-10%] top-[15%] w-[650px] h-[650px] bg-[#b91c1c]/8 rounded-full blur-[150px] opacity-75 mobile-reduce-motion"
+          className="absolute left-[-10%] top-[15%] w-162.5 h-162.5 bg-[#b91c1c]/8 rounded-full blur-[150px] opacity-75 mobile-reduce-motion"
         />
 
         {/* Right Side: Warm Orange/Amber Glow */}
         <div
           style={{ animation: 'orb-drift-contact-2 25s ease-in-out infinite' }}
-          className="absolute right-[-5%] bottom-[10%] w-[600px] h-[600px] bg-[#F27D26]/12 rounded-full blur-[140px] opacity-80 mobile-reduce-motion"
+          className="absolute right-[-5%] bottom-[10%] w-150 h-150 bg-[#F27D26]/12 rounded-full blur-[140px] opacity-80 mobile-reduce-motion"
         />
 
         {/* Center/Right: Premium Gold Accent Glow */}
         <div
           style={{ animation: 'orb-drift-contact-3 28s ease-in-out infinite 3s' }}
-          className="absolute right-[10%] bottom-[20%] w-[500px] h-[500px] bg-[#C6904E]/10 rounded-full blur-[130px] opacity-70 mobile-reduce-motion"
+          className="absolute right-[10%] bottom-[20%] w-125 h-125 bg-[#C6904E]/10 rounded-full blur-[130px] opacity-70 mobile-reduce-motion"
         />
 
         {/* Right Upper: Deep Red highlight */}
         <div
           style={{ animation: 'orb-drift-contact-1 35s ease-in-out infinite 1s' }}
-          className="absolute right-[5%] bottom-[40%] w-[450px] h-[450px] bg-[#b91c1c]/5 rounded-full blur-[120px] opacity-60 mobile-reduce-motion"
+          className="absolute right-[5%] bottom-[40%] w-112.5 h-112.5 bg-[#b91c1c]/5 rounded-full blur-[120px] opacity-60 mobile-reduce-motion"
         />
 
         {/* Premium Cinematic Wave Lines (Matching uploaded image) */}
@@ -165,7 +165,7 @@ export const ContactSection = () => {
                 fill="none"
                 stroke="url(#wave-grad-1)"
                 strokeWidth="9"
-                className="blur-[8px]"
+                className="blur-sm"
               />
               <path
                 d="M -50 880 C 450 980, 950 750, 1540 300"
@@ -274,7 +274,7 @@ export const ContactSection = () => {
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-widest leading-[1.05] mb-8 font-sans">
                 Let's <br />
                 Create <br />
-                <span className="bg-gradient-to-r from-[#F27D26] via-[#C6904E] to-[#F27D26] bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-[#F27D26] via-[#C6904E] to-[#F27D26] bg-clip-text text-transparent">
                   Together.
                 </span>
               </h2>
@@ -427,7 +427,7 @@ export const ContactSection = () => {
           <div className="lg:col-span-7 flex flex-col justify-center mt-8 lg:mt-0">
             <form
               onSubmit={handleFormSubmit(onSubmit)}
-              className="space-y-5 md:space-y-6 px-5 py-6 pt-4 md:p-10 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form transform-gpu [backface-visibility:hidden]"
+              className="space-y-5 md:space-y-6 px-5 py-6 pt-4 md:p-10 border border-white/10 bg-white/2 backdrop-blur-md rounded-2xl relative shadow-2xl overflow-hidden group/form transform-gpu backface-hidden"
             >
               {/* Form border glow effect */}
               <div className="absolute inset-0 border border-[#F27D26]/0 group-hover/form:border-[#F27D26]/15 rounded-2xl pointer-events-none transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.8)] lg:shadow-[0_0_50px_rgba(0,0,0,0.8)] group-hover/form:shadow-[0_0_50px_rgba(242,125,38,0.03)]" />

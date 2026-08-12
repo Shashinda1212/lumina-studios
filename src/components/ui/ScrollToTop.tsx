@@ -46,11 +46,11 @@ export const ScrollToTop = () => {
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-[90] flex items-center justify-center w-12 h-12 rounded-full bg-black/60 backdrop-blur-md border border-white/10 hover:border-[#F27D26]/40 hover:bg-[#F27D26]/10 text-white/70 hover:text-white shadow-lg hover:shadow-[0_0_20px_rgba(242,125,38,0.3)] transition-all duration-300 group cursor-pointer"
+          className="fixed bottom-8 right-8 z-90 flex items-center justify-center w-12 h-12 rounded-full bg-black/60 backdrop-blur-md border border-white/10 hover:border-[#F27D26]/40 hover:bg-[#F27D26]/10 text-white/70 hover:text-white shadow-lg hover:shadow-[0_0_20px_rgba(242,125,38,0.3)] transition-all duration-300 group cursor-pointer"
           aria-label="Scroll to top"
         >
           {/* Circular Scroll Progress */}
-          <svg className="absolute w-full h-full rotate-[-90deg]">
+          <svg className="absolute w-full h-full -rotate-90">
             <circle
               cx="24"
               cy="24"
