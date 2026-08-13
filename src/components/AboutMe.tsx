@@ -101,8 +101,8 @@ export const AboutMe = () => {
               variants={itemVariants}
               className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed font-serif"
             >
-              I'm a Sri Lankan film director and visual storyteller driven by a passion for
-              cinematic storytelling, powerful visuals, and authentic human experiences.
+              KV (Kanishka Viduranga) is a Sri Lankan film director and visual storyteller driven
+              by a passion for cinematic storytelling, powerful visuals, and authentic human experiences.
             </motion.h3>
 
             {/* Body paragraph 1 */}
@@ -110,10 +110,10 @@ export const AboutMe = () => {
               variants={itemVariants}
               className="mt-6 text-white/70 text-base md:text-lg leading-relaxed font-sans font-light"
             >
-              My work explores stories through a distinctive visual language, blending emotion, atmosphere,
-              composition, and performance to create immersive screen experiences. From independent films to
-              music videos and visual productions, I approach every project with a director’s
-              eye and a strong focus on storytelling.
+              His work explores stories through a distinctive visual language, blending emotion,
+              atmosphere, composition, and performance to create immersive screen experiences.
+              From independent films to music videos and visual productions, KV approaches every
+              project with a director’s eye and a strong focus on storytelling.
             </motion.p>
 
             {/* Body paragraph 2 */}
@@ -121,7 +121,7 @@ export const AboutMe = () => {
               variants={itemVariants}
               className="mt-4 text-white/70 text-base md:text-lg leading-relaxed font-sans font-light"
             >
-              As a filmmaker, I continue to develop my voice through bold ideas, cinematic imagery,
+              As a filmmaker, KV continues to develop his voice through bold ideas, cinematic imagery,
               and stories that connect with audiences.
             </motion.p>
 
