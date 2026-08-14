@@ -33,8 +33,10 @@ export const ContactSection = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const turnstileTokenRef = useRef<string | null>(null);
   const [turnstileError, setTurnstileError] = useState(false);
+  const [turnstileKey, setTurnstileKey] = useState(0);
 
   const onSubmit = async (data: ContactFormValues) => {
     if (!turnstileTokenRef.current) {
@@ -42,14 +44,48 @@ export const ContactSection = () => {
       return;
     }
     setTurnstileError(false);
+    setSubmitError(null);
     setIsSubmitting(true);
-    // Simulate API request using sanitized data
-    console.log("Sanitized Form Data:", data);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    reset();
-    setTimeout(() => setIsSuccess(false), 5000);
+
+    try {
+      const workerUrl = import.meta.env.VITE_CONTACT_WORKER_URL;
+      if (!workerUrl) {
+        throw new Error('Contact service endpoint is not configured (missing VITE_CONTACT_WORKER_URL).');
+      }
+
+      const response = await fetch(workerUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+          turnstileToken: turnstileTokenRef.current,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to send the message. Please try again.');
+      }
+
+      setIsSuccess(true);
+      reset();
+      turnstileTokenRef.current = null;
+      setTurnstileKey((prev) => prev + 1); // Refresh Turnstile widget
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (err: any) {
+      console.error('Contact Form Submission Error:', err);
+      setSubmitError(err.message || 'An unexpected error occurred. Please try again later.');
+      // Auto-clear error after 7 seconds
+      setTimeout(() => setSubmitError(null), 7000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -497,6 +533,7 @@ export const ContactSection = () => {
               {/* Turnstile Widget */}
               <div className="flex flex-col gap-2 pt-2 pb-2">
                 <Turnstile
+                  key={turnstileKey}
                   siteKey={import.meta.env.VITE_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
                   options={{ theme: 'dark' }}
                   onSuccess={(token) => {
@@ -533,6 +570,15 @@ export const ContactSection = () => {
                   className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-center text-xs tracking-wider"
                 >
                   Thank you! Your message has been sent successfully. I'll get back to you shortly.
+                </div>
+              )}
+
+              {/* Error Notification */}
+              {submitError && (
+                <div
+                  className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-center text-xs tracking-wider"
+                >
+                  {submitError}
                 </div>
               )}
             </form>

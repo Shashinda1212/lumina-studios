@@ -1,0 +1,7 @@
+name = "lumina-studios-contact-worker"
+main = "index.js"
+compatibility_date = "2024-04-03"
+
+# [vars]
+# You can define non-secret variables here if needed.
+# Secrets like TURNSTILE_SECRET_KEY, EMAILJS_PRIVATE_KEY, etc. should be added via the Cloudflare dashboard or wrangler CLI.
