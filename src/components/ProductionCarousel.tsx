@@ -128,68 +128,32 @@ const photography: ProductionItem[] = [
 const melody: ProductionItem[] = [
   {
     id: 'me-1',
-    title: 'Manasick',
-    subtitle: 'JAYSS - Official Music Video',
-    image: '/images/manasick.webp',
-    year: '2025',
+    title: 'Ai Ithin Me Durin? "ඇයි ඉතින් මේ දුරින්"',
+    subtitle: 'Jayss - Official Visualizer',
+    image: 'https://img.youtube.com/vi/Be6NnLh7fBY/maxresdefault.jpg',
+    year: '2026',
     tags: ['Director', 'DOP'],
-    link: 'https://www.youtube.com/watch?v=x3SsWMn1syU',
-  },
-  {
-    id: 'me-2',
-    title: 'Chanchala',
-    subtitle: 'Jenes Roger - Official Music Video',
-    image: '/images/jenesroger.webp',
-    year: '2024',
-    tags: ['Director', 'DOP'],
-    link: 'https://www.youtube.com/watch?v=yJQf2qDC8Nk',
-  },
-  {
-    id: 'me-3',
-    title: 'Reezy',
-    subtitle: 'JAYSS - Official Music Video',
-    image: '/images/reezy.webp',
-    year: '2025',
-    tags: ['Director', 'DOP'],
-    link: 'https://www.youtube.com/watch?v=6HFdc6RPH3M',
-  },
-  {
-    id: 'me-4',
-    title: 'White Capper',
-    subtitle: 'Master D - Official Music Video',
-    image: '/images/whitecapper.webp',
-    year: '2024',
-    tags: ['DOP'],
-    link: 'https://www.youtube.com/watch?v=tCut7MoIEq8',
-  },
-  {
-    id: 'me-5',
-    title: 'Keefa',
-    subtitle: 'Smokio - Official Music Video',
-    image: '/images/keefa.webp',
-    year: '2024',
-    tags: ['DOP'],
-    link: 'https://www.youtube.com/watch?v=DvHq-YSrG50',
+    link: 'https://youtu.be/Be6NnLh7fBY?si=_IU2s_C-sSWEb0RB',
   },
 ];
 
-type CategoryType = 'Short Films' | 'Photography' | 'Melody';
+type CategoryType = 'Melody' | 'Short Films' | 'Photography';
 
 export const ProductionCarousel = () => {
-  const [activeCategory, setActiveCategory] = useState<CategoryType>('Short Films');
+  const [activeCategory, setActiveCategory] = useState<CategoryType>('Melody');
   const sliderRef = useRef<HTMLDivElement>(null);
 
   // Map category to items instantly without transitions for maximum GPU performance
   const activeItems = (() => {
     switch (activeCategory) {
+      case 'Melody':
+        return melody;
       case 'Short Films':
         return shortFilms;
       case 'Photography':
         return photography;
-      case 'Melody':
-        return melody;
       default:
-        return shortFilms;
+        return melody;
     }
   })();
 
@@ -240,7 +204,7 @@ export const ProductionCarousel = () => {
 
         {/* Categories Tab Selector */}
         <div className="flex flex-wrap gap-3 border-b border-white/5 pb-6 mb-8">
-          {(['Short Films', 'Photography', 'Melody'] as CategoryType[]).map((category) => {
+          {(['Melody', 'Short Films', 'Photography'] as CategoryType[]).map((category) => {
             const isActive = activeCategory === category;
             return (
               <button
