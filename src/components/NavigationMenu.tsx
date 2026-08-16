@@ -148,11 +148,11 @@ export const NavigationMenu = ({ isOpen, onClose }: NavigationMenuProps) => {
               {/* Quick Contacts */}
               <div className="space-y-3">
                 <a
-                  href="mailto:hello@luminastudios.com"
+                  href="mailto:info@filmbykv.com"
                   className="flex items-center gap-3 text-xs text-white/60 hover:text-[#CE5D01] transition-colors duration-300"
                 >
                   <Mail className="w-4 h-4" strokeWidth={1.5} />
-                  <span>hello@luminastudios.com</span>
+                  <span>info@filmbykv.com</span>
                 </a>
                 <a
                   href="tel:+94766004462"

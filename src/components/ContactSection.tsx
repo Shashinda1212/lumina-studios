@@ -329,10 +329,10 @@ export const ContactSection = () => {
                 <div>
                   <h4 className="text-[10px] uppercase tracking-widest text-neutral-500 mb-1">Email</h4>
                   <a
-                    href="mailto:hello@luminastudios.com"
+                    href="mailto:info@filmbykv.com"
                     className="text-sm font-medium tracking-wide text-white hover:text-[#F27D26] transition-colors duration-300"
                   >
-                    hello@luminastudios.com
+                    info@filmbykv.com
                   </a>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Play, Eye, ChevronLeft, ChevronRight, Video, Camera, Music, ExternalLink } from 'lucide-react';
+import { Play, Eye, ChevronLeft, ChevronRight, Video, Camera, Music, ExternalLink, Mic } from 'lucide-react';
+
 
 interface ProductionItem {
   id: string;
@@ -137,7 +138,55 @@ const melody: ProductionItem[] = [
   },
 ];
 
-type CategoryType = 'Melody' | 'Short Films' | 'Photography';
+const hiphop: ProductionItem[] = [
+  {
+    id: 'hh-1',
+    title: 'Ramesses Reezy - ARAMUNA | Official M/V',
+    subtitle: 'Ramesses Reezy • Official Video',
+    image: 'https://img.youtube.com/vi/x3SsWMn1syU/maxresdefault.jpg',
+    year: '2025',
+    tags: ['Director', 'DOP'],
+    link: 'https://youtu.be/x3SsWMn1syU?si=qmOpMcW05OBcIIkP',
+  },
+  {
+    id: 'hh-2',
+    title: 'KEEFA - නසරාණි (NASARANI) OFFICIAL MUSIC VIDEO',
+    subtitle: 'ATTIDIYE PUGNGNARATHANA • Official Video',
+    image: 'https://img.youtube.com/vi/yJQf2qDC8Nk/maxresdefault.jpg',
+    year: '2026',
+    tags: ['Director', 'DOP'],
+    link: 'https://youtu.be/yJQf2qDC8Nk?si=suKGj77i0q6jHg8Z',
+  },
+  {
+    id: 'hh-3',
+    title: 'Keefa - Kollange Ath Udata (කොල්ලන්ගෙ අත් උඩට) | O.M.V',
+    subtitle: 'Keefa • Official Video',
+    image: 'https://img.youtube.com/vi/6HFdc6RPH3M/maxresdefault.jpg',
+    year: '2026',
+    tags: ['Director', 'DOP'],
+    link: 'https://youtu.be/6HFdc6RPH3M?si=foBBhz9xV5I1DKD9',
+  },
+  {
+    id: 'hh-4',
+    title: 'Duke Ceylon - Andare (අන්දරේ) ft. Manasick & Master D',
+    subtitle: 'Duke Ceylon • Official Video',
+    image: 'https://img.youtube.com/vi/tCut7MoIEq8/maxresdefault.jpg',
+    year: '2026',
+    tags: ['DOP'],
+    link: 'https://youtu.be/tCut7MoIEq8?si=k6VWsy87fM-_Y37h',
+  },
+  {
+    id: 'hh-5',
+    title: 'THARAKA x Kevin Smokio x Jayss - Nirwaane "නිර්වාණේ" (Official Music Video)',
+    subtitle: 'THARAKA • Official Video',
+    image: 'https://img.youtube.com/vi/DvHq-YSrG50/maxresdefault.jpg',
+    year: '2026',
+    tags: ['DOP'],
+    link: 'https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng',
+  },
+];
+
+type CategoryType = 'Melody' | 'Hiphop' | 'Short Films' | 'Photography';
 
 export const ProductionCarousel = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('Melody');
@@ -148,6 +197,8 @@ export const ProductionCarousel = () => {
     switch (activeCategory) {
       case 'Melody':
         return melody;
+      case 'Hiphop':
+        return hiphop;
       case 'Short Films':
         return shortFilms;
       case 'Photography':
@@ -204,7 +255,7 @@ export const ProductionCarousel = () => {
 
         {/* Categories Tab Selector */}
         <div className="flex flex-wrap gap-3 border-b border-white/5 pb-6 mb-8">
-          {(['Melody', 'Short Films', 'Photography'] as CategoryType[]).map((category) => {
+          {(['Melody', 'Hiphop', 'Short Films', 'Photography'] as CategoryType[]).map((category) => {
             const isActive = activeCategory === category;
             return (
               <button
@@ -225,6 +276,7 @@ export const ProductionCarousel = () => {
                 {category === 'Short Films' && <Video className="w-4 h-4" />}
                 {category === 'Photography' && <Camera className="w-4 h-4" />}
                 {category === 'Melody' && <Music className="w-4 h-4" />}
+                {category === 'Hiphop' && <Mic className="w-4 h-4" />}
                 {category}
               </button>
             );
