@@ -136,6 +136,15 @@ const melody: ProductionItem[] = [
     tags: ['Director', 'DOP'],
     link: 'https://youtu.be/Be6NnLh7fBY?si=_IU2s_C-sSWEb0RB',
   },
+  {
+    id: 'hh-5',
+    title: 'THARAKA x Kevin Smokio x Jayss - Nirwaane "නිර්වාණේ" (Official Music Video)',
+    subtitle: 'THARAKA • Official Video',
+    image: 'https://img.youtube.com/vi/DvHq-YSrG50/maxresdefault.jpg',
+    year: '2026',
+    tags: ['DOP'],
+    link: 'https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng',
+  },
 ];
 
 const hiphop: ProductionItem[] = [
@@ -175,15 +184,7 @@ const hiphop: ProductionItem[] = [
     tags: ['DOP'],
     link: 'https://youtu.be/tCut7MoIEq8?si=k6VWsy87fM-_Y37h',
   },
-  {
-    id: 'hh-5',
-    title: 'THARAKA x Kevin Smokio x Jayss - Nirwaane "නිර්වාණේ" (Official Music Video)',
-    subtitle: 'THARAKA • Official Video',
-    image: 'https://img.youtube.com/vi/DvHq-YSrG50/maxresdefault.jpg',
-    year: '2026',
-    tags: ['DOP'],
-    link: 'https://youtu.be/DvHq-YSrG50?si=-vwijOP4KAKNSfng',
-  },
+  
 ];
 
 type CategoryType = 'Melody' | 'Hiphop' | 'Short Films' | 'Photography';
@@ -255,7 +256,7 @@ export const ProductionCarousel = () => {
 
         {/* Categories Tab Selector */}
         <div className="flex flex-wrap gap-3 border-b border-white/5 pb-6 mb-8">
-          {(['Melody', 'Hiphop', 'Short Films', 'Photography'] as CategoryType[]).map((category) => {
+          {(['Melody', 'Hiphop'/*, 'Short Films', 'Photography'*/] as CategoryType[]).map((category) => {
             const isActive = activeCategory === category;
             return (
               <button
