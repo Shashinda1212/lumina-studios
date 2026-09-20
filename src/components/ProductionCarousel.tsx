@@ -128,6 +128,24 @@ const photography: ProductionItem[] = [
 
 const melody: ProductionItem[] = [
   {
+    id: 'me-4',
+    title: 'Vishy Dissanayake x Jayss - Mage Heena Gane "මගේ හීන ගානේ" (Official Music Video)',
+    subtitle: 'Vishy Dissanayake x Jayss • Official Video',
+    image: 'https://img.youtube.com/vi/3D4qxMP-oZk/maxresdefault.jpg',
+    year: '2026',
+    tags: ['Director', 'DOP'],
+    link: 'https://youtu.be/3D4qxMP-oZk?si=XlnU9de39CK5x9bo',
+  },
+  {
+    id: 'me-3',
+    title: 'Pasindu Liyanaarachchi - Kalu Paata Path "කළු පාට පත්" ft. Master D',
+    subtitle: 'Pasindu Liyanaarachchi • Official Video',
+    image: 'https://img.youtube.com/vi/Hx3FZUDUXVA/maxresdefault.jpg',
+    year: '2026',
+    tags: ['Director', 'DOP'],
+    link: 'https://youtu.be/Hx3FZUDUXVA?si=SUFiy-y1vVsqSjfU',
+  },
+  {
     id: 'me-1',
     title: 'Ai Ithin Me Durin? "ඇයි ඉතින් මේ දුරින්"',
     subtitle: 'Jayss - Official Visualizer',
